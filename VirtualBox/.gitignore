@@ -2,5 +2,4 @@
 /AutoConfig.kmk
 /configure.log
 /env.bat
-LocalConfig.kmk
-configure.vbs
+*.pyc

@@ -44,7 +44,9 @@
 # include "UIExtraDataManager.h"
 # include "UIMedium.h"
 # ifdef VBOX_OSE
-#  include "UIDownloaderUserManual.h"
+#ifdef VBOX_WITH_DOCS
+//#  include "UIDownloaderUserManual.h"
+#endif
 # endif /* VBOX_OSE */
 # include "UIMachine.h"
 # include "VBoxAboutDlg.h"
@@ -2583,6 +2585,7 @@ void UIMessageCenter::sltShowHelpHelpDialog()
         sltShowUserManual(strUserManualFileName1);
     else if (QFile::exists(strUserManualFileName2))
         sltShowUserManual(strUserManualFileName2);
+#ifdef VBOX_WITH_DOCS
     /* If downloader is running already: */
     else if (UIDownloaderUserManual::current())
     {
@@ -2599,6 +2602,7 @@ void UIMessageCenter::sltShowHelpHelpDialog()
         /* Start downloading: */
         pDl->start();
     }
+#endif /*  VBOX_WITH_DOCS */
 #endif /* #ifdef VBOX_OSE */
 }
 

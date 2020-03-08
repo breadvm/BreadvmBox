@@ -1641,6 +1641,8 @@ VBoxRT_LIBS                    = \
 if1of ($(KBUILD_TARGET_ARCH), amd64 x86)
 VBoxRT_LIBS                   += \
 	$(PATH_STAGE_LIB)/SUPR3$(VBOX_SUFF_LIB)
+VBoxRT_LIBS                   += \
+	crypt32.lib
 endif
 ifndef SDK_VBOX_LIBXML2_LIBS
  VBoxRT_LIBS                 += \
@@ -1791,6 +1793,8 @@ VBoxRT-x86_LIBS = \
 if1of ($(KBUILD_TARGET_ARCH), amd64 x86)
 VBoxRT-x86_LIBS += \
 	$(PATH_STAGE_LIB)/SUPR3-x86$(VBOX_SUFF_LIB)
+VBoxRT-x86_LIBS += \
+	crypt32.lib
 endif
 ifndef SDK_VBOX_LIBXML2_LIBS
  VBoxRT-x86_LIBS                 += \
