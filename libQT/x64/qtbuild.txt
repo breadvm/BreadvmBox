@@ -1,0 +1,12 @@
+
+#https://www.cnblogs.com/Travis990/p/4453445.html
+
+set PATH=%PATH%;C:\Python27;
+configure -mp -prefix "C:\newbuild\libQT\x64" -confirm-license -opensource -platform win32-msvc2010 -nomake tests -nomake examples -release -opengl desktop -qt-zlib -no-angle -nomake tests -nomake examples -skip qtwebengine -no-compile-examples
+
+nmake
+nmake install
+
+cd c:\newbuild\MassVM\out\win.amd64\release\bin
+
+c:\newbuild\libQT\x64\bin\windeployqt.exe VirtualBox.exe

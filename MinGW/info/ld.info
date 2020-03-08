@@ -1,0 +1,91 @@
+This is ld.info, produced by makeinfo version 4.1 from
+../../src/ld/ld.texinfo.
+
+START-INFO-DIR-ENTRY
+* Ld: (ld).                       The GNU linker.
+END-INFO-DIR-ENTRY
+
+   This file documents the GNU linker LD version 2.13.90.
+
+   Copyright (C) 1991, 92, 93, 94, 95, 96, 97, 98, 99, 2000, 2001, 2002
+Free Software Foundation, Inc.
+
+
+Indirect:
+ld.info-1: 335
+ld.info-2: 2623
+ld.info-3: 64171
+ld.info-4: 113556
+ld.info-5: 161695
+ld.info-6: 197423
+
+Tag Table:
+(Indirect)
+Node: Top335
+Node: Overview1103
+Node: Invocation2216
+Node: Options2623
+Node: Environment64171
+Node: Scripts65926
+Node: Basic Script Concepts67659
+Node: Script Format70361
+Node: Simple Example71219
+Node: Simple Commands74309
+Node: Entry Point74755
+Node: File Commands75505
+Node: Format Commands78558
+Node: Miscellaneous Commands80515
+Node: Assignments82736
+Node: Simple Assignments83068
+Node: PROVIDE84764
+Node: SECTIONS85937
+Node: Output Section Description87823
+Node: Output Section Name88808
+Node: Output Section Address89675
+Node: Input Section91309
+Node: Input Section Basics92101
+Node: Input Section Wildcards94436
+Node: Input Section Common97243
+Node: Input Section Keep98712
+Node: Input Section Example99181
+Node: Output Section Data100138
+Node: Output Section Keywords102907
+Node: Output Section Discarding106339
+Node: Output Section Attributes107284
+Node: Output Section Type108118
+Node: Output Section LMA109259
+Node: Output Section Region111363
+Node: Output Section Phdr111776
+Node: Output Section Fill112427
+Node: Overlay Description113556
+Node: MEMORY117795
+Node: PHDRS121872
+Node: VERSION126911
+Node: Expressions133909
+Node: Constants134743
+Node: Symbols135299
+Node: Location Counter136031
+Node: Operators138344
+Node: Evaluation139255
+Node: Expression Section140609
+Node: Builtin Functions142085
+Node: Implicit Linker Scripts148136
+Node: Machine Dependent148904
+Node: H8/300149491
+Node: i960150287
+Node: ARM151967
+Node: HPPA ELF32153121
+Node: MMIX154739
+Node: TI COFF155950
+Node: BFD156452
+Node: BFD outline157906
+Node: BFD information loss159187
+Node: Canonical format161695
+Node: Reporting Bugs166041
+Node: Bug Criteria166734
+Node: Bug Reporting167428
+Node: MRI174388
+Node: GNU Free Documentation License179012
+Node: Index197423
+
+End Tag Table

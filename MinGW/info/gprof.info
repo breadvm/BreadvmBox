@@ -1,0 +1,59 @@
+This is gprof.info, produced by makeinfo version 4.1 from
+../../src/gprof/gprof.texi.
+
+START-INFO-DIR-ENTRY
+* gprof: (gprof).                Profiling your program's execution
+END-INFO-DIR-ENTRY
+
+   This file documents the gprof profiler of the GNU system.
+
+   Copyright (C) 1988, 92, 97, 98, 99, 2000, 2001 Free Software
+Foundation, Inc.
+
+   Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with no Front-Cover Texts, and with no Back-Cover
+Texts.  A copy of the license is included in the section entitled "GNU
+Free Documentation License".
+
+
+Indirect:
+gprof.info-1: 723
+gprof.info-2: 48591
+gprof.info-3: 82728
+
+Tag Table:
+(Indirect)
+Node: Top723
+Node: Introduction1965
+Node: Compiling4294
+Node: Executing6955
+Node: Invoking9745
+Node: Output Options11159
+Node: Analysis Options17971
+Node: Miscellaneous Options21164
+Node: Deprecated Options22325
+Node: Symspecs24395
+Node: Output26216
+Node: Flat Profile27241
+Node: Call Graph32171
+Node: Primary35386
+Node: Callers37918
+Node: Subroutines40026
+Node: Cycles41826
+Node: Line-by-line48591
+Node: Annotated Source52390
+Node: Inaccuracy55251
+Node: Sampling Error55505
+Node: Assumptions58070
+Node: How do I?59538
+Node: Incompatibilities60756
+Node: Details62223
+Node: Implementation62612
+Node: File Format68504
+Node: Internals72762
+Node: Debugging81132
+Node: GNU Free Documentation License82728
+
+End Tag Table

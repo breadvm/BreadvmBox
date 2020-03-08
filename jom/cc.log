@@ -1,0 +1,392 @@
++ cd qtbase
++ c:\qt-5.6.3\qtbase\configure.bat -top-level -h
+Usage: configure [options]
+
+Installation options:
+
+These are optional, but you may specify install directories.
+
+    -prefix <dir> ...... The deployment directory, as seen on the target 
+                         device.
+                         (default %CD%)
+
+    -extprefix <dir> ... The installation directory, as seen on the host 
+                         machine.
+                         (default SYSROOT/PREFIX)
+
+    -hostprefix [dir] .. The installation directory for build tools running on 
+                         the
+                         host machine. If [dir] is not given, the current build
+                         directory will be used. (default EXTPREFIX)
+
+You may use these to change the layout of the install. Note that all 
+directories
+except -sysconfdir should be located under -prefix/-hostprefix:
+
+    -bindir <dir> ...... User executables will be installed to <dir>
+                         (default PREFIX/bin)
+    -libdir <dir> ...... Libraries will be installed to <dir>
+                         (default PREFIX/lib)
+    -headerdir <dir> ... Headers will be installed to <dir>
+                         (default PREFIX/include)
+    -archdatadir <dir> . Architecture-dependent data used by Qt will be 
+                         installed to <dir>
+                         (default PREFIX)
+    -libexecdir <dir> .. Program executables will be installed to <dir>
+                         (default ARCHDATADIR/bin)
+    -plugindir <dir> ... Plugins will be installed to <dir>
+                         (default ARCHDATADIR/plugins)
+    -importdir <dir> ... Imports for QML1 will be installed to <dir>
+                         (default ARCHDATADIR/imports)
+    -qmldir <dir> ...... Imports for QML2 will be installed to <dir>
+                         (default ARCHDATADIR/qml)
+    -datadir <dir> ..... Data used by Qt programs will be installed to <dir>
+                         (default PREFIX)
+    -docdir <dir> ...... Documentation will be installed to <dir>
+                         (default DATADIR/doc)
+    -translationdir <dir> Translations of Qt programs will be installed to 
+                          <dir>
+                          (default DATADIR/translations)
+    -examplesdir <dir> . Examples will be installed to <dir>
+                         (default PREFIX/examples)
+    -testsdir <dir> .... Tests will be installed to <dir>
+                         (default PREFIX/tests)
+
+    -hostbindir <dir> .. Host executables will be installed to <dir>
+                         (default HOSTPREFIX/bin)
+    -hostlibdir <dir> .. Host libraries will be installed to <dir>
+                         (default HOSTPREFIX/lib)
+    -hostdatadir <dir> . Data used by qmake will be installed to <dir>
+                         (default HOSTPREFIX)
+
+Configure options:
+
+ The defaults (*) are usually acceptable. A plus (+) denotes a default value 
+ that needs to be evaluated. If the evaluation succeeds, the feature is 
+ included. Here is a short explanation of each option:
+
+    -release ........... Compile and link Qt with debugging turned off.
+ *  -debug ............. Compile and link Qt with debugging turned on.
+ +  -debug-and-release . Compile and link two Qt libraries, with and without 
+                         debugging turned on.
+
+    -force-debug-info .. Create symbol files for release builds.
+    -separate-debug-info Strip debug information into a separate file.
+
+    -developer-build ... Compile and link Qt with Qt developer options 
+                         (including auto-tests exporting)
+
+    -optimized-tools ... Build optimized host tools even in debug build.
+ *  -no-optimized-tools Do not build optimized host tools even in debug build.
+
+    -opensource ........ Compile and link the Open-Source Edition of Qt.
+    -commercial ........ Compile and link the Commercial Edition of Qt.
+
+    -c++std <edition> .. Compile Qt with C++ standard edition (c++98, c++11, 
+                         c++14, c++1z)
+                         Default: highest supported. This option is not 
+                         supported for MSVC.
+
+    -use-gold-linker ... Link using the GNU gold linker (gcc only).
+ *  -no-use-gold-linker Do not link using the GNU gold linker.
+
+    -enable-new-dtags .. Use new DTAGS for RPATH (Linux only).
+ *  -disable-new-dtags . Do not use new DTAGS for RPATH.
+
+ *  -shared ............ Create and use shared Qt libraries.
+    -static ............ Create and use static Qt libraries.
+
+ *  -static-runtime .... Statically link the C/C++ runtime library.
+
+    -ltcg .............. Use Link Time Code Generation. (Release builds only)
+ *  -no-ltcg ........... Do not use Link Time Code Generation.
+
+    -make <part> ....... Add part to the list of parts to be built at make time
+                           libs
+                           tools
+                           examples
+    -nomake <part> ..... Exclude part from the list of parts to be built.
+
+    -skip <module> ..... Exclude an entire module from the build.
+
+    -no-compile-examples Install only the sources of examples.
+
+    -no-widgets ........ Disable Qt Widgets module.
+
+    -no-gui ............ Disable Qt GUI module.
+
+    -no-accessibility .. Disable accessibility support.
+
+     ................... Disabling accessibility is not recommended, as it will
+                         break QStyle
+                         and may break other internal parts of Qt.
+                         With this switch you create a source incompatible 
+                         version of Qt,
+                         which is unsupported.
+
+ *  -accessibility ..... Enable accessibility support.
+
+    -no-sql-<driver> ... Disable SQL <driver> entirely, by default none are 
+                         turned on.
+    -qt-sql-<driver> ... Enable a SQL <driver> in the Qt Library.
+    -plugin-sql-<driver> Enable SQL <driver> as a plugin to be linked to at run
+                         time.
+                         Available values for <driver>:
+                           mysql
+                           psql
+                           oci
+                           odbc
+                           tds
+                           db2
+ +                         sqlite
+                           sqlite2
+                           ibase
+                         (drivers marked with a '+' have been detected as 
+                         available on this system)
+
+    -system-sqlite ..... Use sqlite from the operating system.
+
+    -no-opengl ......... Do not support OpenGL.
+    -opengl <api> ...... Enable OpenGL support with specified API version.
+                         Available values for <api>:
+                           desktop - Enable support for Desktop OpenGL
+                           dynamic - Enable support for dynamically loaded 
+                         OpenGL (either desktop or ES)
+ *                         es2 - Enable support for OpenGL ES 2.0
+
+ *  -no-openvg ......... Disables OpenVG functionality.
+    -openvg ............ Enables OpenVG functionality.
+
+    -force-asserts ..... Activate asserts in release mode.
+
+    -platform <spec> ... The operating system and compiler you are building on.
+                         (default %QMAKESPEC%)
+
+    -xplatform <spec> .. The operating system and compiler you are cross 
+                         compiling to.
+
+                         See the README file for a list of supported operating 
+                         systems and compilers.
+
+    -target ............ Set target OS version. Currently the only valid value 
+                         is 'xp' for targeting Windows XP.
+                         MSVC >= 2012 targets Windows Vista by default.
+
+    -sysroot <dir> ..... Sets <dir> as the target compiler's and qmake's 
+                         sysroot and also sets pkg-config paths.
+    -no-gcc-sysroot .... When using -sysroot, it disables the passing of 
+                         --sysroot to the compiler.
+
+    -qconfig <local> ... Use src/corelib/global/qconfig-<local>.h rather than 
+                         the
+                         default 'full'.
+
+ *  -no-nis ............ Do not compile NIS support.
+    -nis ............... Compile NIS support.
+
+    -no-iconv .......... Do not enable support for iconv(3).
+ +  -iconv ............. Enable support for iconv(3).
+ +  -sun-iconv ......... Enable support for iconv(3) using sun-iconv.
+ +  -gnu-iconv ......... Enable support for iconv(3) using gnu-libiconv.
+
+    -no-evdev .......... Do not enable support for evdev.
+ +  -evdev ............. Enable support for evdev.
+    -no-mtdev .......... Do not enable support for mtdev.
+ +  -mtdev ............. Enable support for mtdev.
+ +  -inotify ........... Explicitly enable Qt inotify(7) support.
+    -no-inotify ........ Explicitly disable Qt inotify(7) support.
+
+ +  -eventfd ........... Enable eventfd(7) support in the UNIX event loop.
+    -no-eventfd ........ Disable eventfd(7) support in the UNIX event loop.
+
+ *  -largefile ......... Enables Qt to access files larger than 4 GB.
+
+    -posix-ipc ......... Enable POSIX IPC.
+
+    -glib .............. Compile Glib support.
+
+    -sysconfdir <dir> .. Settings used by Qt programs will be looked for in
+                         <dir>.
+
+    -system-proxies .... Use system network proxies by default.
+ *  -no-system-proxies . Do not use system network proxies by default.
+
+ +  -warnings-are-errors Make warnings be treated as errors.
+    -no-warnings-are-errors Make warnings be treated normally.
+    -qtnamespace <name> Wraps all Qt library code in 'namespace name {...}'.
+    -qtlibinfix <infix> Renames all Qt* libs to Qt*<infix>.
+
+    -D <define> ........ Add an explicit define to the preprocessor.
+    -I <includepath> ... Add an explicit include path.
+    -L <librarypath> ... Add an explicit library path.
+    -l <libraryname> ... Add an explicit library name, residing in a 
+                         librarypath.
+
+    -no-pch ............ Do not use precompiled header support.
+ *  -pch ............... Use precopmiled header support.
+
+    -help, -h, -? ...... Display this information.
+
+Third Party Libraries:
+
+    -qt-zlib ........... Use the zlib bundled with Qt.
+ +  -system-zlib ....... Use zlib from the operating system.
+                         See http://www.gzip.org/zlib
+
+    -qt-pcre ........... Use the PCRE library bundled with Qt.
+ +  -system-pcre ....... Use the PCRE library from the operating system.
+                         See http://pcre.org/
+
+    -icu ............... Use the ICU library.
+ *  -no-icu ............ Do not use the ICU library.
+                         See http://site.icu-project.org/
+
+    -no-gif ............ Do not compile GIF reading support.
+
+    -no-libpng ......... Do not compile PNG support.
+    -qt-libpng ......... Use the libpng bundled with Qt.
+ +  -system-libpng ..... Use libpng from the operating system.
+                         See http://www.libpng.org/pub/png
+
+    -no-libjpeg ........ Do not compile JPEG support.
+    -qt-libjpeg ........ Use the libjpeg bundled with Qt.
+ +  -system-libjpeg .... Use libjpeg from the operating system.
+                         See http://www.ijg.org
+
+    -no-freetype ....... Do not compile in Freetype2 support.
+ *  -qt-freetype ....... Use the libfreetype bundled with Qt.
+    -system-freetype ... Use the libfreetype provided by the system.
+
+    -fontconfig ........ Build with FontConfig support.
+ *  -no-fontconfig ..... Do not build with FontConfig support.
+
+    -no-harfbuzz ....... Do not compile in HarfBuzz-NG support.
+ *  -qt-harfbuzz ....... Use HarfBuzz-NG bundled with Qt to do text shaping.
+                         It can still be disabled by setting
+                         the QT_HARFBUZZ environment variable to "old".
+    -system-harfbuzz ... Use HarfBuzz-NG from the operating system
+                         to do text shaping. It can still be disabled
+                         by setting the QT_HARFBUZZ environment variable to 
+                         "old".
+                         See http://www.harfbuzz.org
+
+ +  -angle ............. Use the ANGLE implementation of OpenGL ES 2.0.
+    -no-angle .......... Do not use ANGLE.
+                         See https://chromium.googlesource.com/angle/angle/+/
+                         master/README.md
+
+
+Qt for Windows only:
+
+    -no-incredibuild-xge Do not add IncrediBuild XGE distribution commands to 
+                         custom build steps.
+ +  -incredibuild-xge .. Add IncrediBuild XGE distribution commands to custom 
+                         build steps. This will distribute MOC and UIC steps, 
+                         and other custom buildsteps which are added to the 
+                         INCREDIBUILD_XGE variable.
+                         (The IncrediBuild distribution commands are only added
+                         to Visual Studio projects)
+
+ *  -no-plugin-manifests Do not embed manifests in plugins.
+    -plugin-manifests .. Embed manifests in plugins.
+
+    -no-qmake .......... Do not compile qmake.
+ *  -qmake ............. Compile qmake.
+
+    -qreal [double|float] typedef qreal to the specified type. The default is 
+                          double.
+                          Note that changing this flag affects binary 
+                          compatibility.
+
+    -no-rtti ........... Do not compile runtime type information.
+ *  -rtti .............. Compile runtime type information.
+    -no-strip .......... Do not strip libraries and executables of debug info 
+                         when installing.
+ *  -strip ............. Strip libraries and executables of debug info when 
+                         installing.
+
+    -no-sse2 ........... Do not compile with use of SSE2 instructions.
+ +  -sse2 .............. Compile with use of SSE2 instructions.
+    -no-sse3 ........... Do not compile with use of SSE3 instructions.
+ +  -sse3 .............. Compile with use of SSE3 instructions.
+    -no-ssse3 .......... Do not compile with use of SSSE3 instructions.
+ +  -ssse3 ............. Compile with use of SSSE3 instructions.
+    -no-sse4.1 ......... Do not compile with use of SSE4.1 instructions.
+ +  -sse4.1 ............ Compile with use of SSE4.1 instructions.
+    -no-sse4.2 ......... Do not compile with use of SSE4.2 instructions.
+ +  -sse4.2 ............ Compile with use of SSE4.2 instructions.
+    -no-avx ............ Do not compile with use of AVX instructions.
+ +  -avx ............... Compile with use of AVX instructions.
+    -no-avx2 ........... Do not compile with use of AVX2 instructions.
+ +  -avx2 .............. Compile with use of AVX2 instructions.
+
+    -no-ssl ............ Do not compile support for SSL.
+ +  -ssl ............... Enable run-time SSL support.
+    -no-openssl ........ Do not compile support for OpenSSL.
+ +  -openssl ........... Enable run-time OpenSSL support.
+    -openssl-linked .... Enable linked OpenSSL support.
+
+    -no-libproxy ....... Do not compile in libproxy support.
+ +  -libproxy .......... Compile in libproxy support (for cross compilation 
+                         targets).
+
+    -no-dbus ........... Do not compile in D-Bus support.
+    -dbus-linked ....... Compile in D-Bus support and link to libdbus-1.
+
+    -dbus-runtime ...... Compile in D-Bus support and load libdbus-1
+                         dynamically.
+    -no-audio-backend .. Do not compile in the platform audio backend into
+                         Qt Multimedia.
+ +  -audio-backend ..... Compile in the platform audio backend into Qt 
+                         Multimedia.
+
+ *  -no-wmf-backend .... Do not compile in the windows media foundation backend
+                         into Qt Multimedia.
+    -wmf-backend ....... Compile in the windows media foundation backend into 
+                         Qt Multimedia.
+
+    -no-qml-debug ...... Do not build the in-process QML debugging support.
+ *  -qml-debug ......... Build the in-process QML debugging support.
+
+    -no-directwrite .... Do not build support for DirectWrite font rendering.
+ +  -directwrite ....... Build support for DirectWrite font rendering.
+
+ *  -no-direct2d ....... Do not build the Direct2D platform plugin.
+    -direct2d .......... Build the Direct2D platform plugin (experimental,
+                         requires Direct2D availability on target systems,
+                         e.g. Windows 7 with Platform Update, Windows 8, etc.)
+
+    -no-style-<style> .. Disable <style> entirely.
+    -qt-style-<style> .. Enable <style> in the Qt Library.
+                         Available styles: 
+ *                         windows
+ +                         windowsxp
+ +                         windowsvista
+ *                         fusion
+                           windowsce
+                           windowsmobile
+
+    -no-native-gestures Do not use native gestures on Windows 7.
+ *  -native-gestures ... Use native gestures on Windows 7.
+
+ *  -no-mp ............. Do not use multiple processors for compiling with MSVC
+    -mp ................ Use multiple processors for compiling with MSVC (-MP).
+
+    -loadconfig <config> Run configure with the parameters from file configure_
+                         <config>.cache.
+    -saveconfig <config> Run configure and save the parameters in file 
+                         configure_<config>.cache.
+    -redo .............. Run configure with the same parameters as last time.
+
+    -v, -verbose ....... Run configure tests with verbose output.
+
+Qt for Windows CE only:
+
+ *  -no-crt ............ Do not add the C runtime to default deployment rules.
+    -qt-crt ............ Qt identifies C runtime during project generation.
+    -crt <path> ........ Specify path to C runtime used for project generation.
+
+    -no-cetest ......... Do not compile Windows CE remote test application.
+ +  -cetest ............ Compile Windows CE remote test application.
+
+    -signature <file> .. Use <file> for signing the target project.
