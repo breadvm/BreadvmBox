@@ -411,7 +411,7 @@ class PlatformMSCOM(PlatformBase):
     # @remarks Must be updated when the corresponding VirtualBox.xidl bits
     #          are changed.  Fortunately this isn't very often.
     # @{
-    VBOX_TLB_GUID = '{D7569351-1750-46F0-936E-BD127D5BC264}'
+    VBOX_TLB_GUID = '{82a6405b-7b34-4715-ba03-35de58922f4f}'
     VBOX_TLB_LCID = 0
     VBOX_TLB_MAJOR = 1
     VBOX_TLB_MINOR = 3

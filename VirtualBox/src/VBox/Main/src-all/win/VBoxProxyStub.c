@@ -128,7 +128,7 @@ static HINSTANCE            g_hDllSelf;
 static PCRTUTF16 const      g_apwszTypeLibIds[] =
 {
     L"{46137EEC-703B-4FE5-AFD4-7C9BBBBA0259}",
-    L"{D7569351-1750-46F0-936E-BD127D5BC264}",
+    L"{82a6405b-7b34-4715-ba03-35de58922f4f}",
 };
 
 /** Type library version to clean up manually. */
