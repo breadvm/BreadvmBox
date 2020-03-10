@@ -19,7 +19,7 @@ SUB_DEPTH = ../../..
 include $(KBUILD_PATH)/subheader.kmk
 
 # Include sub-makefiles.
-include $(PATH_SUB_CURRENT)/auth/Makefile.kmk
+#include $(PATH_SUB_CURRENT)/auth/Makefile.kmk
 ifdef VBOX_WITH_SHARED_FOLDERS
  include $(PATH_SUB_CURRENT)/SharedFolders/Makefile.kmk
 endif
@@ -37,7 +37,7 @@ ifdef VBOX_WITH_GUEST_PROPS
  include $(PATH_SUB_CURRENT)/GuestProperties/Makefile.kmk
 endif
 ifdef VBOX_WITH_GUEST_CONTROL
- include $(PATH_SUB_CURRENT)/GuestControl/Makefile.kmk
+# include $(PATH_SUB_CURRENT)/GuestControl/Makefile.kmk
 endif
 ifdef VBOX_WITH_DRAG_AND_DROP
  include $(PATH_SUB_CURRENT)/DragAndDrop/Makefile.kmk
@@ -45,7 +45,7 @@ endif
 ifdef VBOX_WITH_HOST_CHANNEL
  include $(PATH_SUB_CURRENT)/HostChannel/Makefile.kmk
 endif
-include $(PATH_SUB_CURRENT)/testcase/Makefile.kmk
+#include $(PATH_SUB_CURRENT)/testcase/Makefile.kmk
 
 include $(FILE_KBUILD_SUB_FOOTER)
 

@@ -29,12 +29,7 @@ include $(KBUILD_PATH)/subheader.kmk
 
 
 # RTIsoMaker - ISO image maker - build version.
-ifeq ($(KBUILD_TARGET), win) # Needed for repacking guest additions.
-  PROGRAMS += bldRTIsoMaker
-  bldRTIsoMaker_INSTTYPE = stage
-else
-  BLDPROGS += bldRTIsoMaker
-endif
+BLDPROGS += bldRTIsoMaker
 bldRTIsoMaker_TEMPLATE = VBoxAdvBldProg
 bldRTIsoMaker_SOURCES = \
 	RTIsoMaker.cpp \

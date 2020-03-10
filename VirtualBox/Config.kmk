@@ -7232,7 +7232,7 @@ endif
 ifdef VBOX_BUILD_SERVER_BUILD
 	$(QUIET)$(APPEND) $@.tmp '#define VBOX_BUILD_SERVER_BUILD 1'
 else
-	$(QUIET)$(APPEND) $@.tmp '#define VBOX_PRIVATE_BUILD_DESC "Private build by $(USERNAME)"'
+	$(QUIET)$(APPEND) $@.tmp '#define VBOX_PRIVATE_BUILD_DESC "Private build by Breadvm.com"'
 endif
 	$(QUIET)$(APPEND) $@.tmp ''
 	$(QUIET)$(APPEND) $@.tmp '#endif'
@@ -7292,7 +7292,7 @@ endif
 ifdef VBOX_BUILD_SERVER_BUILD
 	$(QUIET)$(APPEND) $@.tmp 'VBOX_BUILD_SERVER_BUILD = 1'
 else
-	$(QUIET)$(APPEND) $@.tmp 'VBOX_PRIVATE_BUILD_DESC = Private build by $(USERNAME)'
+	$(QUIET)$(APPEND) $@.tmp 'VBOX_PRIVATE_BUILD_DESC = Private build by Breadvm.com'
 endif
 	$(QUIET)$(MV) -f $@.tmp $@
 

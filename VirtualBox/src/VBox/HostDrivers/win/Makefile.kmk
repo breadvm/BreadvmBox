@@ -34,13 +34,13 @@ VBoxDrvCfg_DEFS           = _WIN32_WINNT=0x0501 _UNICODE UNICODE
 VBoxDrvCfg_SOURCES        = cfg/VBoxDrvCfg.cpp
 
 
-INSTALLS += HostDrivers-scripts
-HostDrivers-scripts_INST = $(INST_DIST)
-HostDrivers-scripts_EXEC_SOURCES = \
-	loadall.sh \
-	loadall.cmd \
-	load.sh \
-	load.cmd
+#INSTALLS += HostDrivers-scripts
+#HostDrivers-scripts_INST = $(INST_DIST)
+#HostDrivers-scripts_EXEC_SOURCES = \
+#	loadall.sh \
+#	loadall.cmd \
+#	load.sh \
+#	load.cmd
 
 # generate rules
 include $(FILE_KBUILD_SUB_FOOTER)

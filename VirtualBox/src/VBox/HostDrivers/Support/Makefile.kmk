@@ -35,7 +35,7 @@ if   defined(VBOX_WITH_HARDENING) \
  && !defined(VBOX_ONLY_VALIDATIONKIT)
  LIBRARIES += SUPR3HardenedStatic
 endif
-DLLS.win += VBoxSupLib
+#DLLS.win += VBoxSupLib
 ifdef VBOX_WITH_32_ON_64_MAIN_API
  LIBRARIES += SUPR3-x86
 endif
@@ -63,7 +63,7 @@ if  !defined(VBOX_ONLY_DOCS) \
  #
  # Include sub-makefile(s).
  #
- include $(PATH_SUB_CURRENT)/testcase/Makefile.kmk
+# include $(PATH_SUB_CURRENT)/testcase/Makefile.kmk
 
  #
  # Populate FILES_VBOXDRV_NOBIN and FILES_VBOXDRV_BIN
@@ -459,20 +459,20 @@ SUPR3HardenedMain.cpp_DEFS = VBOX_SVN_REV=$(VBOX_SVN_REV)
 #
 # VBoxSupLib - Windows DLL for catching thread creation and termination.
 #
-VBoxSupLib_TEMPLATE = $(if-expr "$(KBUILD_TARGET)" == "win" && defined(VBOX_WITH_HARDENING),VBOXR3HARDENEDLIB,VBOXR3)
-VBoxSupLib_SDKS.win = VBOX_NTDLL
-VBoxSupLib_LDFLAGS.win.amd64 = -Entry:DllMainEntrypoint
-VBoxSupLib_LDFLAGS.win.x86   = -Entry:DllMainEntrypoint
-VBoxSupLib_DEFS = \
-	$(if $(VBOX_WITHOUT_DEBUGGER_CHECKS),VBOX_WITHOUT_DEBUGGER_CHECKS,)
-VBoxSupLib_SOURCES = \
-	$(KBUILD_TARGET)/VBoxSupLib-$(KBUILD_TARGET).cpp
-VBoxSupLib_SOURCES.win = \
-	win/VBoxSupLib.rc
-VBoxSupLib_LIBS.win.x86 = \
- 	$(PATH_TOOL_$(TEMPLATE_VBOXR3STATIC_TOOL.win.x86)_LIB)/libcmt.lib   # for __chkstk
-VBoxSupLib_LIBS.win.amd64 = \
- 	$(PATH_TOOL_$(TEMPLATE_VBOXR3STATIC_TOOL.win.amd64)_LIB)/libcmt.lib # for __chkstk
+#VBoxSupLib_TEMPLATE = $(if-expr "$(KBUILD_TARGET)" == "win" && defined(VBOX_WITH_HARDENING),VBOXR3HARDENEDLIB,VBOXR3)
+#VBoxSupLib_SDKS.win = VBOX_NTDLL
+#VBoxSupLib_LDFLAGS.win.amd64 = -Entry:DllMainEntrypoint
+#VBoxSupLib_LDFLAGS.win.x86   = -Entry:DllMainEntrypoint
+#VBoxSupLib_DEFS = \
+#	$(if $(VBOX_WITHOUT_DEBUGGER_CHECKS),VBOX_WITHOUT_DEBUGGER_CHECKS,)
+#VBoxSupLib_SOURCES = \
+#	$(KBUILD_TARGET)/VBoxSupLib-$(KBUILD_TARGET).cpp
+#VBoxSupLib_SOURCES.win = \
+#	win/VBoxSupLib.rc
+#VBoxSupLib_LIBS.win.x86 = \
+# 	$(PATH_TOOL_$(TEMPLATE_VBOXR3STATIC_TOOL.win.x86)_LIB)/libcmt.lib   # for __chkstk
+#VBoxSupLib_LIBS.win.amd64 = \
+# 	$(PATH_TOOL_$(TEMPLATE_VBOXR3STATIC_TOOL.win.amd64)_LIB)/libcmt.lib # for __chkstk
 
 
 #
