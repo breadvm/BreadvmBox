@@ -129,7 +129,7 @@
  * commitment? Who should be allowed to do runtime adjustments of the
  * config. And how to prevent these settings from being lost when the last
  * VM process exits? The solution is probably to have an optional root
- * daemon the will keep VMMR0.r0 in memory and enable the security measures.
+ * daemon the will keep BreadvmR0.r0 in memory and enable the security measures.
  *
  *
  *
@@ -755,7 +755,7 @@ static uint32_t             gmmR0StrictPageChecksum(PGMM pGMM, PGVM pGVM, uint32
 /**
  * Initializes the GMM component.
  *
- * This is called when the VMMR0.r0 module is loaded and protected by the
+ * This is called when the BreadvmR0.r0 module is loaded and protected by the
  * loader semaphore.
  *
  * @returns VBox status code.

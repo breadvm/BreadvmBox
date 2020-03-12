@@ -1,10 +1,10 @@
 /* $Id: VBoxInternalManage.cpp $ */
 /** @file
- * VBoxManage - The 'internalcommands' command.
+ * BreadvmManage - The 'internalcommands' command.
  *
  * VBoxInternalManage used to be a second CLI for doing special tricks,
  * not intended for general usage, only for assisting VBox developers.
- * It is now integrated into VBoxManage.
+ * It is now integrated into BreadvmManage.
  */
 
 /*
@@ -138,7 +138,7 @@ bool g_fInternalMode;
 void printUsageInternal(USAGECATEGORY u64Cmd, PRTSTREAM pStrm)
 {
     RTStrmPrintf(pStrm,
-        "Usage: VBoxManage internalcommands <command> [command arguments]\n"
+        "Usage: BreadvmManage internalcommands <command> [command arguments]\n"
         "\n"
         "Commands:\n"
         "\n"
@@ -195,7 +195,7 @@ void printUsageInternal(USAGECATEGORY u64Cmd, PRTSTREAM pStrm)
           "       be created which refers to individual partitions instead to the entire\n"
           "       disk.\n"
           "       The necessary partition numbers can be queried with\n"
-          "         VBoxManage internalcommands listpartitions\n"
+          "         BreadvmManage internalcommands listpartitions\n"
           "\n"
         : "",
         (u64Cmd & USAGE_RENAMEVMDK)

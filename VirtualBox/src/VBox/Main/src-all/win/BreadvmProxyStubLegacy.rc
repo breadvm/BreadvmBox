@@ -1,6 +1,6 @@
-/* $Id: VBoxProxyStub.rc $ */
+/* $Id: BreadvmProxyStubLegacy.rc $ */
 /** @file
- * VBoxProxyStub - Resource file containing version info, icon and typelib.
+ * BreadvmProxyStub - Resource file containing version info, icon and typelib.
  */
 
 /*
@@ -15,8 +15,8 @@
  * hope that it will be useful, but WITHOUT ANY WARRANTY of any kind.
  */
 
-#define IN_FILE_DESCRIPTION "VirtualBox COM Proxy Stub and Typelib"
-#define IN_FILE_BASENAME    "VBoxProxyStub"
+#define IN_FILE_DESCRIPTION "BreadvmBox COM Proxy Stub and Type Library (pre Windows 7)"
+#define IN_FILE_BASENAME    "BreadvmProxyStubLegacy"
 
 #include "../../../Artwork/win/TemplateDll.rc"
 

@@ -1,6 +1,6 @@
-/* $Id: VBoxNetNATHardened.cpp $ */
+/* $Id: BreadvmNATHardened.cpp $ */
 /** @file
- * VBoxNetNAT - Hardened main().
+ * BreadvmNAT - Hardened main().
  */
 
 /*

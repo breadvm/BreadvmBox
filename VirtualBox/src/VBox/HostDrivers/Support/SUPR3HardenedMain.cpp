@@ -117,7 +117,7 @@
  *      4. Correctly drop the root privileges
  *         (#supR3HardenedMainDropPrivileges).
  *
- *      5. Load the VBoxRT dynamic link library and hand over the file
+ *      5. Load the BreadvmRT dynamic link library and hand over the file
  *         descriptor to the support library code in it
  *         (#supR3HardenedMainInitRuntime).
  *
@@ -530,7 +530,7 @@ typedef const SUPARGPURGEDESC *PCSUPARGPURGEDESC;
 /*********************************************************************************************************************************
 *   Global Variables                                                                                                             *
 *********************************************************************************************************************************/
-/** The pre-init data we pass on to SUPR3 (residing in VBoxRT). */
+/** The pre-init data we pass on to SUPR3 (residing in BreadvmRT). */
 static SUPPREINITDATA   g_SupPreInitData;
 /** The program executable path. */
 #ifndef RT_OS_WINDOWS
@@ -574,7 +574,7 @@ SUPR3HARDENEDMAINSTATE  g_enmSupR3HardenedMainState = SUPR3HARDENEDMAINSTATE_NOT
 AssertCompileSize(g_enmSupR3HardenedMainState, sizeof(uint32_t));
 
 #ifdef RT_OS_WINDOWS
-/** Pointer to VBoxRT's RTLogRelPrintf function so we can write errors to the
+/** Pointer to BreadvmRT's RTLogRelPrintf function so we can write errors to the
  * release log at runtime. */
 static PFNRTLOGRELPRINTF g_pfnRTLogRelPrintf = NULL;
 /** Log volume name (for attempting volume flush). */
@@ -2249,12 +2249,12 @@ static void supR3HardenedMainPurgeArgs(int cArgsOrig, char **papszArgsOrig, int 
 
 
 /**
- * Loads the VBoxRT DLL/SO/DYLIB, hands it the open driver,
+ * Loads the BreadvmRT DLL/SO/DYLIB, hands it the open driver,
  * and calls RTR3InitEx.
  *
  * @param   fFlags      The SUPR3HardenedMain fFlags argument, passed to supR3PreInit.
  *
- * @remarks VBoxRT contains both IPRT and SUPR3.
+ * @remarks BreadvmRT contains both IPRT and SUPR3.
  * @remarks This function will not return on failure.
  */
 static void supR3HardenedMainInitRuntime(uint32_t fFlags)
@@ -2263,8 +2263,8 @@ static void supR3HardenedMainInitRuntime(uint32_t fFlags)
      * Construct the name.
      */
     char szPath[RTPATH_MAX];
-    supR3HardenedPathAppSharedLibs(szPath, sizeof(szPath) - sizeof("/VBoxRT" SUPLIB_DLL_SUFF));
-    suplibHardenedStrCat(szPath, "/VBoxRT" SUPLIB_DLL_SUFF);
+    supR3HardenedPathAppSharedLibs(szPath, sizeof(szPath) - sizeof("/BreadvmRT" SUPLIB_DLL_SUFF));
+    suplibHardenedStrCat(szPath, "/BreadvmRT" SUPLIB_DLL_SUFF);
 
     /*
      * Open it and resolve the symbols.

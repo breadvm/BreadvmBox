@@ -1051,7 +1051,7 @@ const PDMDRVREG g_DrvHostParallel =
     /* szRCMod */
     "",
     /* szR0Mod */
-    "VBoxDDR0.r0",
+    "BreadvmDDR0.r0",
     /* pszDescription */
     "Parallel host driver.",
     /* fFlags */

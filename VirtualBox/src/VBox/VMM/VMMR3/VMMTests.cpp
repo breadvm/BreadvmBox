@@ -61,7 +61,7 @@ static int vmmR3ReportMsrRange(PVM pVM, uint32_t uMsr, uint64_t cMsrs, PRTSTREAM
      */
     RTRCPTR RCPtrEP;
     int rc = PDMR3LdrGetSymbolRC(pVM, VMMRC_MAIN_MODULE_NAME, "VMMRCTestReadMsrs", &RCPtrEP);
-    AssertMsgRCReturn(rc, ("Failed to resolved VMMRC.rc::VMMRCEntry(), rc=%Rrc\n", rc), rc);
+    AssertMsgRCReturn(rc, ("Failed to resolved BreadvmRC.rc::VMMRCEntry(), rc=%Rrc\n", rc), rc);
 
     uint32_t const      cMsrsPerCall = 16384;
     uint32_t            cbResults = cMsrsPerCall * sizeof(VMMTESTMSRENTRY);
@@ -609,7 +609,7 @@ VMMR3DECL(int) VMMDoTest(PVM pVM)
 # endif
     }
     else
-        AssertMsgFailed(("Failed to resolved VMMRC.rc::VMMRCEntry(), rc=%Rrc\n", rc));
+        AssertMsgFailed(("Failed to resolved BreadvmRC.rc::VMMRCEntry(), rc=%Rrc\n", rc));
 #else  /* !VBOX_WITH_RAW_MODE */
     RT_NOREF(pVM);
 #endif /* !VBOX_WITH_RAW_MODE */
@@ -754,7 +754,7 @@ VMMR3DECL(int) VMMDoHmTest(PVM pVM)
         rc = VINF_SUCCESS;
     }
     else
-        AssertMsgFailed(("Failed to resolved VMMRC.rc::VMMRCEntry(), rc=%Rrc\n", rc));
+        AssertMsgFailed(("Failed to resolved BreadvmRC.rc::VMMRCEntry(), rc=%Rrc\n", rc));
 
     return rc;
 }
@@ -869,7 +869,7 @@ VMMR3DECL(int) VMMDoMsrExperiments(PVM pVM)
      */
     RTRCPTR RCPtrEP;
     int rc = PDMR3LdrGetSymbolRC(pVM, VMMRC_MAIN_MODULE_NAME, "VMMRCTestTestWriteMsr", &RCPtrEP);
-    AssertMsgRCReturn(rc, ("Failed to resolved VMMRC.rc::VMMRCEntry(), rc=%Rrc\n", rc), rc);
+    AssertMsgRCReturn(rc, ("Failed to resolved BreadvmRC.rc::VMMRCEntry(), rc=%Rrc\n", rc), rc);
 
     uint64_t *pauValues;
     rc = MMHyperAlloc(pVM, 2 * sizeof(uint64_t), 0, MM_TAG_VMM, (void **)&pauValues);

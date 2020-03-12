@@ -1790,7 +1790,7 @@ void slirp_set_tcp_sndspace(PNATState pData, int kilobytes)
 
 /*
  * Looking for Ether by ip in ARP-cache
- * Note: it¡äs responsible of caller to allocate buffer for result
+ * Note: itï¿½ï¿½s responsible of caller to allocate buffer for result
  * @returns iprt status code
  */
 int slirp_arp_lookup_ether_by_ip(PNATState pData, uint32_t ip, uint8_t *ether)
@@ -1817,7 +1817,7 @@ int slirp_arp_lookup_ether_by_ip(PNATState pData, uint32_t ip, uint8_t *ether)
 
 /*
  * Looking for IP by Ether in ARP-cache
- * Note: it¡äs responsible of caller to allocate buffer for result
+ * Note: itï¿½ï¿½s responsible of caller to allocate buffer for result
  * @returns 0 - if found, 1 - otherwise
  */
 int slirp_arp_lookup_ip_by_ether(PNATState pData, const uint8_t *ether, uint32_t *ip)
@@ -2014,7 +2014,7 @@ void slirp_info(PNATState pData, const void *pvArg, const char *pszArgs)
 
 /**
  * @note: NATState::fUseHostResolver could be changed in bootp.c::dhcp_decode
- * @note: this function is executed on GUI/VirtualBox or main/VBoxHeadless thread.
+ * @note: this function is executed on GUI/VirtualBox or main/BreadvmLoader thread.
  * @note: this function can potentially race with bootp.c::dhcp_decode (except Darwin)
  */
 int slirp_host_network_configuration_change_strategy_selector(const PNATState pData)

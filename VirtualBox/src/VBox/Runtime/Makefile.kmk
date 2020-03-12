@@ -101,9 +101,9 @@ else # !VBOX_ONLY_ADDITIONS && !VBOX_ONLY_VALIDATIONKIT && !VBOX_ONLY_DOCS
   LIBRARIES.win.x86 += RuntimeGuestR0NT4
  endif # VBOX_WITH_ADDITIONS
  LIBRARIES.win.x86 += RuntimeR3VccTricks
- DLLS += VBoxRT
+ DLLS += BreadvmRT
  ifdef VBOX_WITH_32_ON_64_MAIN_API
-  DLLS += VBoxRT-x86
+  DLLS += BreadvmRT-x86
  endif
 endif
 
@@ -1563,39 +1563,40 @@ RuntimeGuestR3Shared-x86_BLD_TRG_ARCH   := x86
 
 
 #
-# VBoxRT - Shared Object / DLL version.
+# BreadvmRT - Shared Object / DLL version.
 #
-VBoxRT_TEMPLATE                = VBoxR3DllNoPic
-VBoxRT_SDKS                    = VBOX_LIBXML2
+BreadvmRT_TEMPLATE                = VBoxR3DllNoPic
+BreadvmRT_NAME                    = BreadvmRT
+BreadvmRT_SDKS                    = VBOX_LIBXML2
 ifdef VBOX_WITH_LIBCURL
- VBoxRT_SDKS                  += VBOX_LIBCURL
+ BreadvmRT_SDKS                  += VBOX_LIBCURL
 endif
-VBoxRT_SDKS                   += VBOX_OPENSSL
-VBoxRT_SDKS.win                = $(VBOX_WINPSDK) $(VBOX_WINDDK) VBOX_NTDLL
+BreadvmRT_SDKS                   += VBOX_OPENSSL
+BreadvmRT_SDKS.win                = $(VBOX_WINPSDK) $(VBOX_WINDDK) VBOX_NTDLL
 if1of ($(KBUILD_TARGET), win)
-VBoxRT_INST                    = $(INST_DLL) $(INST_TESTCASE) $(VBOX_INST_TOOLS)
+BreadvmRT_INST                    = $(INST_DLL) $(INST_TESTCASE) $(VBOX_INST_TOOLS)
 else if1of ($(KBUILD_TARGET)$(VBOX_WITH_HARDENING), darwin win$(VBOX_WITH_HARDENING))
-VBoxRT_INST                    = $(INST_DLL) $(INST_TESTCASE)
+BreadvmRT_INST                    = $(INST_DLL) $(INST_TESTCASE)
 endif
-VBoxRT_DEFS                   := $(filter-out RT_NO_GIP, $(RuntimeR3_DEFS)) \
+BreadvmRT_DEFS                   := $(filter-out RT_NO_GIP, $(RuntimeR3_DEFS)) \
 	IN_SUP_R3 IN_SUP_R3 \
 	IPRT_WITH_OPENSSL \
 	IPRT_WITH_XAR \
 	$(if-expr !defined(VBOX_WITH_ALT_HASH_CODE),IPRT_WITHOUT_SHA512T224 IPRT_WITHOUT_SHA512T256,)
 ifn1of ($(KBUILD_TARGET_ARCH), amd64 x86)
- VBoxRT_DEFS                  += RT_NO_GIP
+ BreadvmRT_DEFS                  += RT_NO_GIP
 endif
 ifdef VBOX_WITH_LIBCURL
- VBoxRT_DEFS                  += IPRT_WITH_HTTP
+ BreadvmRT_DEFS                  += IPRT_WITH_HTTP
 endif
 ifdef RTALLOC_REPLACE_MALLOC
- VBoxRT_DEFS                  += RTALLOC_REPLACE_MALLOC
+ BreadvmRT_DEFS                  += RTALLOC_REPLACE_MALLOC
 endif
 ifdef VBOX_WITH_DTRACE_R3
- VBoxRT_DEFS                  += IPRT_WITH_DTRACE IPRT_DTRACE_INCLUDE=\"dtrace/iprt.h\"
+ BreadvmRT_DEFS                  += IPRT_WITH_DTRACE IPRT_DTRACE_INCLUDE=\"dtrace/iprt.h\"
 endif
-VBoxRT_DEFS.$(KBUILD_TYPE)    := $(RuntimeR3_DEFS.$(KBUILD_TYPE))
-VBoxRT_SOURCES                := \
+BreadvmRT_DEFS.$(KBUILD_TYPE)    := $(RuntimeR3_DEFS.$(KBUILD_TYPE))
+BreadvmRT_SOURCES                := \
 	VBox/VBoxRTDeps.cpp \
 	$(filter-out common/checksum/crc32.cpp, \
        	$(if-expr defined(VBOX_WITH_ALT_HASH_CODE), $(RuntimeR3_SOURCES), \
@@ -1606,90 +1607,62 @@ ifneq ($(KBUILD_TARGET),win)
 VBox/VBoxRTDeps.cpp_CXXFLAGS = -Wno-deprecated-declarations
 endif
 ifdef VBOX_WITH_LIBCURL
- VBoxRT_SOURCES               += \
+ BreadvmRT_SOURCES               += \
  	common/misc/s3.cpp \
  	generic/http-curl.cpp
 endif
 ifdef VBOX_WITH_DTRACE_R3
- VBoxRT_SOURCES               += \
+ BreadvmRT_SOURCES               += \
   	iprt.d
 endif
-VBoxRT_SOURCES.$(KBUILD_TARGET) = $(RuntimeR3_SOURCES.$(KBUILD_TARGET))
-VBoxRT_SOURCES.$(KBUILD_TARGET).$(KBUILD_TARGET_ARCH) := $(RuntimeR3_SOURCES.$(KBUILD_TARGET).$(KBUILD_TARGET_ARCH))
-VBoxRT_SOURCES.$(KBUILD_TARGET).x86   := $(RuntimeR3_SOURCES.$(KBUILD_TARGET).x86)
-VBoxRT_SOURCES.$(KBUILD_TARGET).amd64 := $(RuntimeR3_SOURCES.$(KBUILD_TARGET).amd64)
-VBoxRT_SOURCES.$(KBUILD_TARGET_ARCH) := $(RuntimeR3_SOURCES.$(KBUILD_TARGET_ARCH))
-VBoxRT_SOURCES.x86   := $(RuntimeR3_SOURCES.x86)
-VBoxRT_SOURCES.amd64 := $(RuntimeR3_SOURCES.amd64)
-VBoxRT_SOURCES.win            += \
+BreadvmRT_SOURCES.$(KBUILD_TARGET) = $(RuntimeR3_SOURCES.$(KBUILD_TARGET))
+BreadvmRT_SOURCES.$(KBUILD_TARGET).$(KBUILD_TARGET_ARCH) := $(RuntimeR3_SOURCES.$(KBUILD_TARGET).$(KBUILD_TARGET_ARCH))
+BreadvmRT_SOURCES.$(KBUILD_TARGET).x86   := $(RuntimeR3_SOURCES.$(KBUILD_TARGET).x86)
+BreadvmRT_SOURCES.$(KBUILD_TARGET).amd64 := $(RuntimeR3_SOURCES.$(KBUILD_TARGET).amd64)
+BreadvmRT_SOURCES.$(KBUILD_TARGET_ARCH) := $(RuntimeR3_SOURCES.$(KBUILD_TARGET_ARCH))
+BreadvmRT_SOURCES.x86   := $(RuntimeR3_SOURCES.x86)
+BreadvmRT_SOURCES.amd64 := $(RuntimeR3_SOURCES.amd64)
+BreadvmRT_SOURCES.win            += \
 	r3/win/dllmain-win.cpp \
 	r3/win/fileaio-win.cpp \
-	$(VBoxRT_0_OUTDIR)/VBoxRT.def
-VBoxRT_SOURCES.linux          += \
-	r3/linux/fileaio-linux.cpp
-VBoxRT_SOURCES.solaris        += \
-	r3/solaris/fileaio-solaris.cpp
-VBoxRT_SOURCES.darwin         += \
-	r3/posix/fileaio-posix.cpp
-VBoxRT_SOURCES.freebsd        += \
-	r3/freebsd/fileaio-freebsd.cpp
-VBoxRT_INCS                   := $(RuntimeR3_INCS)
-VBoxRT_INCS.$(KBUILD_TARGET)  := $(RuntimeR3_INCS.$(KBUILD_TARGET))
-VBoxRT_INCS.$(KBUILD_TARGET).$(KBUILD_TARGET_ARCH) := $(RuntimeR3_INCS.$(KBUILD_TARGET).$(KBUILD_TARGET_ARCH))
-VBoxRT_LIBS                    = \
+	r3/win/BreadvmRT.rc \
+	$(BreadvmRT_0_OUTDIR)/BreadvmRT.def
+
+BreadvmRT_INCS                   := $(RuntimeR3_INCS)
+BreadvmRT_INCS.$(KBUILD_TARGET)  := $(RuntimeR3_INCS.$(KBUILD_TARGET))
+BreadvmRT_INCS.$(KBUILD_TARGET).$(KBUILD_TARGET_ARCH) := $(RuntimeR3_INCS.$(KBUILD_TARGET).$(KBUILD_TARGET_ARCH))
+BreadvmRT_LIBS                    = \
 	$(PATH_STAGE_LIB)/VBox-liblzf$(VBOX_SUFF_LIB)
 if1of ($(KBUILD_TARGET_ARCH), amd64 x86)
-VBoxRT_LIBS                   += \
+BreadvmRT_LIBS                   += \
 	$(PATH_STAGE_LIB)/SUPR3$(VBOX_SUFF_LIB)
-VBoxRT_LIBS                   += \
+BreadvmRT_LIBS                   += \
 	crypt32.lib
 endif
 ifndef SDK_VBOX_LIBXML2_LIBS
- VBoxRT_LIBS                 += \
+ BreadvmRT_LIBS                 += \
 	$(PATH_STAGE_LIB)/VBox-libxml2$(VBOX_SUFF_LIB)
 endif
-VBoxRT_LIBS                  += \
+BreadvmRT_LIBS                  += \
 	$(SDK_VBOX_ZLIB_LIBS)
 ifndef SDK_VBOX_OPENSSL_LIBS
- VBoxRT_LIBS                 += \
+ BreadvmRT_LIBS                 += \
 	$(PATH_STAGE_LIB)/VBox-libcrypto$(VBOX_SUFF_LIB) \
 	$(PATH_STAGE_LIB)/VBox-libssl$(VBOX_SUFF_LIB)
 endif
 ifdef IPRT_WITH_LZO
- VBoxRT_LIBS                  += lzo2
+ BreadvmRT_LIBS                  += lzo2
 endif
 ifdef RTALLOC_REPLACE_MALLOC
-VBoxRT_LIBS                   += \
+BreadvmRT_LIBS                   += \
 	$(PATH_STAGE_LIB)/DisasmR3$(VBOX_SUFF_LIB)
 endif
-VBoxRT_LIBS.linux              = \
-	crypt
-VBoxRT_LIBS.darwin             = \
-	iconv
-VBoxRT_LIBS.freebsd            = \
-	iconv \
-	rt
-VBoxRT_LIBS.haiku              = \
-	iconv
-VBoxRT_LIBS.solaris            = \
-	kstat \
-	contract
-ifn1of ($(KBUILD_TARGET_ARCH), sparc32 sparc64)
- # SMBIOS not available on Solaris SPARC.
- VBoxRT_LIBS.solaris += smbios
-endif
-VBoxRT_LIBS.win                = \
+BreadvmRT_LIBS.win                = \
 	$(PATH_SDK_$(VBOX_WINDDK)_LIB)/vccomsup.lib \
 	$(PATH_SDK_$(VBOX_WINDDK)_LIB)/wbemuuid.lib \
 	$(PATH_TOOL_$(VBOX_VCC_TOOL)_LIB)/delayimp.lib
-VBoxRT_LDFLAGS.darwin          = \
-	-framework IOKit \
-	-framework CoreFoundation \
-	-framework CoreServices \
-	-framework Security \
-	-framework SystemConfiguration \
-	-install_name $(VBOX_DYLD_EXECUTABLE_PATH)/VBoxRT.dylib
-VBoxRT_LDFLAGS.win             = /MANIFEST \
+
+BreadvmRT_LDFLAGS.win             = /MANIFEST \
 	/delayload:gdi32.dll \
 	/delayload:user32.dll \
 	/delayload:shell32.dll \
@@ -1697,9 +1670,9 @@ VBoxRT_LDFLAGS.win             = /MANIFEST \
 	/delayload:oleaut32.dll \
 	/delayload:advapi32.dll
 
-if1of ($(DLLS), VBoxRT)
-VBoxRT_CLEAN += $(VBoxRT_0_OUTDIR)/VBoxRT.def
-$$(VBoxRT_0_OUTDIR)/VBoxRT.def: \
+if1of ($(DLLS), BreadvmRT)
+BreadvmRT_CLEAN += $(BreadvmRT_0_OUTDIR)/BreadvmRT.def
+$$(BreadvmRT_0_OUTDIR)/BreadvmRT.def: \
 		$(PATH_SUB_CURRENT)/r3/win/VBoxRT-$$(if-expr $$(KBUILD_TARGET_ARCH) == amd64,win64,win32).def \
 		$(if-expr defined(VBOX_WITH_OPENSSL_PRE_1_1)\
 		,$(PATH_SUB_CURRENT)/r3/win/VBoxRT-openssl-pre-1.1.def \
@@ -1710,16 +1683,11 @@ $$(VBoxRT_0_OUTDIR)/VBoxRT.def: \
 	$(REDIRECT) -wto $@ -- $(CAT_EXT) $^
 endif
 
-if1of (VBoxRT,$(DLLS))
- $(call VBOX_SET_VER_INFO_DLL,VBoxRT,VirtualBox Runtime)
-endif
-
-
 if defined(VBOX_WITH_MORE_NT4_COMPAT_BINARIES) && "$(KBUILD_TARGET).$(KBUILD_TARGET_ARCH)" == "win.x86"
  #
  # Hacks for running tests on NT 4.  Really ugly!
  #
- # We put most of the CRT in VBoxRT because we cannot even load msvcr100.dll
+ # We put most of the CRT in BreadvmRT because we cannot even load msvcr100.dll
  # or msvcp100.dll on NT4 because of kernel32.dll dependencies.  More hacks
  # in RuntimeR3VccTricks.
  #
@@ -1735,11 +1703,11 @@ if defined(VBOX_WITH_MORE_NT4_COMPAT_BINARIES) && "$(KBUILD_TARGET).$(KBUILD_TAR
 	r3/win/vcc100-ntdll-fakes.cpp \
 	r3/win/vcc100-ntdll-fakesA.asm \
 	r3/win/vcc100-msvcrt-fakes.cpp
- VBoxRT_TEMPLATE         = VBoxR3RuntimeDllItself
- VBoxRT_TEMPLATE.win.x86 = VBoxR3RuntimeDllItself
- VBoxRT_DEFS.win.x86     = $(TEMPLATE_VBoxR3RuntimeDll_DEFS.win.x86) _CRTIMP_PURE="__declspec(dllexport)"
- VBoxRT_LDFLAGS.win.x86  = /IGNORE:4049 /IGNORE:4217
- VBoxRT_LIBS.win.x86 = \
+ BreadvmRT_TEMPLATE         = VBoxR3RuntimeDllItself
+ BreadvmRT_TEMPLATE.win.x86 = VBoxR3RuntimeDllItself
+ BreadvmRT_DEFS.win.x86     = $(TEMPLATE_VBoxR3RuntimeDll_DEFS.win.x86) _CRTIMP_PURE="__declspec(dllexport)"
+ BreadvmRT_LDFLAGS.win.x86  = /IGNORE:4049 /IGNORE:4217
+ BreadvmRT_LIBS.win.x86 = \
  	$(PATH_TOOL_$(VBOX_VCC_TOOL_STEM)X86_LIB)/oldnames.lib \
  	$(PATH_TOOL_$(VBOX_VCC_TOOL_STEM)X86_LIB)/libcmt.lib \
  	$(PATH_TOOL_$(VBOX_VCC_TOOL_STEM)X86_LIB)/libcpmt.lib
@@ -1748,118 +1716,80 @@ endif
 
 #
 # HACK ALERT!  Make testcase run during build on SELinux boxes.
-#              Create a dummy DLL that ensure that VBoxRT is installed
+#              Create a dummy DLL that ensure that BreadvmRT is installed
 #              during the DLL pass and cleaned up later.
 #
-ifeq ($(KBUILD_TARGET),linux)
- if1of (VBoxRT, $(DLLS))
-  ifneq ($(wildcard /usr/bin/chcon),)
-VBoxRT_INSTTYPE = none
-VBoxRT_DEBUG_INSTTYPE = both
 
-VBoxRT-x86_INSTTYPE = $(NO_SUCH_VARIABLE)
-
-DLLS += VBoxRTDummy
-VBoxRTDummy_TEMPLATE = VBoxR3Dll
-VBoxRTDummy_INSTTYPE = none
-VBoxRTDummy_LIBS  = $(PATH_STAGE_BIN)/VBoxRT.so
-VBoxRTDummy_CLEAN = $(PATH_STAGE_BIN)/VBoxRT.so
-BLDDIRS += $(PATH_STAGE_BIN)
-
-$(PATH_STAGE_BIN)/VBoxRT.so: $$(VBoxRT_1_TARGET) | $$(dir $$@)
-	$(INSTALL) $< $@
-	chcon -t texrel_shlib_t $@ || true
-
-VBoxRT:: VBoxRTDummy
-  endif # chcon present.
- endif # building VBoxRT
-endif # linux
 
 
 #
-# VBoxRT-x86 - 32-bit version of VBoxRT
+# BreadvmRT-x86 - 32-bit version of BreadvmRT
 #
-VBoxRT-x86_EXTENDS = VBoxRT
-VBoxRT-x86_TEMPLATE = VBoxR3Dll-x86
-VBoxRT-x86_INST.win = $(INST_DLL)x86/
-VBoxRT-x86_SDKS  = VBOX_LIBXML2
+BreadvmRT-x86_EXTENDS = BreadvmRT
+BreadvmRT-x86_TEMPLATE = VBoxR3Dll-x86
+BreadvmRT-x86_INST.win = $(INST_DLL)x86/
+BreadvmRT-x86_NAME  = BreadvmRT-x86
+BreadvmRT-x86_SDKS  = VBOX_LIBXML2
 ifdef VBOX_WITH_LIBCURL
- VBoxRT-x86_SDKS += VBOX_LIBCURL-x86
+ BreadvmRT-x86_SDKS += VBOX_LIBCURL-x86
 endif
-VBoxRT-x86_SDKS  += VBOX_OPENSSL-x86
+BreadvmRT-x86_SDKS  += VBOX_OPENSSL-x86
 
-VBoxRT-x86_LIBS = \
+BreadvmRT-x86_LIBS = \
 	$(PATH_STAGE_LIB)/VBox-liblzf-x86$(VBOX_SUFF_LIB)
 if1of ($(KBUILD_TARGET_ARCH), amd64 x86)
-VBoxRT-x86_LIBS += \
+BreadvmRT-x86_LIBS += \
 	$(PATH_STAGE_LIB)/SUPR3-x86$(VBOX_SUFF_LIB)
-VBoxRT-x86_LIBS += \
+BreadvmRT-x86_LIBS += \
 	crypt32.lib
 endif
 ifndef SDK_VBOX_LIBXML2_LIBS
- VBoxRT-x86_LIBS                 += \
+ BreadvmRT-x86_LIBS                 += \
 	$(PATH_STAGE_LIB)/VBox-libxml2-x86$(VBOX_SUFF_LIB)
 endif
-VBoxRT-x86_LIBS                  += \
+BreadvmRT-x86_LIBS                  += \
 	$(SDK_VBOX_ZLIB_LIBS-x86)
 ifndef SDK_VBOX_OPENSSL_LIBS
- VBoxRT-x86_LIBS                 += \
+ BreadvmRT-x86_LIBS                 += \
 	$(PATH_STAGE_LIB)/VBox-libcrypto-x86$(VBOX_SUFF_LIB) \
 	$(PATH_STAGE_LIB)/VBox-libssl-x86$(VBOX_SUFF_LIB)
 endif
 ifdef IPRT_WITH_LZO
- VBoxRT-x86_LIBS                  += lzo2
+ BreadvmRT-x86_LIBS                  += lzo2
 endif
-VBoxRT-x86_LIBS.linux              = \
-	crypt
-VBoxRT-x86_LIBS.darwin             = \
-	iconv
-VBoxRT-x86_LIBS.freebsd            = \
-	iconv \
-	rt
-VBoxRT-x86_LIBS.haiku              = \
-	iconv
-VBoxRT-x86_LIBS.solaris            = \
-	kstat \
-	contract
-ifn1of ($(KBUILD_TARGET_ARCH), sparc32 sparc64)
- # SMBIOS not available on Solaris SPARC.
- VBoxRT-x86_LIBS.solaris += smbios
-endif
-VBoxRT-x86_LIBS.win                = \
+
+BreadvmRT-x86_LIBS.win                = \
 	$(PATH_SDK_$(VBOX_WINDDK)_LIB.x86)/vccomsup.lib \
 	$(PATH_SDK_$(VBOX_WINDDK)_LIB.x86)/wbemuuid.lib \
 	$(PATH_TOOL_$(VBOX_VCC_TOOL_STEM)X86_LIB)/delayimp.lib
 
-VBoxRT-x86_SOURCES.win = $(filter-out %.def %.rc,$(VBoxRT_SOURCES.win)) \
-	$(VBoxRT-x86_0_OUTDIR)/VBoxRT-x86.def
-VBoxRT-x86_CLEAN += $(VBoxRT-x86_0_OUTDIR)/VBoxRT-x86.def
-if1of ($(DLLS), VBoxRT-x86)
-$$(VBoxRT-x86_0_OUTDIR)/VBoxRT-x86.def: \
+BreadvmRT-x86_SOURCES.win = $(filter-out %.def %.rc,$(BreadvmRT_SOURCES.win)) \
+	$(BreadvmRT-x86_0_OUTDIR)/BreadvmRT-x86.def \
+	r3/win/BreadvmRT-x86.rc
+
+BreadvmRT-x86_CLEAN += $(BreadvmRT-x86_0_OUTDIR)/BreadvmRT-x86.def
+if1of ($(DLLS), BreadvmRT-x86)
+$$(BreadvmRT-x86_0_OUTDIR)/BreadvmRT-x86.def: \
 		$(PATH_SUB_CURRENT)/r3/win/VBoxRT-win32.def # Hopefully no need to export openssl here.
 	$(RM) -f -- $@
 	$(REDIRECT) -wto $@ -- $(CAT_EXT) $^
-endif
-
-if1of (VBoxRT-x86,$(DLLS))
- $(call VBOX_SET_VER_INFO_DLL,VBoxRT-x86,VirtualBox 32-bit Runtime)
 endif
 
 #
 # VBoxRTImp - Import library/hack.
 #
 ifeq ($(KBUILD_TARGET).$(KBUILD_TARGET_ARCH),win.amd64)
-$(call VBOX_GENERATE_IMPORT_TARGET_FN,VBoxRTImp,VBoxRT,VBox/VBoxRTImp.def r3/win/VBoxRT-win64.def)
+$(call VBOX_GENERATE_IMPORT_TARGET_FN,VBoxRTImp,BreadvmRT,VBox/BreadvmRTImp.def r3/win/VBoxRT-win64.def)
 else ifeq ($(KBUILD_TARGET).$(KBUILD_TARGET_ARCH),win.x86)
-$(call VBOX_GENERATE_IMPORT_TARGET_FN,VBoxRTImp,VBoxRT,VBox/VBoxRTImp.def r3/win/VBoxRT-win32.def)
+$(call VBOX_GENERATE_IMPORT_TARGET_FN,VBoxRTImp,BreadvmRT,VBox/BreadvmRTImp.def r3/win/VBoxRT-win32.def)
 else
-$(call VBOX_GENERATE_IMPORT_TARGET_FN,VBoxRTImp,VBoxRT,VBox/VBoxRTImp.def)
+$(call VBOX_GENERATE_IMPORT_TARGET_FN,VBoxRTImp,BreadvmRT,VBox/BreadvmRTImp.def)
 endif
 
 
 #
-# RuntimeR3NoCRTGCC - CRT replacement lib for VBoxREM.
-# This is used together with VBoxRT.
+# RuntimeR3NoCRTGCC - CRT replacement lib for BreadvmREM.
+# This is used together with BreadvmRT.
 #
 ## @todo the *_alias.c stuff is busted, remove and use RT_WITH_NOCRT_ALIASES instead.
 RuntimeR3NoCRTGCC_TEMPLATE = VBoxNoCrtGccLib
@@ -2897,7 +2827,7 @@ endif # VBOX_WITH_RAW_MODE
 #
 # Static library for new & delete for the electric fence.
 #
-RuntimeEFCPP_TEMPLATE  := $(VBoxRT_TEMPLATE)
+RuntimeEFCPP_TEMPLATE  := $(BreadvmRT_TEMPLATE)
 RuntimeEFCPP_SDKS      := $(RuntimeR3_SDKS)
 RuntimeEFCPP_SDKS.$(KBUILD_TARGET) := $(RuntimeR3_SDKS.$(KBUILD_TARGET))
 RuntimeEFCPP_DEFS      := $(RuntimeR3_DEFS)
@@ -3003,7 +2933,7 @@ define def_errmsgwin_deps
  $(lib)_common/err/errmsgxpcom.cpp_INCS = $(IPRT_OUT_DIR)
  $(lib)_common/err/errmsgxpcom.cpp_DEPS = $(IPRT_OUT_DIR)/errmsgvboxcomdata.h
 endef
-$(foreach lib,RuntimeR3 RuntimeBldProg VBoxRT VBoxRT-x86,$(eval $(def_errmsgwin_deps)))
+$(foreach lib,RuntimeR3 RuntimeBldProg BreadvmRT BreadvmRT-x86,$(eval $(def_errmsgwin_deps)))
 
 
 #

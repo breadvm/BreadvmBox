@@ -75,7 +75,7 @@ static char    *pdmR3File(const char *pszFile, const char *pszDefaultExt, const 
 
 
 /**
- * Loads the VMMR0.r0 module early in the init process.
+ * Loads the BreadvmR0.r0 module early in the init process.
  *
  * @returns VBox status code.
  * @param   pUVM            Pointer to the user mode VM structure.
@@ -99,7 +99,7 @@ int pdmR3LdrInitU(PUVM pUVM)
 {
 #if !defined(PDMLDR_FAKE_MODE) && defined(VBOX_WITH_RAW_MODE)
     /*
-     * Load the mandatory RC module, the VMMR0.r0 is loaded before VM creation.
+     * Load the mandatory RC module, the BreadvmR0.r0 is loaded before VM creation.
      */
     PVM pVM = pUVM->pVM; AssertPtr(pVM);
     if (!HMIsEnabled(pVM))
@@ -795,7 +795,7 @@ VMMR3_INT_DECL(int) PDMR3LdrGetSymbolR3(PVM pVM, const char *pszModule, const ch
  *
  * @returns VBox status code.
  * @param   pVM             The cross context VM structure.
- * @param   pszModule       Module name. If NULL the main R0 module (VMMR0.r0) is assumes.
+ * @param   pszModule       Module name. If NULL the main R0 module (BreadvmR0.r0) is assumes.
  * @param   pszSymbol       Symbol name. If it's value is less than 64k it's treated like a
  *                          ordinal value rather than a string pointer.
  * @param   ppvValue        Where to store the symbol value.
@@ -850,7 +850,7 @@ VMMR3DECL(int) PDMR3LdrGetSymbolR0(PVM pVM, const char *pszModule, const char *p
  *
  * @returns VBox status code.
  * @param   pVM             The cross context VM structure.
- * @param   pszModule       Module name. If NULL the main R0 module (VMMR0.r0) is assumed.
+ * @param   pszModule       Module name. If NULL the main R0 module (BreadvmR0.r0) is assumed.
  * @param   pszSearchPath   List of directories to search if @a pszFile is
  *                          not qualified with a path.  Can be NULL, in which
  *                          case the arch dependent install dir is searched.
@@ -903,7 +903,7 @@ VMMR3DECL(int) PDMR3LdrGetSymbolR0Lazy(PVM pVM, const char *pszModule, const cha
  *
  * @returns VBox status code.
  * @param   pVM             The cross context VM structure.
- * @param   pszModule       Module name.  If NULL the main R0 module (VMMRC.rc)
+ * @param   pszModule       Module name.  If NULL the main R0 module (BreadvmRC.rc)
  *                          is assumes.
  * @param   pszSymbol       Symbol name.  If it's value is less than 64k it's
  *                          treated like a ordinal value rather than a string
@@ -970,7 +970,7 @@ VMMR3DECL(int) PDMR3LdrGetSymbolRC(PVM pVM, const char *pszModule, const char *p
  *
  * @returns VBox status code.
  * @param   pVM             The cross context VM structure.
- * @param   pszModule       Module name.  If NULL the main RC module (VMMRC.rc)
+ * @param   pszModule       Module name.  If NULL the main RC module (BreadvmRC.rc)
  *                          is assumed.
  * @param   pszSearchPath   List of directories to search if @a pszFile is
  *                          not qualified with a path.  Can be NULL, in which
@@ -1139,7 +1139,7 @@ static char *pdmR3FileConstruct(const char *pszDir, const char *pszFile, const c
  *                          search in the private directory (/usr/lib/virtualbox on Unix).
  *                          Ignored if VBOX_PATH_SHARED_LIBS is not defined.
  * @todo    We'll have this elsewhere than in the root later!
- * @todo    Remove the fShared hack again once we don't need to link against VBoxDD anymore!
+ * @todo    Remove the fShared hack again once we don't need to link against BreadvmDD anymore!
  */
 static char *pdmR3File(const char *pszFile, const char *pszDefaultExt, const char *pszSearchPath, bool fShared)
 {
@@ -1606,7 +1606,7 @@ VMMR3_INT_DECL(int) PDMR3LdrGetInterfaceSymbols(PVM pVM, void *pvInterface, size
     PPDMMOD pModule = NULL;
     if (!fNullRun)
         pModule = pdmR3LdrFindModule(pVM->pUVM,
-                                     pszModule ? pszModule : fRing0 ? "VMMR0.r0" : "VMMRC.rc",
+                                     pszModule ? pszModule : fRing0 ? "BreadvmR0.r0" : "BreadvmRC.rc",
                                      fRing0 ? PDMMOD_TYPE_R0 : PDMMOD_TYPE_RC,
                                      true /*fLazy*/, pszSearchPath);
     if (pModule || fNullRun)

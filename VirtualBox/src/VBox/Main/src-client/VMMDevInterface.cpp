@@ -44,7 +44,7 @@
 #ifdef RT_OS_OS2
 # define VBOXSHAREDFOLDERS_DLL "VBoxSFld"
 #else
-# define VBOXSHAREDFOLDERS_DLL "VBoxSharedFolders"
+# define VBOXSHAREDFOLDERS_DLL "BreadvmFolders"
 #endif
 
 //
@@ -858,7 +858,7 @@ DECLCALLBACK(int) VMMDev::drvConstruct(PPDMDRVINS pDrvIns, PCFGMNODE pCfgHandle,
 
 #ifdef VBOX_WITH_HGCM
     rc = pThis->pVMMDev->hgcmLoadService(VBOXSHAREDFOLDERS_DLL,
-                                         "VBoxSharedFolders");
+                                         "BreadvmFolders");
     pThis->pVMMDev->fSharedFolderActive = RT_SUCCESS(rc);
     if (RT_SUCCESS(rc))
     {
@@ -877,7 +877,7 @@ DECLCALLBACK(int) VMMDev::drvConstruct(PPDMDRVINS pDrvIns, PCFGMNODE pCfgHandle,
             parm.u.pointer.addr = pLed;
             parm.u.pointer.size = sizeof(*pLed);
 
-            rc = HGCMHostCall("VBoxSharedFolders", SHFL_FN_SET_STATUS_LED, 1, &parm);
+            rc = HGCMHostCall("BreadvmFolders", SHFL_FN_SET_STATUS_LED, 1, &parm);
         }
         else
             AssertMsgFailed(("pfnQueryStatusLed failed with %Rrc (pLed=%x)\n", rc, pLed));

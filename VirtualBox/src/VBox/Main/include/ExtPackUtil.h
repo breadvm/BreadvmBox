@@ -1,6 +1,6 @@
 /* $Id: ExtPackUtil.h $ */
 /** @file
- * VirtualBox Main - Extension Pack Utilities and definitions, VBoxC, VBoxSVC, ++.
+ * VirtualBox Main - Extension Pack Utilities and definitions, VBoxC, BreadvmSVC, ++.
  */
 
 /*

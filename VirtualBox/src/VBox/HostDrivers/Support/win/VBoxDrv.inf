@@ -58,13 +58,13 @@ AddService=VBoxDrv,0x00000002,VBoxDrv_Service
 ;; AddService=VBoxDrv,0x00000002,VBoxDrv_Service
 
 [SourceDisksFiles]
-VBoxDrv.sys=1
+Breadvm.sys=1
 
 [SourceDisksNames]
 1=%VBoxDrv.DSKDESC%,
 
 [VBoxDrv_CopyFiles]
-VBoxDrv.sys
+Breadvm.sys
 
 [VBoxDrv_Service]
 DisplayName    = %VBoxDrv.SVCDESC%
@@ -72,7 +72,7 @@ ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
 ;StartType      = 3                  ; SERVICE_DEMAND_START
 StartType      = 1                  ; autostart to fix Vista problem
 ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
-ServiceBinary  = %12%\VBoxDrv.sys
+ServiceBinary  = %12%\Breadvm.sys
 
 [Strings]
 ORACLE = "Oracle Corporation"

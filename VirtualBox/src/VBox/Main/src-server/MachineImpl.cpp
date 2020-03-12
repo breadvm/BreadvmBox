@@ -7858,16 +7858,16 @@ HRESULT Machine::i_launchVMProcess(IInternalSessionControl *aControl,
        )
     {
         strCanonicalName = "headless";
-        /* On pre-4.0 the "headless" type was used for passing "--vrdp off" to VBoxHeadless to let it work in OSE,
+        /* On pre-4.0 the "headless" type was used for passing "--vrdp off" to BreadvmLoader to let it work in OSE,
          * which did not contain VRDP server. In VBox 4.0 the remote desktop server (VRDE) is optional,
          * and a VM works even if the server has not been installed.
          * So in 4.0 the "headless" behavior remains the same for default VBox installations.
          * Only if a VRDE has been installed and the VM enables it, the "headless" will work
          * differently in 4.0 and 3.x.
          */
-        static const char s_szVBoxHeadless_exe[] = "VBoxHeadless" HOSTSUFF_EXE;
-        Assert(cchBufLeft >= sizeof(s_szVBoxHeadless_exe));
-        strcpy(pszNamePart, s_szVBoxHeadless_exe);
+        static const char s_szBreadvmLoader_exe[] = "BreadvmLoader" HOSTSUFF_EXE;
+        Assert(cchBufLeft >= sizeof(s_szBreadvmLoader_exe));
+        strcpy(pszNamePart, s_szBreadvmLoader_exe);
 
         Utf8Str idStr = mData->mUuid.toString();
         const char *apszArgs[] =

@@ -53,9 +53,9 @@ const char * const g_apcszUserHome[] =
 #ifdef RT_OS_DARWIN
     "Library/VirtualBox",
 #elif defined RT_OS_WINDOWS
-    ".VirtualBox",
+    ".Breadvm",
 #else
-    ".VirtualBox", g_szXdgConfigHome,
+    ".Breadvm", g_szXdgConfigHome,
 #endif
 };
 

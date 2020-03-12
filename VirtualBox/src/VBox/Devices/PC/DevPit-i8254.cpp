@@ -1528,9 +1528,9 @@ const PDMDEVREG g_DeviceI8254 =
     /* szName */
     "i8254",
     /* szRCMod */
-    "VBoxDDRC.rc",
+    "BreadvmDDRC.rc",
     /* szR0Mod */
-    "VBoxDDR0.r0",
+    "BreadvmDDR0.r0",
     /* pszDescription */
     "Intel 8254 Programmable Interval Timer (PIT) And Dummy Speaker Device",
     /* fFlags */

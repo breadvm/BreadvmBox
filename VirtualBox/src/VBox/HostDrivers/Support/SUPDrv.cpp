@@ -5726,7 +5726,7 @@ static void supdrvLdrFree(PSUPDRVDEVEXT pDevExt, PSUPDRVLDRIMAGE pImage)
     else
         pDevExt->pLdrImages = pImage->pNext;
 
-    /* check if this is VMMR0.r0 unset its entry point pointers. */
+    /* check if this is BreadvmR0.r0 unset its entry point pointers. */
     if (pDevExt->pvVMMR0 == pImage->pvImage)
         supdrvLdrUnsetVMMR0EPs(pDevExt);
 

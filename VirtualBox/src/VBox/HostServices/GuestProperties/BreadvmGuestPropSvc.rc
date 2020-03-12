@@ -1,6 +1,6 @@
-/* $Id: VBoxManage.rc $ */
+/* $Id: BreadvmGuestPropSvc.rc $ */
 /** @file
- * VBoxManage - Resource file containing version info and icon.
+ * BreadvmGuestPropSvc - Resource file containing version info and icon.
  */
 
 /*
@@ -26,21 +26,21 @@ VS_VERSION_INFO VERSIONINFO
   FILEFLAGSMASK    VS_FFI_FILEFLAGSMASK
   FILEFLAGS        VBOX_RC_FILE_FLAGS
   FILEOS           VBOX_RC_FILE_OS
-  FILETYPE         VBOX_RC_TYPE_APP
+  FILETYPE         VBOX_RC_TYPE_DLL
   FILESUBTYPE      VFT2_UNKNOWN
 BEGIN
   BLOCK "StringFileInfo"
   BEGIN
     BLOCK "040904b0" // Lang=US English, CharSet=Unicode
     BEGIN
-      VALUE "FileDescription",  "VirtualBox Command Line Tool\0"
-      VALUE "InternalName",     "VBoxManage\0"
-      VALUE "OriginalFilename", "VBoxManage.exe\0"
+      VALUE "FileDescription",  "BreadvmBox Guest Properties Service\0"
+      VALUE "InternalName",     "BreadvmGuestPropSvc\0"
+      VALUE "OriginalFilename", "BreadvmGuestPropSvc.dll\0"
       VALUE "CompanyName",      VBOX_RC_COMPANY_NAME
-      VALUE "FileVersion",      VBOX_RC_FILE_VERSION_STR
+      VALUE "FileVersion",      "1.0\0"
       VALUE "LegalCopyright",   VBOX_RC_LEGAL_COPYRIGHT
       VALUE "ProductName",      VBOX_RC_PRODUCT_NAME_STR
-      VALUE "ProductVersion",   VBOX_RC_PRODUCT_VERSION_STR
+      VALUE "ProductVersion",   "2.0\0"
       VBOX_RC_MORE_STRINGS
     END
   END

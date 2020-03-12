@@ -406,7 +406,7 @@ DECLCALLBACK(void) Display::i_displaySSMSaveScreenshot(PSSMHANDLE pSSM, void *pv
 
             /*
              * It is possible that success is returned but everything is 0 or NULL.
-             * (no display attached if a VM is running with VBoxHeadless on OSE for example)
+             * (no display attached if a VM is running with BreadvmLoader on OSE for example)
              */
             if (RT_SUCCESS(rc) && pbData)
             {

@@ -313,9 +313,9 @@ typedef struct VMCPU
 
 
 /** The name of the raw-mode context VMM Core module. */
-#define VMMRC_MAIN_MODULE_NAME          "VMMRC.rc"
+#define VMMRC_MAIN_MODULE_NAME          "BreadvmRC.rc"
 /** The name of the ring-0 context VMM Core module. */
-#define VMMR0_MAIN_MODULE_NAME          "VMMR0.r0"
+#define VMMR0_MAIN_MODULE_NAME          "BreadvmR0.r0"
 
 /**
  * Wrapper macro for avoiding too much \#ifdef VBOX_WITH_RAW_MODE.

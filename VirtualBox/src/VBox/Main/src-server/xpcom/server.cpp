@@ -733,7 +733,7 @@ int main(int argc, char **argv)
     {
         vrc = com::GetVBoxUserHomeDirectory(szLogFile, sizeof(szLogFile));
         if (RT_SUCCESS(vrc))
-            vrc = RTPathAppend(szLogFile, sizeof(szLogFile), "VBoxSVC.log");
+            vrc = RTPathAppend(szLogFile, sizeof(szLogFile), "BreadvmSVC.log");
     }
     else
     {

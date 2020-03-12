@@ -1,6 +1,6 @@
 /* $Id: MachineImpl.h $ */
 /** @file
- * Implementation of IMachine in VBoxSVC - Header.
+ * Implementation of IMachine in BreadvmSVC - Header.
  */
 
 /*

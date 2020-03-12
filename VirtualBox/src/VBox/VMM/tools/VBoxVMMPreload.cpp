@@ -45,8 +45,8 @@ static struct
     void           *pvImageBase;
 } g_aModules[] =
 {
-    { "VMMR0.r0",       true,  NULL },
-    { "VBoxDDR0.r0",    true,  NULL },
+    { "BreadvmR0.r0",       true,  NULL },
+    { "BreadvmDDR0.r0",    true,  NULL },
 };
 
 static uint32_t     g_cVerbose = 1;

@@ -211,11 +211,11 @@ static const char *g_apszSupNtVpAllowedDlls[] =
  */
 static const char *g_apszSupNtVpAllowedVmExes[] =
 {
-    "VBoxHeadless.exe",
+    "BreadvmLoader.exe",
     "VirtualBox.exe",
     "VBoxSDL.exe",
     "VBoxNetDHCP.exe",
-    "VBoxNetNAT.exe",
+    "BreadvmNAT.exe",
     "VBoxVMMPreload.exe",
 
     "tstMicro.exe",

@@ -804,7 +804,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPSTR /*lpC
         {
             vrc = com::GetVBoxUserHomeDirectory(szLogFile, sizeof(szLogFile));
             if (RT_SUCCESS(vrc))
-                vrc = RTPathAppend(szLogFile, sizeof(szLogFile), "VBoxSVC.log");
+                vrc = RTPathAppend(szLogFile, sizeof(szLogFile), "BreadvmSVC.log");
             if (RT_FAILURE(vrc))
                 return RTMsgErrorExit(RTEXITCODE_FAILURE, "failed to construct release log filename, rc=%Rrc", vrc);
             pszLogFile = szLogFile;
@@ -838,13 +838,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPSTR /*lpC
     g_pModule = new CExeModule();
     if(g_pModule == NULL)
         return RTMsgErrorExit(RTEXITCODE_FAILURE, "not enough memory to create ExeModule.");
-    g_pModule->Init(ObjectMap, hInstance, &LIBID_VirtualBox);
+    g_pModule->Init(ObjectMap, hInstance, &LIBID_Breadvm);
     g_pModule->dwThreadID = GetCurrentThreadId();
 
     int nRet = 0;
     if (!fRun)
     {
-#ifndef VBOX_WITH_MIDL_PROXY_STUB /* VBoxProxyStub.dll does all the registration work. */
+#ifndef VBOX_WITH_MIDL_PROXY_STUB /* BreadvmProxyStub.dll does all the registration work. */
         if (fUnregister)
         {
             g_pModule->UpdateRegistryFromResource(IDR_VIRTUALBOX, FALSE);

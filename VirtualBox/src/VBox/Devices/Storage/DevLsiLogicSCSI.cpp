@@ -5745,9 +5745,9 @@ const PDMDEVREG g_DeviceLsiLogicSCSI =
     /* szName */
     "lsilogicscsi",
     /* szRCMod */
-    "VBoxDDRC.rc",
+    "BreadvmDDRC.rc",
     /* szR0Mod */
-    "VBoxDDR0.r0",
+    "BreadvmDDR0.r0",
     /* pszDescription */
     "LSI Logic 53c1030 SCSI controller.\n",
     /* fFlags */
@@ -5801,9 +5801,9 @@ const PDMDEVREG g_DeviceLsiLogicSAS =
     /* szName */
     "lsilogicsas",
     /* szRCMod */
-    "VBoxDDRC.rc",
+    "BreadvmDDRC.rc",
     /* szR0Mod */
-    "VBoxDDR0.r0",
+    "BreadvmDDR0.r0",
     /* pszDescription */
     "LSI Logic SAS1068 controller.\n",
     /* fFlags */

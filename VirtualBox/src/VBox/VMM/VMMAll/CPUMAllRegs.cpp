@@ -1397,7 +1397,7 @@ VMMDECL(void) CPUMGetGuestCpuId(PVMCPU pVCpu, uint32_t uLeaf, uint32_t uSubLeaf,
  * @param   fVisible    Whether to make it visible (true) or hide it (false).
  *
  * @remarks This is "VMMDECL" so that it still links with
- *          the old APIC code which is in VBoxDD2 and not in
+ *          the old APIC code which is in BreadvmDD2 and not in
  *          the VMM module.
  */
 VMMDECL(bool) CPUMSetGuestCpuIdPerCpuApicFeature(PVMCPU pVCpu, bool fVisible)

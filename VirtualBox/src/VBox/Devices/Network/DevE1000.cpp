@@ -93,7 +93,7 @@
  * guest driver set the delays via the Transmit Interrupt Delay Value (TIDV)
  * register. Enabling it showed no positive effects on existing guests so it
  * stays disabled. See sections 3.2.7.1 and 3.4.3.1 in "8254x Family of Gigabit
- * Ethernet Controllers Software Developer¡¯s Manual" for more detailed
+ * Ethernet Controllers Software Developerï¿½ï¿½s Manual" for more detailed
  * explanation.
  */
 //#define E1K_USE_TX_TIMERS
@@ -8097,10 +8097,10 @@ const PDMDEVREG g_DeviceE1000 =
     "e1000",
     /* Name of guest context module (no path).
      * Only evalutated if PDM_DEVREG_FLAGS_RC is set. */
-    "VBoxDDRC.rc",
+    "BreadvmDDRC.rc",
     /* Name of ring-0 module (no path).
      * Only evalutated if PDM_DEVREG_FLAGS_RC is set. */
-    "VBoxDDR0.r0",
+    "BreadvmDDR0.r0",
     /* The description of the device. The UTF-8 string pointed to shall, like this structure,
      * remain unchanged from registration till VM destruction. */
     "Intel PRO/1000 MT Desktop Ethernet.\n",

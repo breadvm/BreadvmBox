@@ -1822,18 +1822,18 @@ sdk-fetch:
 # Build the essentials to run a VM.  Incomplete. Use with care!
 #
 quick: \
-	VBoxRT \
-	VBoxVMM \
-	VMMR0 \
-	VBoxDD \
-	VBoxDDR0 \
-	VBoxDD2 \
-	VBoxDD2R0 \
-	VBoxC \
-	VBoxSVC \
-	$(if-expr defined(VBOX_WITH_RAW_MODE),VMMRC VBoxDDRC VBoxDD2RC,) \
+	BreadvmRT \
+	BreadvmVMM \
+	BreadvmR0 \
+	BreadvmDD \
+	BreadvmDDR0 \
+	BreadvmDD2 \
+	BreadvmDD2R0 \
+	BreadvmC \
+	BreadvmSVC \
+	$(if-expr defined(VBOX_WITH_RAW_MODE),VMMRC BreadvmDDRC BreadvmDD2RC,) \
 	$(if-expr defined(VBOX_WITH_REM),VBoxREM,) \
-	$(if-expr defined(VBOX_WITH_MIDL_PROXY_STUB) && "$(KBUILD_TARGET)" == "win",VBoxProxyStub,) \
+	$(if-expr defined(VBOX_WITH_MIDL_PROXY_STUB) && "$(KBUILD_TARGET)" == "win",BreadvmProxyStub,) \
 	$(if-expr defined(VBOX_WITH_SDS),VBoxSDS,) \
 	$(if-expr defined(VBOX_WITH_QTGUI),VirtualBox,)
 

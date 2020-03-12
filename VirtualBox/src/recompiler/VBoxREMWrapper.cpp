@@ -1320,7 +1320,7 @@ static REMFNDESC g_aVMMImports[] =
 
 
 /**
- * Descriptors for the functions imported from VBoxRT.
+ * Descriptors for the functions imported from BreadvmRT.
  */
 static REMFNDESC g_aRTImports[] =
 {
@@ -1362,7 +1362,7 @@ static REMFNDESC g_aRTImports[] =
 
 
 /**
- * Descriptors for the functions imported from VBoxRT.
+ * Descriptors for the functions imported from BreadvmRT.
  */
 static REMFNDESC g_aCRTImports[] =
 {
@@ -2009,12 +2009,12 @@ static int remLoadLinuxObj(void)
      */
     if (g_ModVMM != NIL_RTLDRMOD)
     {
-        rc = SUPR3HardenedLdrLoadAppPriv("VBoxVMM", &g_ModVMM, RTLDRLOAD_FLAGS_LOCAL, NULL);
+        rc = SUPR3HardenedLdrLoadAppPriv("BreadvmVMM", &g_ModVMM, RTLDRLOAD_FLAGS_LOCAL, NULL);
         AssertRCReturn(rc, rc);
         for (size_t i = 0; i < RT_ELEMENTS(g_aVMMImports); i++)
         {
             rc = RTLdrGetSymbol(g_ModVMM, g_aVMMImports[i].pszName, &g_aVMMImports[i].pv);
-            AssertLogRelMsgRCReturn(rc, ("RTLdrGetSymbol(VBoxVMM,%s,) -> %Rrc\n", g_aVMMImports[i].pszName, rc), rc);
+            AssertLogRelMsgRCReturn(rc, ("RTLdrGetSymbol(BreadvmVMM,%s,) -> %Rrc\n", g_aVMMImports[i].pszName, rc), rc);
         }
     }
 #  endif
@@ -2124,7 +2124,7 @@ static bool remIs64bitEnabled(PVM pVM)
 #  ifdef VBOX_WITHOUT_REM_LDR_CYCLE
     if (g_ModVMM == NIL_RTLDRMOD)
     {
-        rc = SUPR3HardenedLdrLoadAppPriv("VBoxVMM", &g_ModVMM, RTLDRLOAD_FLAGS_LOCAL, NULL);
+        rc = SUPR3HardenedLdrLoadAppPriv("BreadvmVMM", &g_ModVMM, RTLDRLOAD_FLAGS_LOCAL, NULL);
         AssertRCReturn(rc, false);
     }
 
@@ -2157,9 +2157,9 @@ static bool remIs64bitEnabled(PVM pVM)
 static int remLoadProperObj(PVM pVM)
 {
     /*
-     * Load the VBoxREM32/64 object/DLL.
+     * Load the BreadvmREM32/64 object/DLL.
      */
-    const char *pszModule = remIs64bitEnabled(pVM) ? "VBoxREM64" : "VBoxREM32";
+    const char *pszModule = remIs64bitEnabled(pVM) ? "BreadvmREM64" : "BreadvmREM32";
     int rc = SUPR3HardenedLdrLoadAppPriv(pszModule, &g_ModREM2, RTLDRLOAD_FLAGS_LOCAL, NULL);
     if (RT_SUCCESS(rc))
     {

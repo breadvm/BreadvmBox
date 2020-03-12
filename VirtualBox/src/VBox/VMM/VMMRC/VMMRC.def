@@ -14,7 +14,7 @@
 ; hope that it will be useful, but WITHOUT ANY WARRANTY of any kind.
 ;
 
-LIBRARY VMMRC.rc
+LIBRARY BreadvmRC.rc
 EXPORTS
     ; data
 

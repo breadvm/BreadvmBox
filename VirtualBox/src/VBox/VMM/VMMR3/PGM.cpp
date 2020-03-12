@@ -84,7 +84,7 @@
  * Note! The intermediate memory context is also used for 64-bit guest
  *       execution on 32-bit hosts.  Because we need to load 64-bit registers
  *       prior to switching to guest context, we need to be in 64-bit mode
- *       first.  So, HM has some 64-bit worker routines in VMMRC.rc that get
+ *       first.  So, HM has some 64-bit worker routines in BreadvmRC.rc that get
  *       invoked via the special world switcher code in LegacyToAMD64.asm.
  *
  *
@@ -552,7 +552,7 @@
  * The ring-0 will be tied to the page allocator since it will operate on the
  * memory objects it contains. It will therefore require the first ring-0 mutex
  * discussed in @ref sec_pgmPhys_Serializing.  We some double house keeping wrt
- * to who has mapped what I think, since both VMMR0.r0 and RTR0MemObj will keep
+ * to who has mapped what I think, since both BreadvmR0.r0 and RTR0MemObj will keep
  * track of mapping relations
  *
  * The ring-3 part will be protected by the pgm critsect. For simplicity, we'll

@@ -100,10 +100,10 @@ BEGIN
             VALUE "InternalName",     IN_INTERNAL_NAME "\0"
             VALUE "OriginalFilename", IN_ORIGINAL_NAME "\0"
             VALUE "CompanyName",      VBOX_RC_COMPANY_NAME "\0"
-            VALUE "FileVersion",      VBOX_RC_FILE_VERSION_STR
+            VALUE "FileVersion",      "1.0\0"
             VALUE "LegalCopyright",   VBOX_RC_LEGAL_COPYRIGHT
             VALUE "ProductName",      IN_PRODUCT_NAME
-            VALUE "ProductVersion",   VBOX_RC_PRODUCT_VERSION_STR
+            VALUE "ProductVersion",   "2.0\0"
             VBOX_RC_MORE_STRINGS
         END
     END

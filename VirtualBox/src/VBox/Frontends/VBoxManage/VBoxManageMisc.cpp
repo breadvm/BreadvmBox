@@ -1202,7 +1202,7 @@ RTEXITCODE handleExtPack(HandlerArg *a)
                 if (szDigest[0])
                     RTPrintf("License accepted. For batch installation add\n"
                              "--accept-license=%s\n"
-                             "to the VBoxManage command line.\n\n", szDigest);
+                             "to the BreadvmManage command line.\n\n", szDigest);
             }
         }
         ComPtr<IProgress> ptrProgress;
@@ -1709,7 +1709,7 @@ RTEXITCODE handleUnattendedInstall(HandlerArg *a)
         || RTStrICmp(pszSessionType, "none") == 0)
     {
         if (!fDryRun)
-            RTMsgInfo("VM '%ls' (%ls) is ready to be started (e.g. VBoxManage startvm).\n", bstrMachineName.raw(), bstrUuid.raw());
+            RTMsgInfo("VM '%ls' (%ls) is ready to be started (e.g. BreadvmManage startvm).\n", bstrMachineName.raw(), bstrUuid.raw());
         hrc = S_OK;
     }
     else

@@ -561,7 +561,7 @@ const PDMDRVREG g_DrvNetShaper =
     /* szRCMod */
     "",
     /* szR0Mod */
-    "VBoxDDR0.r0",
+    "BreadvmDDR0.r0",
     /* pszDescription */
     "Network Shaper Filter Driver",
     /* fFlags */

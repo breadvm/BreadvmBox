@@ -886,20 +886,20 @@ warning MIDL2460 : dual interface should be derived from IDispatch : IVirtualBox
 
 <!-- Filters for switch on/off VBoxSDS definitions -->
 
-<xsl:template match="application[@uuid='ec0e78e8-fa43-43e8-ac0a-02c784c4a4fa']//module/class" >
+<xsl:template match="application[@uuid='c2777d1a-f82e-473b-8bcc-fc443c70dbbd']//module/class" >
     <xsl:if test="$g_fVBoxWithSDS='yes'" >
         <xsl:call-template name="template_class" />
     </xsl:if>
 </xsl:template>
 
-<xsl:template match="application[@uuid='ec0e78e8-fa43-43e8-ac0a-02c784c4a4fa']/if//interface
-                                | application[@uuid='ec0e78e8-fa43-43e8-ac0a-02c784c4a4fa']//interface" >
+<xsl:template match="application[@uuid='c2777d1a-f82e-473b-8bcc-fc443c70dbbd']/if//interface
+                                | application[@uuid='c2777d1a-f82e-473b-8bcc-fc443c70dbbd']//interface" >
     <xsl:if test="$g_fVBoxWithSDS='yes'" >
         <xsl:call-template name="template_interface" />
     </xsl:if>
 </xsl:template>
 
-<xsl:template match="application[@uuid='ec0e78e8-fa43-43e8-ac0a-02c784c4a4fa']//interface" mode="forward" >
+<xsl:template match="application[@uuid='c2777d1a-f82e-473b-8bcc-fc443c70dbbd']//interface" mode="forward" >
     <xsl:if test="$g_fVBoxWithSDS='yes'" >
         <xsl:call-template name="template_interface_forward" />
     </xsl:if>

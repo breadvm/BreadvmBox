@@ -1,6 +1,6 @@
+; $Id: BreadvmProxyStub.def $
 ;; @file
-;
-; VBoxC DLL Definition File.
+; BreadvmProxyStub DLL Definition File.
 ;
 
 ;
@@ -15,13 +15,12 @@
 ; hope that it will be useful, but WITHOUT ANY WARRANTY of any kind.
 ;
 
-LIBRARY VBoxC.dll
+LIBRARY BreadvmProxyStub.dll
 
 EXPORTS
-    ; COM entry points
     DllGetClassObject   PRIVATE
     DllCanUnloadNow     PRIVATE
     DllRegisterServer   PRIVATE
     DllUnregisterServer PRIVATE
-    ; private entry points
-    VBoxDriversRegister PRIVATE
+    GetProxyDllInfo     PRIVATE
+

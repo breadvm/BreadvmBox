@@ -1,6 +1,6 @@
-/* $Id: VBoxRTDeps.cpp $ */
+/* $Id: BreadvmRTDeps.cpp $ */
 /** @file
- * IPRT - VBoxRT.dll/so dependencies.
+ * IPRT - BreadvmRT.dll/so dependencies.
  */
 
 /*

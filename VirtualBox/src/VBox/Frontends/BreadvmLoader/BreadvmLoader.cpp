@@ -1,6 +1,6 @@
-/* $Id: VBoxHeadless.cpp $ */
+/* $Id: BreadvmLoader.cpp $ */
 /** @file
- * VBoxHeadless - The VirtualBox Headless frontend for running VMs on servers.
+ * BreadvmLoader - The VirtualBox Headless frontend for running VMs on servers.
  */
 
 /*
@@ -64,7 +64,7 @@ using namespace com;
 
 #define LogError(m,rc) \
     do { \
-        Log(("VBoxHeadless: ERROR: " m " [rc=0x%08X]\n", rc)); \
+        Log(("BreadvmLoader: ERROR: " m " [rc=0x%08X]\n", rc)); \
         RTPrintf("%s\n", m); \
     } while (0)
 
@@ -114,7 +114,7 @@ public:
                 pVSACEv->COMGETTER(Available)(&fAvailable);
                 if (!fAvailable)
                 {
-                    LogRel(("VBoxHeadless: VBoxSVC became unavailable, exiting.\n"));
+                    LogRel(("BreadvmLoader: VBoxSVC became unavailable, exiting.\n"));
                     RTPrintf("VBoxSVC became unavailable, exiting.\n");
                     /* Terminate the VM as cleanly as possible given that VBoxSVC
                      * is no longer present. */
@@ -498,7 +498,7 @@ static void parse_environ(unsigned long *pulFrameWidth, unsigned long *pulFrameH
         errno = 0;
         unsigned long ulFrameWidth = strtoul(pszEnvTemp, 0, 10);
         if (errno != 0)
-            LogError("VBoxHeadless: ERROR: invalid VBOX_CAPTUREWIDTH environment variable", 0);
+            LogError("BreadvmLoader: ERROR: invalid VBOX_CAPTUREWIDTH environment variable", 0);
         else
             *pulFrameWidth = ulFrameWidth;
     }
@@ -507,7 +507,7 @@ static void parse_environ(unsigned long *pulFrameWidth, unsigned long *pulFrameH
         errno = 0;
         unsigned long ulFrameHeight = strtoul(pszEnvTemp, 0, 10);
         if (errno != 0)
-            LogError("VBoxHeadless: ERROR: invalid VBOX_CAPTUREHEIGHT environment variable", 0);
+            LogError("BreadvmLoader: ERROR: invalid VBOX_CAPTUREHEIGHT environment variable", 0);
         else
             *pulFrameHeight = ulFrameHeight;
     }
@@ -516,7 +516,7 @@ static void parse_environ(unsigned long *pulFrameWidth, unsigned long *pulFrameH
         errno = 0;
         unsigned long ulBitRate = strtoul(pszEnvTemp, 0, 10);
         if (errno != 0)
-            LogError("VBoxHeadless: ERROR: invalid VBOX_CAPTUREBITRATE environment variable", 0);
+            LogError("BreadvmLoader: ERROR: invalid VBOX_CAPTUREBITRATE environment variable", 0);
         else
             *pulBitRate = ulBitRate;
     }
@@ -637,7 +637,7 @@ extern "C" DECLEXPORT(int) TrustedMain(int argc, char **argv, char **envp)
     ATL::CComModule _Module; /* Required internally by ATL (constructor records instance in global variable). */
 #endif
 
-    LogFlow(("VBoxHeadless STARTED.\n"));
+    LogFlow(("BreadvmLoader STARTED.\n"));
     RTPrintf(VBOX_PRODUCT " Headless Interface " VBOX_VERSION_STRING "\n"
              "(C) 2008-" VBOX_C_YEAR " " VBOX_VENDOR "\n"
              "All rights reserved.\n\n");
@@ -819,30 +819,30 @@ extern "C" DECLEXPORT(int) TrustedMain(int argc, char **argv, char **envp)
 #ifdef VBOX_WITH_VIDEOREC
     if (ulFrameWidth < 512 || ulFrameWidth > 2048 || ulFrameWidth % 2)
     {
-        LogError("VBoxHeadless: ERROR: please specify an even frame width between 512 and 2048", 0);
+        LogError("BreadvmLoader: ERROR: please specify an even frame width between 512 and 2048", 0);
         return 1;
     }
     if (ulFrameHeight < 384 || ulFrameHeight > 1536 || ulFrameHeight % 2)
     {
-        LogError("VBoxHeadless: ERROR: please specify an even frame height between 384 and 1536", 0);
+        LogError("BreadvmLoader: ERROR: please specify an even frame height between 384 and 1536", 0);
         return 1;
     }
     if (ulBitRate < 300000 || ulBitRate > 1000000)
     {
-        LogError("VBoxHeadless: ERROR: please specify an even bitrate between 300000 and 1000000", 0);
+        LogError("BreadvmLoader: ERROR: please specify an even bitrate between 300000 and 1000000", 0);
         return 1;
     }
     /* Make sure we only have %d or %u (or none) in the file name specified */
     char *pcPercent = (char*)strchr(pszFileNameParam, '%');
     if (pcPercent != 0 && *(pcPercent + 1) != 'd' && *(pcPercent + 1) != 'u')
     {
-        LogError("VBoxHeadless: ERROR: Only %%d and %%u are allowed in the capture file name.", -1);
+        LogError("BreadvmLoader: ERROR: Only %%d and %%u are allowed in the capture file name.", -1);
         return 1;
     }
     /* And no more than one % in the name */
     if (pcPercent != 0 && strchr(pcPercent + 1, '%') != 0)
     {
-        LogError("VBoxHeadless: ERROR: Only one format modifier is allowed in the capture file name.", -1);
+        LogError("BreadvmLoader: ERROR: Only one format modifier is allowed in the capture file name.", -1);
         return 1;
     }
     RTStrPrintf(&szMpegFile[0], RTPATH_MAX, pszFileNameParam, RTProcSelf());
@@ -868,7 +868,7 @@ extern "C" DECLEXPORT(int) TrustedMain(int argc, char **argv, char **envp)
 #endif
     if (FAILED(rc))
     {
-        RTPrintf("VBoxHeadless: ERROR: failed to initialize COM!\n");
+        RTPrintf("BreadvmLoader: ERROR: failed to initialize COM!\n");
         return 1;
     }
 
@@ -886,7 +886,7 @@ extern "C" DECLEXPORT(int) TrustedMain(int argc, char **argv, char **envp)
         rc = pVirtualBoxClient.createInprocObject(CLSID_VirtualBoxClient);
         if (FAILED(rc))
         {
-            RTPrintf("VBoxHeadless: ERROR: failed to create the VirtualBoxClient object!\n");
+            RTPrintf("BreadvmLoader: ERROR: failed to create the VirtualBoxClient object!\n");
             com::ErrorInfo info;
             if (!info.isFullAvailable() && !info.isBasicAvailable())
             {
@@ -938,7 +938,7 @@ extern "C" DECLEXPORT(int) TrustedMain(int argc, char **argv, char **envp)
         if (FAILED(rc))
             break;
 
-        Log(("VBoxHeadless: Opening a session with machine (id={%s})...\n",
+        Log(("BreadvmLoader: Opening a session with machine (id={%s})...\n",
               Utf8Str(id).c_str()));
 
         // set session name
@@ -1073,7 +1073,7 @@ extern "C" DECLEXPORT(int) TrustedMain(int argc, char **argv, char **envp)
             }
         }
 
-        Log(("VBoxHeadless: enmVRDE %d, fVRDEEnabled %d\n", enmVRDEOption, fVRDEEnabled));
+        Log(("BreadvmLoader: enmVRDE %d, fVRDEEnabled %d\n", enmVRDEOption, fVRDEEnabled));
 
         if (enmVRDEOption != VRDEOption_Off)
         {
@@ -1151,7 +1151,7 @@ extern "C" DECLEXPORT(int) TrustedMain(int argc, char **argv, char **envp)
         /* Disable the host clipboard before powering up */
         console->COMSETTER(UseHostClipboard)(false);
 
-        Log(("VBoxHeadless: Powering up the machine...\n"));
+        Log(("BreadvmLoader: Powering up the machine...\n"));
 
         ComPtr <IProgress> progress;
         if (!fPaused)
@@ -1207,13 +1207,13 @@ extern "C" DECLEXPORT(int) TrustedMain(int argc, char **argv, char **envp)
         signal(SIGTERM, SaveState);
 #endif
 
-        Log(("VBoxHeadless: Waiting for PowerDown...\n"));
+        Log(("BreadvmLoader: Waiting for PowerDown...\n"));
 
         while (   !g_fTerminateFE
                && RT_SUCCESS(gEventQ->processEventQueue(RT_INDEFINITE_WAIT)))
             /* nothing */ ;
 
-        Log(("VBoxHeadless: event loop has terminated...\n"));
+        Log(("BreadvmLoader: event loop has terminated...\n"));
 
 #ifdef VBOX_WITH_VIDEOREC
         if (fVideoRec)
@@ -1257,7 +1257,7 @@ extern "C" DECLEXPORT(int) TrustedMain(int argc, char **argv, char **envp)
         CHECK_ERROR_BREAK(pProgress, COMGETTER(ResultCode)(&hrc));
         if (FAILED(hrc))
         {
-            RTPrintf("VBoxHeadless: ERROR: Failed to power down VM!");
+            RTPrintf("BreadvmLoader: ERROR: Failed to power down VM!");
             com::ErrorInfo info;
             if (!info.isFullAvailable() && !info.isBasicAvailable())
                 com::GluePrintRCMessage(hrc);
@@ -1306,7 +1306,7 @@ extern "C" DECLEXPORT(int) TrustedMain(int argc, char **argv, char **envp)
          * Close the session. This will also uninitialize the console and
          * unregister the callback we've registered before.
          */
-        Log(("VBoxHeadless: Closing the session...\n"));
+        Log(("BreadvmLoader: Closing the session...\n"));
         session->UnlockMachine();
     }
 
@@ -1318,7 +1318,7 @@ extern "C" DECLEXPORT(int) TrustedMain(int argc, char **argv, char **envp)
 
     com::Shutdown();
 
-    LogFlow(("VBoxHeadless FINISHED.\n"));
+    LogFlow(("BreadvmLoader FINISHED.\n"));
 
     return FAILED(rc) ? 1 : 0;
 }
@@ -1334,7 +1334,7 @@ int main(int argc, char **argv, char **envp)
     int rc = RTR3InitExe(argc, &argv, RTR3INIT_FLAGS_SUPLIB);
     if (RT_FAILURE(rc))
     {
-        RTPrintf("VBoxHeadless: Runtime Error:\n"
+        RTPrintf("BreadvmLoader: Runtime Error:\n"
                  " %Rrc -- %Rrf\n", rc, rc);
         switch (rc)
         {

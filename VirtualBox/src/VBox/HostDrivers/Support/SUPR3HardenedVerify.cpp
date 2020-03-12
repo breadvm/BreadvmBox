@@ -119,26 +119,26 @@ static SUPINSTFILE const    g_aSupInstallFiles[] =
 {
     /*  type,         dir,                       fOpt, "pszFile"              */
     /* ---------------------------------------------------------------------- */
-    {   kSupIFT_Dll,  kSupID_AppPrivArch,       false, "VMMR0.r0" },
-    {   kSupIFT_Dll,  kSupID_AppPrivArch,       false, "VBoxDDR0.r0" },
+    {   kSupIFT_Dll,  kSupID_AppPrivArch,       false, "BreadvmR0.r0" },
+    {   kSupIFT_Dll,  kSupID_AppPrivArch,       false, "BreadvmDDR0.r0" },
 
 #ifdef VBOX_WITH_RAW_MODE
-    {   kSupIFT_Rc,   kSupID_AppPrivArch,       false, "VMMRC.rc" },
-    {   kSupIFT_Rc,   kSupID_AppPrivArch,       false, "VBoxDDRC.rc" },
+    {   kSupIFT_Rc,   kSupID_AppPrivArch,       false, "BreadvmRC.rc" },
+    {   kSupIFT_Rc,   kSupID_AppPrivArch,       false, "BreadvmDDRC.rc" },
 #endif
 
-    {   kSupIFT_Dll,  kSupID_AppSharedLib,      false, "VBoxRT" SUPLIB_DLL_SUFF },
+    {   kSupIFT_Dll,  kSupID_AppSharedLib,      false, "BreadvmRT" SUPLIB_DLL_SUFF },
     {   kSupIFT_Dll,  kSupID_AppSharedLib,      false, "VBoxVMM" SUPLIB_DLL_SUFF },
 #ifdef VBOX_WITH_REM
-    {   kSupIFT_Dll,  kSupID_AppSharedLib,      false, "VBoxREM" SUPLIB_DLL_SUFF },
+    {   kSupIFT_Dll,  kSupID_AppSharedLib,      false, "BreadvmREM" SUPLIB_DLL_SUFF },
 #endif
 #if HC_ARCH_BITS == 32
-    {   kSupIFT_Dll,  kSupID_AppSharedLib,       true, "VBoxREM32" SUPLIB_DLL_SUFF },
-    {   kSupIFT_Dll,  kSupID_AppSharedLib,       true, "VBoxREM64" SUPLIB_DLL_SUFF },
+    {   kSupIFT_Dll,  kSupID_AppSharedLib,       true, "BreadvmREM32" SUPLIB_DLL_SUFF },
+    {   kSupIFT_Dll,  kSupID_AppSharedLib,       true, "BreadvmREM64" SUPLIB_DLL_SUFF },
 #endif
-    {   kSupIFT_Dll,  kSupID_AppSharedLib,      false, "VBoxDD" SUPLIB_DLL_SUFF },
-    {   kSupIFT_Dll,  kSupID_AppSharedLib,      false, "VBoxDD2" SUPLIB_DLL_SUFF },
-    {   kSupIFT_Dll,  kSupID_AppSharedLib,      false, "VBoxDDU" SUPLIB_DLL_SUFF },
+    {   kSupIFT_Dll,  kSupID_AppSharedLib,      false, "BreadvmDD" SUPLIB_DLL_SUFF },
+    {   kSupIFT_Dll,  kSupID_AppSharedLib,      false, "BreadvmDD2" SUPLIB_DLL_SUFF },
+    {   kSupIFT_Dll,  kSupID_AppSharedLib,      false, "BreadvmDDU" SUPLIB_DLL_SUFF },
     {   kSupIFT_Exe,  kSupID_AppBin,             true, "VBoxVMMPreload" SUPLIB_EXE_SUFF },
     {   kSupIFT_Dll,  kSupID_AppPrivArch,        true, "VBoxVMMPreload" SUPLIB_DLL_SUFF },
 
@@ -151,13 +151,13 @@ static SUPINSTFILE const    g_aSupInstallFiles[] =
     {   kSupIFT_Dll,  kSupID_AppPrivArch,        true, "VBoxSharedClipboard" SUPLIB_DLL_SUFF },
 //#endif
 //#ifdef VBOX_WITH_SHARED_FOLDERS
-    {   kSupIFT_Dll,  kSupID_AppPrivArch,        true, "VBoxSharedFolders" SUPLIB_DLL_SUFF },
+    {   kSupIFT_Dll,  kSupID_AppPrivArch,        true, "BreadvmFolders" SUPLIB_DLL_SUFF },
 //#endif
 //#ifdef VBOX_WITH_DRAG_AND_DROP
     {   kSupIFT_Dll,  kSupID_AppPrivArch,        true, "VBoxDragAndDropSvc" SUPLIB_DLL_SUFF },
 //#endif
 //#ifdef VBOX_WITH_GUEST_PROPS
-    {   kSupIFT_Dll,  kSupID_AppPrivArch,        true, "VBoxGuestPropSvc" SUPLIB_DLL_SUFF },
+    {   kSupIFT_Dll,  kSupID_AppPrivArch,        true, "BreadvmGuestPropSvc" SUPLIB_DLL_SUFF },
 //#endif
 //#ifdef VBOX_WITH_GUEST_CONTROL
     {   kSupIFT_Dll,  kSupID_AppPrivArch,        true, "VBoxGuestControlSvc" SUPLIB_DLL_SUFF },
@@ -189,8 +189,8 @@ static SUPINSTFILE const    g_aSupInstallFiles[] =
     {   kSupIFT_Dll,  kSupID_AppSharedLib,       true, "VBoxVRDP" SUPLIB_DLL_SUFF },
 
 //#ifdef VBOX_WITH_HEADLESS
-    {   kSupIFT_Exe,  kSupID_AppBin,             true, "VBoxHeadless" SUPLIB_EXE_SUFF },
-    {   kSupIFT_Dll,  kSupID_AppPrivArch,        true, "VBoxHeadless" SUPLIB_DLL_SUFF },
+    {   kSupIFT_Exe,  kSupID_AppBin,             true, "BreadvmLoader" SUPLIB_EXE_SUFF },
+    {   kSupIFT_Dll,  kSupID_AppPrivArch,        true, "BreadvmLoader" SUPLIB_DLL_SUFF },
     {   kSupIFT_Dll,  kSupID_AppPrivArch,        true, "VBoxVideoRecFB" SUPLIB_DLL_SUFF },
 //#endif
 
@@ -224,8 +224,8 @@ static SUPINSTFILE const    g_aSupInstallFiles[] =
 //#endif
 
 //#ifdef VBOX_WITH_LWIP_NAT
-    {   kSupIFT_Exe,  kSupID_AppBin,             true, "VBoxNetNAT" SUPLIB_EXE_SUFF },
-    {   kSupIFT_Dll,  kSupID_AppPrivArch,        true, "VBoxNetNAT" SUPLIB_DLL_SUFF },
+    {   kSupIFT_Exe,  kSupID_AppBin,             true, "BreadvmNAT" SUPLIB_EXE_SUFF },
+    {   kSupIFT_Dll,  kSupID_AppPrivArch,        true, "BreadvmNAT" SUPLIB_DLL_SUFF },
 //#endif
 #if defined(VBOX_WITH_HARDENING) && defined(RT_OS_WINDOWS)
 # define HARDENED_TESTCASE_BIN_ENTRY(a_szName) \

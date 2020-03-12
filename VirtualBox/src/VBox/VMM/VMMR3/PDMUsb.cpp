@@ -203,7 +203,7 @@ static int pdmR3UsbLoad(PVM pVM, PCPDMUSBREGCBINT pRegCB, const char *pszFilenam
         }
     }
     else
-        AssertMsgFailed(("Failed to load VBoxDD!\n"));
+        AssertMsgFailed(("Failed to load BreadvmDD!\n"));
     return rc;
 }
 
@@ -310,10 +310,10 @@ int pdmR3UsbLoadModules(PVM pVM)
     if (fLoadBuiltin)
     {
         /* make filename */
-        char *pszFilename = pdmR3FileR3("VBoxDD", true /*fShared*/);
+        char *pszFilename = pdmR3FileR3("BreadvmDD", true /*fShared*/);
         if (!pszFilename)
             return VERR_NO_TMP_MEMORY;
-        rc = pdmR3UsbLoad(pVM, &RegCB, pszFilename, "VBoxDD");
+        rc = pdmR3UsbLoad(pVM, &RegCB, pszFilename, "BreadvmDD");
         RTMemTmpFree(pszFilename);
         if (RT_FAILURE(rc))
             return rc;

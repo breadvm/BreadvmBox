@@ -7190,9 +7190,9 @@ const PDMDEVREG g_DeviceVga =
     /* szName */
     "vga",
     /* szRCMod */
-    "VBoxDDRC.rc",
+    "BreadvmDDRC.rc",
     /* szR0Mod */
-    "VBoxDDR0.r0",
+    "BreadvmDDR0.r0",
     /* pszDescription */
     "VGA Adaptor with VESA extensions.",
     /* fFlags */

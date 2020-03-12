@@ -39,7 +39,7 @@ echo NAMES=$NAMES
 #
 kmk_sed -e 's/EXPERIMENT_PURE//' ${HEADER}.bak --output ${HEADER}
 kmk KBUILD_TYPE=release VBoxVMM VMMR0 VMMGC
-size ${BINDIR}/VMMR0.r0 ${BINDIR}/VMMGC.gc ${BINDIR}/VBoxVMM.${DLLEXT} > pt-baseline.txt
+size ${BINDIR}/BreadvmR0.r0 ${BINDIR}/VMMGC.gc ${BINDIR}/VBoxVMM.${DLLEXT} > pt-baseline.txt
 
 exec < "pt-baseline.txt"
 read buf                                # ignore
@@ -63,7 +63,7 @@ do
         -e 's/EXPERIMENT_PURE//' \
         ${HEADER}.bak --output ${HEADER}
     kmk KBUILD_TYPE=release VBoxVMM VMMR0 VMMGC
-    size ${BINDIR}/VMMR0.r0 ${BINDIR}/VMMGC.gc ${BINDIR}/VBoxVMM.${DLLEXT} > "pt-${name}.txt"
+    size ${BINDIR}/BreadvmR0.r0 ${BINDIR}/VMMGC.gc ${BINDIR}/VBoxVMM.${DLLEXT} > "pt-${name}.txt"
 
     exec < "pt-${name}.txt"
     read buf                                # ignore

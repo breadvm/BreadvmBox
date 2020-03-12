@@ -142,10 +142,10 @@ int pdmR3DrvInit(PVM pVM)
     if (fLoadBuiltin)
     {
         /* make filename */
-        char *pszFilename = pdmR3FileR3("VBoxDD", true /*fShared*/);
+        char *pszFilename = pdmR3FileR3("BreadvmDD", true /*fShared*/);
         if (!pszFilename)
             return VERR_NO_TMP_MEMORY;
-        rc = pdmR3DrvLoad(pVM, &RegCB, pszFilename, "VBoxDD");
+        rc = pdmR3DrvLoad(pVM, &RegCB, pszFilename, "BreadvmDD");
         RTMemTmpFree(pszFilename);
         if (RT_FAILURE(rc))
             return rc;

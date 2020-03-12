@@ -4128,9 +4128,9 @@ const PDMDEVREG g_DeviceACPI =
     /* szName */
     "acpi",
     /* szRCMod */
-    "VBoxDDRC.rc",
+    "BreadvmDDRC.rc",
     /* szR0Mod */
-    "VBoxDDR0.r0",
+    "BreadvmDDR0.r0",
     /* pszDescription */
     "Advanced Configuration and Power Interface",
     /* fFlags */

@@ -912,7 +912,7 @@ CLIPBACKEND *ClipConstructX11(VBOXCLIPBOARDCONTEXT *pFrontend, bool fHeadless)
          * If we don't find the DISPLAY environment variable we assume that
          * we are not connected to an X11 server. Don't actually try to do
          * this then, just fail silently and report success on every call.
-         * This is important for VBoxHeadless.
+         * This is important for BreadvmLoader.
          */
         LogRelFunc(("X11 DISPLAY variable not set -- disabling shared clipboard\n"));
         pCtx->fHaveX11 = false;

@@ -23,7 +23,7 @@
 ; terms and conditions of either the GPL or the CDDL or both.
 ;
 
-LIBRARY VBoxRT.dll
+LIBRARY BreadvmRT.dll
 EXPORTS
     ; data
     g_aRTUniFlagsRanges     DATA

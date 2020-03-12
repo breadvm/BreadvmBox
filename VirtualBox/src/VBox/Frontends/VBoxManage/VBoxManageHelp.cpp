@@ -417,7 +417,7 @@ void printUsage(USAGECATEGORY fCategory, uint32_t fSubCategory, PRTSTREAM pStrm)
 
     if (fCategory == USAGE_ALL)
         RTStrmPrintf(pStrm,
-                     "  VBoxManage [<general option>] <command>\n"
+                     "  BreadvmManage [<general option>] <command>\n"
                      " \n \n"
                      "General Options:\n \n"
                      "  [-v|--version]            print version number and exit\n"

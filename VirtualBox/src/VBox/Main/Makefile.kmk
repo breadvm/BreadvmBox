@@ -323,15 +323,15 @@ if defined(VBOX_WITH_SDS) && "$(KBUILD_TARGET)" == "win"
 endif #if defined(VBOX_WITH_SDS) && "$(KBUILD_TARGET)" == "win"
 
 #
-# VBoxSVC executable
+# BreadvmSVC executable
 #
-PROGRAMS += VBoxSVC
-VBoxSVC_TEMPLATE = VBOXMAINEXE
+PROGRAMS += BreadvmSVC
+BreadvmSVC_TEMPLATE = VBOXMAINEXE
 if defined(VBOX_WITH_PRECOMPILED_HEADERS) && "$(KBUILD_TARGET)" == "win"
- VBoxSVC_USES    += vccprecomp
- VBoxSVC_PCH_HDR := $(PATH_SUB_CURRENT)/src-server/win/precomp_vcc.h
+ BreadvmSVC_USES    += vccprecomp
+ BreadvmSVC_PCH_HDR := $(PATH_SUB_CURRENT)/src-server/win/precomp_vcc.h
 endif
-VBoxSVC_DEFS = \
+BreadvmSVC_DEFS = \
 	VBOX_MAIN_SETTINGS_ADDONS \
 	IN_VMM_STATIC \
 	$(VBOX_MAIN_DEFS) \
@@ -368,58 +368,58 @@ VBoxSVC_DEFS = \
 	$(if $(VBOX_WITH_CRHGSMI),VBOX_WITH_CRHGSMI,) \
 	$(if-expr defined(VBOX_WITH_SDS),VBOX_WITH_SDS,)
 ifdef VBOX_WITH_USB
- VBoxSVC_DEFS += \
+ BreadvmSVC_DEFS += \
 	VBOX_WITH_USB \
 	$(if $(VBOX_WITH_EHCI),VBOX_WITH_EHCI,) \
 	$(if $(VBOX_WITH_NEW_USB_CODE_ON_DARWIN),VBOX_WITH_NEW_USB_CODE_ON_DARWIN,)
 endif
-VBoxSVC_DEFS.win += VBOX_COM_OUTOFPROC_MODULE
-VBoxSVC_DEFS.win += _WIN32_WINNT=0x0510
+BreadvmSVC_DEFS.win += VBOX_COM_OUTOFPROC_MODULE
+BreadvmSVC_DEFS.win += _WIN32_WINNT=0x0510
 # Try to load and use libhal at runtime for probing removable media
-# VBoxSVC_DEFS.linux += VBOX_USE_LIBHAL
-VBoxSVC_DEFS.solaris += VBOX_USE_LIBHAL
+# BreadvmSVC_DEFS.linux += VBOX_USE_LIBHAL
+BreadvmSVC_DEFS.solaris += VBOX_USE_LIBHAL
 
 if $(KBUILD_TARGET) != "win" && $(VBOX_GCC_VERSION_CXX) >= 40900 # gcc 4.9.x (4.8.x is causing endless RT_ELEMENT trouble)
- VBoxSVC_CXXFLAGS = -Wunused -Wconversion
+ BreadvmSVC_CXXFLAGS = -Wunused -Wconversion
 endif
 
-VBoxSVC_INCS = \
+BreadvmSVC_INCS = \
 	include \
-	$(VBoxSVC_0_OUTDIR) \
+	$(BreadvmSVC_0_OUTDIR) \
 	$(dir $(VBOX_XML_SCHEMADEFS_H)) \
 	$(VBOX_MAIN_APIWRAPPER_INCS) \
 	. \
 	$(VBOX_GRAPHICS_INCS)
-VBoxSVC_INCS.win = \
+BreadvmSVC_INCS.win = \
 	$(VBoxCOM_0_OUTDIR)
 ifdef VBOX_WITH_USB
- VBoxSVC_INCS.os2 = \
+ BreadvmSVC_INCS.os2 = \
 	$(PATH_ROOT)/src/VBox/HostDrivers/VBoxUSB/os2
 endif
 
-VBoxSVC_LIBS += \
+BreadvmSVC_LIBS += \
 	$(PATH_STAGE_LIB)/VBoxAPIWrap$(VBOX_SUFF_LIB) \
 	$(PATH_STAGE_LIB)/SSMStandalone$(VBOX_SUFF_LIB) \
 	$(LIB_DDU)
 
-VBoxSVC_SDKS = VBOX_LIBPNG VBOX_ZLIB
-VBoxSVC_LIBS.solaris = \
+BreadvmSVC_SDKS = VBOX_LIBPNG VBOX_ZLIB
+BreadvmSVC_LIBS.solaris = \
 	adm \
 	nsl \
 	devinfo \
 	socket \
 	$(LIB_VMM)
 
-VBoxSVC_LIBS.win += \
+BreadvmSVC_LIBS.win += \
 	$(PATH_SDK_$(VBOX_WINPSDK)_LIB)/dnsapi.lib
 
-VBoxSVC_INTERMEDIATES = \
+BreadvmSVC_INTERMEDIATES = \
 	$(VBOX_MAIN_PREREQS) \
 	$(VBOX_XML_SCHEMADEFS_H) \
 	$(VBOX_AUTOGEN_EVENT_H) \
 	$(VBOX_MAIN_APIWRAPPER_GEN_HDRS)
 
-VBoxSVC_SOURCES = \
+BreadvmSVC_SOURCES = \
 	$(VBoxAPIWrap_0_OUTDIR)/VBoxAPI.d \
 	src-all/AuthLibrary.cpp \
 	src-all/DisplayPNGUtil.cpp \
@@ -494,37 +494,37 @@ VBoxSVC_SOURCES = \
 src-server/ApplianceImplExport.cpp_DEFS = VBOX_SVN_REV=$(VBOX_SVN_REV)
 
 ifn1of ($(KBUILD_TARGET), win darwin)
-	VBoxSVC_SOURCES += $(PATH_ROOT)/src/VBox/Devices/Network/slirp/resolv_conf_parser.c
+	BreadvmSVC_SOURCES += $(PATH_ROOT)/src/VBox/Devices/Network/slirp/resolv_conf_parser.c
 #	$(PATH_ROOT)/src/VBox/Devices/Network/slirp/resolv_conf_parser.c_DEFS += LOG_GROUP=LOG_GROUP_MAIN
 endif
 
-VBoxSVC_SOURCES.darwin = \
+BreadvmSVC_SOURCES.darwin = \
 	src-server/darwin/iokit.cpp \
 	src-server/darwin/HostPowerDarwin.cpp \
 	src-server/darwin/HostDnsServiceDarwin.cpp
 
-VBoxSVC_SOURCES.win = \
+BreadvmSVC_SOURCES.win = \
 	src-server/win/svcmain.cpp \
 	src-server/win/svchlp.cpp \
 	src-server/win/HostPowerWin.cpp \
-	src-server/win/VBoxSVC.rc \
+	src-server/win/BreadvmSVC.rc \
 	src-server/win/HostDnsServiceWin.cpp
 
-VBoxSVC_SOURCES.linux = \
+BreadvmSVC_SOURCES.linux = \
 	src-server/linux/HostHardwareLinux.cpp \
 	src-server/linux/HostDnsServiceLinux.cpp \
 	$(if $(VBOX_WITH_DBUS),src-server/linux/HostPowerLinux.cpp) \
 	src-server/HostDnsServiceResolvConf.cpp
 
-VBoxSVC_SOURCES.solaris = \
+BreadvmSVC_SOURCES.solaris = \
 	src-server/linux/vbox-libhal.cpp \
 	src-server/solaris/DynLoadLibSolaris.cpp \
 	src-server/HostDnsServiceResolvConf.cpp
 
-VBoxSVC_SOURCES.os2 = \
+BreadvmSVC_SOURCES.os2 = \
 	src-server/HostDnsServiceResolvConf.cpp
 
-VBoxSVC_SOURCES.freebsd = \
+BreadvmSVC_SOURCES.freebsd = \
 	src-server/freebsd/HostHardwareFreeBSD.cpp \
 	src-server/HostDnsServiceResolvConf.cpp
 
@@ -533,77 +533,77 @@ ifdef VBOX_WITH_USB
  ifdef VBOX_WITH_SYSFS_BY_DEFAULT
   src-server/linux/USBProxyBackendLinux.cpp_DEFS += VBOX_WITH_SYSFS_BY_DEFAULT
  endif
- VBoxSVC_SOURCES  += \
+ BreadvmSVC_SOURCES  += \
 	src-server/USBDeviceFilterImpl.cpp \
 	src-server/USBProxyService.cpp \
 	src-server/USBProxyBackend.cpp \
 	src-server/generic/USBProxyBackendUsbIp.cpp \
 	src-server/HostUSBDeviceImpl.cpp
- VBoxSVC_SOURCES.darwin  +=  src-server/darwin/USBProxyBackendDarwin.cpp
- VBoxSVC_SOURCES.linux   +=   src-server/linux/USBProxyBackendLinux.cpp
- VBoxSVC_SOURCES.linux   +=   src-server/linux/USBGetDevices.cpp
- VBoxSVC_SOURCES.os2     +=     src-server/os2/USBProxyBackendOs2.cpp
- VBoxSVC_SOURCES.solaris += src-server/solaris/USBProxyBackendSolaris.cpp
- VBoxSVC_SOURCES.win     +=     src-server/win/USBProxyBackendWindows.cpp
- VBoxSVC_SOURCES.freebsd += src-server/freebsd/USBProxyBackendFreeBSD.cpp
+ BreadvmSVC_SOURCES.darwin  +=  src-server/darwin/USBProxyBackendDarwin.cpp
+ BreadvmSVC_SOURCES.linux   +=   src-server/linux/USBProxyBackendLinux.cpp
+ BreadvmSVC_SOURCES.linux   +=   src-server/linux/USBGetDevices.cpp
+ BreadvmSVC_SOURCES.os2     +=     src-server/os2/USBProxyBackendOs2.cpp
+ BreadvmSVC_SOURCES.solaris += src-server/solaris/USBProxyBackendSolaris.cpp
+ BreadvmSVC_SOURCES.win     +=     src-server/win/USBProxyBackendWindows.cpp
+ BreadvmSVC_SOURCES.freebsd += src-server/freebsd/USBProxyBackendFreeBSD.cpp
 endif
 
 ifdef VBOX_WITH_NETFLT
- VBoxSVC_LIBS.win += \
+ BreadvmSVC_LIBS.win += \
 	$(PATH_STAGE_LIB)/WinNetConfig$(VBOX_SUFF_LIB) \
 	$(PATH_STAGE_LIB)/VBoxDrvCfg$(VBOX_SUFF_LIB) \
 	$(PATH_SDK_$(VBOX_WINDDK)_LIB)/newdev.lib \
 	$(PATH_TOOL_$(VBOX_VCC_TOOL)_LIB)/comsupp.lib \
 	$(PATH_SDK_$(VBOX_WINPSDK)_LIB)/WbemUuid.Lib
 endif
-VBoxSVC_LDFLAGS.darwin    = -framework IOKit -framework SystemConfiguration
+BreadvmSVC_LDFLAGS.darwin    = -framework IOKit -framework SystemConfiguration
 
 ifdef VBOX_WITH_CROGL
- VBoxSVC_LIBS += $(PATH_STAGE_LIB)/VBoxOGLTest$(VBOX_SUFF_LIB)
- VBoxSVC_LDFLAGS.darwin += -framework OpenGL
+ BreadvmSVC_LIBS += $(PATH_STAGE_LIB)/VBoxOGLTest$(VBOX_SUFF_LIB)
+ BreadvmSVC_LDFLAGS.darwin += -framework OpenGL
 endif
 
 ifeq ($(KBUILD_TYPE),debug)
- VBoxSVC_LDFLAGS.linux   += -rdynamic # for backtrace_symbols()
+ BreadvmSVC_LDFLAGS.linux   += -rdynamic # for backtrace_symbols()
 endif
 
 ifdef VBOX_WITH_RESOURCE_USAGE_API
- VBoxSVC_SOURCES += \
+ BreadvmSVC_SOURCES += \
 	src-server/PerformanceImpl.cpp \
 	src-server/Performance.cpp
- VBoxSVC_SOURCES.darwin  +=  src-server/darwin/PerformanceDarwin.cpp
- VBoxSVC_SOURCES.freebsd += src-server/freebsd/PerformanceFreeBSD.cpp
- VBoxSVC_SOURCES.linux   +=   src-server/linux/PerformanceLinux.cpp
- VBoxSVC_SOURCES.os2     +=     src-server/os2/PerformanceOs2.cpp
- VBoxSVC_SOURCES.solaris += src-server/solaris/PerformanceSolaris.cpp
- VBoxSVC_SOURCES.win     +=     src-server/win/PerformanceWin.cpp
- VBoxSVC_LDFLAGS.darwin  += -lproc
- VBoxSVC_LDFLAGS.solaris += -lkstat -lnvpair
- VBoxSVC_LDFLAGS.win     += psapi.lib powrprof.lib
+ BreadvmSVC_SOURCES.darwin  +=  src-server/darwin/PerformanceDarwin.cpp
+ BreadvmSVC_SOURCES.freebsd += src-server/freebsd/PerformanceFreeBSD.cpp
+ BreadvmSVC_SOURCES.linux   +=   src-server/linux/PerformanceLinux.cpp
+ BreadvmSVC_SOURCES.os2     +=     src-server/os2/PerformanceOs2.cpp
+ BreadvmSVC_SOURCES.solaris += src-server/solaris/PerformanceSolaris.cpp
+ BreadvmSVC_SOURCES.win     +=     src-server/win/PerformanceWin.cpp
+ BreadvmSVC_LDFLAGS.darwin  += -lproc
+ BreadvmSVC_LDFLAGS.solaris += -lkstat -lnvpair
+ BreadvmSVC_LDFLAGS.win     += psapi.lib powrprof.lib
 endif
 
 ifdef VBOX_WITH_HOSTNETIF_API
- VBoxSVC_SOURCES.win     +=     src-server/win/NetIf-win.cpp
- VBoxSVC_SOURCES.linux   +=   src-server/linux/NetIf-linux.cpp
- VBoxSVC_SOURCES.os2     +=     src-server/os2/NetIf-os2.cpp
- VBoxSVC_SOURCES.darwin  +=  src-server/darwin/NetIf-darwin.cpp
- VBoxSVC_SOURCES.solaris += src-server/solaris/NetIf-solaris.cpp
- VBoxSVC_SOURCES.freebsd += src-server/freebsd/NetIf-freebsd.cpp
- VBoxSVC_DEFS            += VBOX_WITH_HOSTNETIF_API
+ BreadvmSVC_SOURCES.win     +=     src-server/win/NetIf-win.cpp
+ BreadvmSVC_SOURCES.linux   +=   src-server/linux/NetIf-linux.cpp
+ BreadvmSVC_SOURCES.os2     +=     src-server/os2/NetIf-os2.cpp
+ BreadvmSVC_SOURCES.darwin  +=  src-server/darwin/NetIf-darwin.cpp
+ BreadvmSVC_SOURCES.solaris += src-server/solaris/NetIf-solaris.cpp
+ BreadvmSVC_SOURCES.freebsd += src-server/freebsd/NetIf-freebsd.cpp
+ BreadvmSVC_DEFS            += VBOX_WITH_HOSTNETIF_API
  if1of ($(KBUILD_TARGET), linux darwin solaris freebsd)
-  VBoxSVC_SOURCES        += src-server/generic/NetIf-generic.cpp
+  BreadvmSVC_SOURCES        += src-server/generic/NetIf-generic.cpp
  endif
 endif
 
-$(call KB_FN_DO_PASS0_ON_TARGET,VBoxSVC) # Sets VBoxSVC_0_OUTDIR
+$(call KB_FN_DO_PASS0_ON_TARGET,BreadvmSVC) # Sets BreadvmSVC_0_OUTDIR
 
 ifdef VBOX_WITH_MAIN_USB_ID_DATABASE  # Generate a database of USB vendor IDs and device IDs.
- VBoxSVC_DEFS    += VBOX_WITH_MAIN_USB_ID_DATABASE
- VBoxSVC_SOURCES += $(VBoxSVC_0_OUTDIR)/USBIdDatabase.cpp
- VBoxSVC_CLEAN   += $(VBoxSVC_0_OUTDIR)/USBIdDatabase.cpp
+ BreadvmSVC_DEFS    += VBOX_WITH_MAIN_USB_ID_DATABASE
+ BreadvmSVC_SOURCES += $(BreadvmSVC_0_OUTDIR)/USBIdDatabase.cpp
+ BreadvmSVC_CLEAN   += $(BreadvmSVC_0_OUTDIR)/USBIdDatabase.cpp
 
- $(call KB_FN_AUTO_CMD_DEPS,$(VBoxSVC_0_OUTDIR)/USBIdDatabase.cpp)
- $(VBoxSVC_0_OUTDIR)/USBIdDatabase.cpp:  $$(USBIdDatabaseGenerator_1_TARGET) \
+ $(call KB_FN_AUTO_CMD_DEPS,$(BreadvmSVC_0_OUTDIR)/USBIdDatabase.cpp)
+ $(BreadvmSVC_0_OUTDIR)/USBIdDatabase.cpp:  $$(USBIdDatabaseGenerator_1_TARGET) \
  		$(PATH_SUB_CURRENT)/src-server/usb.ids $(PATH_SUB_CURRENT)/src-server/custom.ids | $$(dir $$@)
 	$(call KB_FN_AUTO_CMD_DEPS_COMMANDS)
 	$(call MSG_GENERATE,USBIdDatabase,$@,$(USBIdDatabaseGenerator_1_TARGET))
@@ -613,26 +613,26 @@ ifdef VBOX_WITH_MAIN_USB_ID_DATABASE  # Generate a database of USB vendor IDs an
  USBIdDatabaseGenerator_TEMPLATE = VBoxAdvBldProg
  USBIdDatabaseGenerator_SOURCES  = src-server/USBIdDatabaseGenerator.cpp
 else
- VBoxSVC_SOURCES += src-server/USBIdDatabaseStub.cpp
+ BreadvmSVC_SOURCES += src-server/USBIdDatabaseStub.cpp
 endif
 
-src-server/win/VBoxSVC.rc_INCS  = $(VBoxSVC_0_OUTDIR)
-src-server/win/VBoxSVC.rc_DEPS  = $(VBoxSVC_0_OUTDIR)/VBoxSVC-icon.rc
-src-server/win/VBoxSVC.rc_CLEAN = $(VBoxSVC_0_OUTDIR)/VBoxSVC-icon.rc
-$(call KB_FN_AUTO_CMD_DEPS,$(VBoxSVC_0_OUTDIR)/VBoxSVC-icon.rc)
-$(VBoxSVC_0_OUTDIR)/VBoxSVC-icon.rc: $(VBOX_WINDOWS_ICON_FILE) | $$(dir $$@)
+src-server/win/BreadvmSVC.rc_INCS  = $(BreadvmSVC_0_OUTDIR)
+src-server/win/BreadvmSVC.rc_DEPS  = $(BreadvmSVC_0_OUTDIR)/BreadvmSVC-icon.rc
+src-server/win/BreadvmSVC.rc_CLEAN = $(BreadvmSVC_0_OUTDIR)/BreadvmSVC-icon.rc
+$(call KB_FN_AUTO_CMD_DEPS,$(BreadvmSVC_0_OUTDIR)/BreadvmSVC-icon.rc)
+$(BreadvmSVC_0_OUTDIR)/BreadvmSVC-icon.rc: $(VBOX_WINDOWS_ICON_FILE) | $$(dir $$@)
 	$(call KB_FN_AUTO_CMD_DEPS_COMMANDS)
 	$(APPEND) -t $@ '1 ICON DISCARDABLE "$(subst /,\\,$(VBOX_WINDOWS_ICON_FILE))"'
 
 ifndef VBOX_WITH_MIDL_PROXY_STUB
- src-server/win/VBoxSVC.rc_DEPS  += $(VBoxSVC_0_OUTDIR)/VBoxSVC.rgs
- src-server/win/VBoxSVC.rc_CLEAN += $(VBoxSVC_0_OUTDIR)/VBoxSVC.rgs
- $(call KB_FN_AUTO_CMD_DEPS,$(VBoxSVC_0_OUTDIR)/VBoxSVC.rgs)
- $(VBoxSVC_0_OUTDIR)/VBoxSVC.rgs: $(VBOX_PATH_MAIN_SRC)/src-all/win/VirtualBox_rgs.xsl $(VBOX_XIDL_FILE) | $$(dir $$@)
+ src-server/win/BreadvmSVC.rc_DEPS  += $(BreadvmSVC_0_OUTDIR)/BreadvmSVC.rgs
+ src-server/win/BreadvmSVC.rc_CLEAN += $(BreadvmSVC_0_OUTDIR)/BreadvmSVC.rgs
+ $(call KB_FN_AUTO_CMD_DEPS,$(BreadvmSVC_0_OUTDIR)/BreadvmSVC.rgs)
+ $(BreadvmSVC_0_OUTDIR)/BreadvmSVC.rgs: $(VBOX_PATH_MAIN_SRC)/src-all/win/VirtualBox_rgs.xsl $(VBOX_XIDL_FILE) | $$(dir $$@)
 	$(call KB_FN_AUTO_CMD_DEPS_COMMANDS)
 	$(VBOX_XSLTPROC) \
-		--stringparam Application VirtualBox \
-		--stringparam Module VBoxSVC \
+		--stringparam Application Breadvm\
+		--stringparam Module BreadvmSVC \
 		-o $@ \
 		$(VBOX_PATH_MAIN_SRC)/src-all/win/VirtualBox_rgs.xsl \
 		$(VBOX_XIDL_FILE)
@@ -652,7 +652,7 @@ testvalidxidl: $(VBOX_XIDL_FILE_SRC)
 
 
 #
-# Embed some constraints from XML Schema file into VBoxSVC
+# Embed some constraints from XML Schema file into BreadvmSVC
 #
 VBOX_XML_SCHEMA	= $(VBOX_PATH_MAIN_SRC)/xml/VirtualBox-settings.xsd
 
@@ -726,15 +726,15 @@ endif # VBOX_WITH_XPCOM
 
 
 #
-# VBoxC module
+# BreadvmC module
 #
-DLLS += VBoxC
-VBoxC_TEMPLATE  = VBOXMAINCOMP
+DLLS += BreadvmC
+BreadvmC_TEMPLATE  = VBOXMAINCOMP
 if defined(VBOX_WITH_PRECOMPILED_HEADERS) && "$(KBUILD_TARGET)" == "win"
- VBoxC_USES     = vccprecomp
- VBoxC_PCH_HDR := $(PATH_SUB_CURRENT)/src-client/win/precomp_vcc.h
+ BreadvmC_USES     = vccprecomp
+ BreadvmC_PCH_HDR := $(PATH_SUB_CURRENT)/src-client/win/precomp_vcc.h
 endif
-VBoxC_DEFS = \
+BreadvmC_DEFS = \
 	IN_RING3 \
 	$(VBOX_MAIN_DEFS) \
 	VBOX_COM_INPROC \
@@ -764,29 +764,29 @@ VBoxC_DEFS = \
 	$(if $(VBOX_WITH_VRDEAUTH_IN_VBOXSVC),VBOX_WITH_VRDEAUTH_IN_VBOXSVC,) \
 	$(if $(VBOX_WITH_SDS),VBOX_WITH_SDS,)
 ifdef VBOX_WITH_CRHGSMI
- VBoxC_DEFS += VBOX_WITH_CRHGSMI
+ BreadvmC_DEFS += VBOX_WITH_CRHGSMI
 endif
 ifdef VBOX_WITH_NETSHAPER
- VBoxC_DEFS += VBOX_WITH_NETSHAPER
+ BreadvmC_DEFS += VBOX_WITH_NETSHAPER
 endif
-VBoxC_DEFS.darwin.x86 = VBOX_WITH_2X_4GB_ADDR_SPACE
-VBoxC_DEFS.win.x86 += _WIN32_WINNT=0x0500
-VBoxC_DEFS.win.amd64 += _WIN32_WINNT=0x0510
+BreadvmC_DEFS.darwin.x86 = VBOX_WITH_2X_4GB_ADDR_SPACE
+BreadvmC_DEFS.win.x86 += _WIN32_WINNT=0x0500
+BreadvmC_DEFS.win.amd64 += _WIN32_WINNT=0x0510
 
 if $(KBUILD_TARGET) != "win" && $(VBOX_GCC_VERSION_CXX) >= 40900 # gcc 4.9.x (4.8.x is causing endless RT_ELEMENT trouble)
-# VBoxC_CXXFLAGS = -Wunused -Wconversion
+# BreadvmC_CXXFLAGS = -Wunused -Wconversion
 endif
 
-VBoxC_SDKS = VBOX_LIBPNG VBOX_ZLIB
+BreadvmC_SDKS = VBOX_LIBPNG VBOX_ZLIB
 
 ifdef VBOX_WITH_VIDEOREC
-   VBoxC_SOURCES += \
+   BreadvmC_SOURCES += \
 	src-client/EBMLWriter.cpp \
 	src-client/WebMWriter.cpp
   ifdef VBOX_WITH_LIBVPX
-   VBoxC_SDKS += VBOX_VPX
-   VBoxC_DEFS += VBOX_WITH_LIBVPX
-   VBoxC_SOURCES += \
+   BreadvmC_SDKS += VBOX_VPX
+   BreadvmC_DEFS += VBOX_WITH_LIBVPX
+   BreadvmC_SOURCES += \
 	src-client/VideoRec.cpp
   else
    $(error "VBox: No alternative for VPX when using video capturing support yet")
@@ -795,72 +795,72 @@ endif
 
 ifdef VBOX_WITH_AUDIO_VIDEOREC
   ifdef VBOX_WITH_LIBOPUS
-   VBoxC_SDKS += VBOX_OPUS
-   VBoxC_DEFS += VBOX_WITH_LIBOPUS
+   BreadvmC_SDKS += VBOX_OPUS
+   BreadvmC_DEFS += VBOX_WITH_LIBOPUS
   else
    $(error "VBox: No alternative for Opus when using audio support for video capturing yet")
   endif
 endif
 
 ifdef VBOX_WITH_OPENSSL_FIPS
-  VBoxC_SDKS += VBOX_OPENSSL2
+  BreadvmC_SDKS += VBOX_OPENSSL2
 endif
 
-VBoxC_INCS          = \
+BreadvmC_INCS          = \
 	include \
-	$(VBoxC_0_OUTDIR) \
+	$(BreadvmC_0_OUTDIR) \
 	$(VBOX_MAIN_APIWRAPPER_INCS) \
 	$(dir $(VBOX_XML_SCHEMADEFS_H)) \
 	$(VBOX_MAIN_APIWRAPPER_DIR)/dtrace \
 	$(VBOX_GRAPHICS_INCS)
-VBoxC_INCS.win      = \
+BreadvmC_INCS.win      = \
 	$(VBoxCOM_0_OUTDIR) \
 	.
 
-VBoxC_LDFLAGS.darwin = \
-	-install_name $(VBOX_DYLD_EXECUTABLE_PATH)/components/VBoxC.dylib \
-	-exported_symbols_list $(VBoxC_0_OUTDIR)/VBoxC.def \
+BreadvmC_LDFLAGS.darwin = \
+	-install_name $(VBOX_DYLD_EXECUTABLE_PATH)/components/BreadvmC.dylib \
+	-exported_symbols_list $(BreadvmC_0_OUTDIR)/BreadvmC.def \
 	-framework IOKit
-VBoxC_LDFLAGS.win += /MANIFEST \
+BreadvmC_LDFLAGS.win += /MANIFEST \
   	/DELAYLOAD:user32.dll
 
 
-VBoxC_LIBS += \
+BreadvmC_LIBS += \
 	$(PATH_STAGE_LIB)/VBoxAPIWrap$(VBOX_SUFF_LIB) \
 	$(if-expr "$(LIB_VMM)" == "$(VBOX_LIB_VMM_LAZY)",$(LIB_REM),) \
 	$(VBOX_LIB_VMM_LAZY)
-VBoxC_LIBS.win += \
+BreadvmC_LIBS.win += \
 	$(PATH_SDK_$(VBOX_WINPSDK)_LIB)/psapi.lib \
 	$(PATH_TOOL_$(VBOX_VCC_TOOL)_LIB)/delayimp.lib
 ifdef VBOX_WITH_NETFLT
- VBoxC_LIBS.win += \
+ BreadvmC_LIBS.win += \
 	$(PATH_STAGE_LIB)/VBoxDrvCfg$(VBOX_SUFF_LIB) \
 	$(PATH_SDK_$(VBOX_WINDDK)_LIB)/newdev.lib \
 	$(PATH_STAGE_LIB)/WinNetConfig$(VBOX_SUFF_LIB) \
 	$(PATH_TOOL_$(VBOX_VCC_TOOL)_LIB)/comsupp.lib \
 	$(PATH_SDK_$(VBOX_WINPSDK)_LIB)/WbemUuid.Lib
- VBoxC_LDFLAGS.win += \
+ BreadvmC_LDFLAGS.win += \
   	/DELAYLOAD:newdev.dll \
   	/DELAYLOAD:setupapi.dll \
   	/DELAYLOAD:iphlpapi.dll
 endif
 
 ifdef VBOX_WITH_CROGL
- VBoxC_LIBS += $(PATH_STAGE_LIB)/VBoxOGLTest$(VBOX_SUFF_LIB)
- VBoxC_LDFLAGS.darwin += -framework OpenGL
+ BreadvmC_LIBS += $(PATH_STAGE_LIB)/VBoxOGLTest$(VBOX_SUFF_LIB)
+ BreadvmC_LDFLAGS.darwin += -framework OpenGL
 endif
 
 ifdef VBOX_WITH_DRAG_AND_DROP
- VBoxC_LIBS += $(PATH_STAGE_LIB)/VBoxDnDHostR3Lib$(VBOX_SUFF_LIB)
+ BreadvmC_LIBS += $(PATH_STAGE_LIB)/VBoxDnDHostR3Lib$(VBOX_SUFF_LIB)
 endif
 
-VBoxC_INTERMEDIATES = \
+BreadvmC_INTERMEDIATES = \
 	$(VBOX_MAIN_PREREQS) \
 	$(VBOX_XML_SCHEMADEFS_H) \
 	$(VBOX_AUTOGEN_EVENT_H) \
 	$(VBOX_MAIN_APIWRAPPER_GEN_HDRS)
 
-VBoxC_SOURCES += \
+BreadvmC_SOURCES += \
 	$(VBoxAPIWrap_0_OUTDIR)/VBoxAPI.d \
 	src-all/DisplayPNGUtil.cpp \
 	src-all/DisplayResampleImage.cpp \
@@ -908,19 +908,19 @@ VBoxC_SOURCES += \
 	$(VBOX_XML_SCHEMADEFS_CPP)
 
 # Audio bits.
-VBoxC_SOURCES += \
+BreadvmC_SOURCES += \
 	../Devices/Audio/AudioMixBuffer.cpp \
 	../Devices/Audio/DrvAudioCommon.cpp \
 	src-client/AudioDriver.cpp \
 	$(if $(VBOX_WITH_AUDIO_VRDE),src-client/DrvAudioVRDE.cpp,) \
 	$(if $(VBOX_WITH_AUDIO_VIDEOREC),src-client/DrvAudioVideoRec.cpp,)
 
-VBoxC_SOURCES.win = \
+BreadvmC_SOURCES.win = \
 	src-client/win/dllmain.cpp \
-	src-client/win/VBoxC.def \
-	src-client/win/VBoxC.rc
+	src-client/win/BreadvmC.def \
+	src-client/win/BreadvmC.rc
 ifdef VBOX_WITH_GUEST_CONTROL
- VBoxC_SOURCES += \
+ BreadvmC_SOURCES += \
 	src-client/GuestSessionImplTasks.cpp \
 	src-client/GuestCtrlPrivate.cpp \
 	src-client/GuestDirectoryImpl.cpp \
@@ -930,31 +930,31 @@ ifdef VBOX_WITH_GUEST_CONTROL
 	src-client/GuestSessionImpl.cpp
 endif
 ifdef VBOX_WITH_DRAG_AND_DROP
- VBoxC_SOURCES += \
+ BreadvmC_SOURCES += \
 	src-client/GuestDnDPrivate.cpp \
 	src-client/GuestDnDSourceImpl.cpp \
 	src-client/GuestDnDTargetImpl.cpp
 endif
 ifdef VBOX_WITH_XPCOM
- VBoxC_SOURCES += \
+ BreadvmC_SOURCES += \
 	src-client/xpcom/module.cpp
 endif
 ifdef VBOX_WITH_HGCM
- VBoxC_SOURCES += \
+ BreadvmC_SOURCES += \
 	src-client/HGCMObjects.cpp \
 	src-client/HGCMThread.cpp \
 	src-client/HGCM.cpp
 endif
 ifdef VBOX_WITH_USB
- VBoxC_SOURCES += \
+ BreadvmC_SOURCES += \
 	src-client/RemoteUSBBackend.cpp
 endif
 ifndef VBOX_WITH_VRDEAUTH_IN_VBOXSVC
- VBoxC_SOURCES += \
+ BreadvmC_SOURCES += \
 	src-all/AuthLibrary.cpp
 endif
 
-$(call KB_FN_DO_PASS0_ON_TARGET,VBoxC) # Sets VBoxC_0_OUTDIR
+$(call KB_FN_DO_PASS0_ON_TARGET,BreadvmC) # Sets BreadvmC_0_OUTDIR
 
 ifeq ($(KBUILD_TARGET),darwin)
  VBoxC_ORDERDEPS += $(VBoxC_0_OUTDIR)/VBoxC.def
@@ -971,14 +971,14 @@ src-client/ConsoleImpl.cpp_DEFS = \
 	$(if $(VBOX_WITH_OPENSSL_FIPS), VBOX_OPENSSL_FIPS,)
 
 
-src-client/win/VBoxC.rc_DEPS = $(VBoxC_0_OUTDIR)/VBoxC.rgs $(VBoxCOM_0_OUTDIR)/VirtualBox.tlb
-VBoxC_CLEAN.win             += $(VBoxC_0_OUTDIR)/VBoxC.rgs
-$(call KB_FN_AUTO_CMD_DEPS,$(VBoxC_0_OUTDIR)/VBoxC.rgs)
-$(VBoxC_0_OUTDIR)/VBoxC.rgs: $(VBOX_PATH_MAIN_SRC)/src-all/win/VirtualBox_rgs.xsl $(VBOX_XIDL_FILE) | $$(dir $$@)
+src-client/win/BreadvmC.rc_DEPS = $(BreadvmC_0_OUTDIR)/BreadvmC.rgs $(VBoxCOM_0_OUTDIR)/VirtualBox.tlb
+BreadvmC_CLEAN.win             += $(BreadvmC_0_OUTDIR)/BreadvmC.rgs
+$(call KB_FN_AUTO_CMD_DEPS,$(BreadvmC_0_OUTDIR)/BreadvmC.rgs)
+$(BreadvmC_0_OUTDIR)/BreadvmC.rgs: $(VBOX_PATH_MAIN_SRC)/src-all/win/VirtualBox_rgs.xsl $(VBOX_XIDL_FILE) | $$(dir $$@)
 	$(call KB_FN_AUTO_CMD_DEPS_COMMANDS)
 	$(VBOX_XSLTPROC) \
-		--stringparam Application VirtualBox \
-		--stringparam Module VBoxC \
+		--stringparam Application Breadvm\
+		--stringparam Module BreadvmC \
 		-o $@ \
 		$(VBOX_PATH_MAIN_SRC)/src-all/win/VirtualBox_rgs.xsl \
 		$(VBOX_XIDL_FILE)
@@ -987,27 +987,27 @@ ifdef VBOX_WITH_32_ON_64_MAIN_API
  #
  # 32-bit VBox API Client In-Process module.
  #
- # This is currently just a 32-bit version of VBoxC.  It might be desirable to
- # split up VBoxC into a simple client and a VM client part later, in which
+ # This is currently just a 32-bit version of BreadvmC.  It might be desirable to
+ # split up BreadvmC into a simple client and a VM client part later, in which
  # case this module will be a simple client.
  #
  # Note! One important thing is that the typelib for this DLL must be build
- #       with the /env win32 switch and the VBoxC typelib with /env amd64, if
+ #       with the /env win32 switch and the BreadvmC typelib with /env amd64, if
  #       not they will overwrite each others typelib module entry.
  #
- DLLS += VBoxClient-x86
- VBoxClient-x86_TEMPLATE = VBoxMainComp-x86
- VBoxClient-x86_EXTENDS  = VBoxC
+ DLLS += BreadvmClient-x86
+ BreadvmClient-x86_TEMPLATE = VBoxMainComp-x86
+ BreadvmClient-x86_EXTENDS  = BreadvmC
 if defined(VBOX_WITH_PRECOMPILED_HEADERS) && "$(KBUILD_TARGET)" == "win" ## @todo fix inheritance
- VBoxClient-x86_USES     = vccprecomp
- VBoxClient-x86_PCH_HDR := $(PATH_SUB_CURRENT)/src-client/win/precomp_vcc.h
+ BreadvmClient-x86_USES     = vccprecomp
+ BreadvmClient-x86_PCH_HDR := $(PATH_SUB_CURRENT)/src-client/win/precomp_vcc.h
 endif
- VBoxClient-x86_DEFS = VBOX_COM_INPROC_API_CLIENT $(VBoxC_DEFS)
- VBoxClient-x86_INCS.win = \
- 	$(VBoxClient-x86_0_OUTDIR) \
+ BreadvmClient-x86_DEFS = VBOX_COM_INPROC_API_CLIENT $(BreadvmC_DEFS)
+ BreadvmClient-x86_INCS.win = \
+ 	$(BreadvmClient-x86_0_OUTDIR) \
  	$(VBoxCOM-x86_0_OUTDIR) \
-	$(VBoxC_INCS.win)
- VBoxClient-x86_SOURCES = \
+	$(BreadvmC_INCS.win)
+ BreadvmClient-x86_SOURCES = \
  	src-all/EventImpl.cpp \
  	src-all/Global.cpp \
 	src-all/AutoCaller.cpp \
@@ -1019,35 +1019,35 @@ endif
  	src-client/VirtualBoxClientImpl.cpp \
  	$(VBOX_AUTOGEN_EVENT_CPP) \
  	$(VBOX_XML_SCHEMADEFS_CPP)
- VBoxClient-x86_SOURCES.win = \
+ BreadvmClient-x86_SOURCES.win = \
  	src-client/win/dllmain.cpp \
- 	src-client/win/VBoxClient-x86.def \
- 	src-client/win/VBoxClient-x86.rc
+ 	src-client/win/BreadvmClient-x86.def \
+ 	src-client/win/BreadvmClient-x86.rc
  ifdef VBOX_WITH_XPCOM
   VBoxClient-x86_SOURCES += \
   	src-client/xpcom/module.cpp
  endif
- VBoxClient-x86_LIBS = \
+ BreadvmClient-x86_LIBS = \
 	$(PATH_STAGE_LIB)/VBoxAPIWrap-x86$(VBOX_SUFF_LIB)
- VBoxClient-x86_LIBS.win = $(NO_SUCH_VARIABLE)
- VBoxClient-x86_LIBS.win.x86 += \
+ BreadvmClient-x86_LIBS.win = $(NO_SUCH_VARIABLE)
+ BreadvmClient-x86_LIBS.win.x86 += \
     $(PATH_TOOL_$(VBOX_VCC_TOOL_STEM)X86_LIB)/delayimp.lib \
 	$(PATH_SDK_$(VBOX_WINPSDK)_LIB.x86)/WbemUuid.Lib
- VBoxClient-x86_CLEAN.win += $(VBoxClient-x86_0_OUTDIR)/VBoxClient-x86.rgs
- $(call KB_FN_DO_PASS0_ON_TARGET,VBoxClient-x86) # Sets VBoxClient-x86_0_OUTDIR
+ BreadvmClient-x86_CLEAN.win += $(BreadvmClient-x86_0_OUTDIR)/BreadvmClient-x86.rgs
+ $(call KB_FN_DO_PASS0_ON_TARGET,BreadvmClient-x86) # Sets BreadvmClient-x86_0_OUTDIR
 
- src-client/win/VBoxClient-x86.rc_DEPS = \
- 	$(VBoxClient-x86_0_OUTDIR)/VBoxClient-x86.rgs \
+ src-client/win/BreadvmClient-x86.rc_DEPS = \
+ 	$(BreadvmClient-x86_0_OUTDIR)/BreadvmClient-x86.rgs \
  	$(VBoxCOM-x86_0_OUTDIR)/VirtualBox-x86.tlb
 
- $(call KB_FN_AUTO_CMD_DEPS,$(VBoxClient-x86_0_OUTDIR)/VBoxClient-x86.rgs)
- $(VBoxClient-x86_0_OUTDIR)/VBoxClient-x86.rgs: \
+ $(call KB_FN_AUTO_CMD_DEPS,$(BreadvmClient-x86_0_OUTDIR)/BreadvmClient-x86.rgs)
+ $(BreadvmClient-x86_0_OUTDIR)/BreadvmClient-x86.rgs: \
  		$(VBOX_PATH_MAIN_SRC)/src-all/win/VirtualBox_rgs.xsl \
 		$(VBOX_XIDL_FILE) | $$(dir $$@)
 	$(call KB_FN_AUTO_CMD_DEPS_COMMANDS)
 	$(VBOX_XSLTPROC) \
-		--stringparam Application VirtualBox \
-		--stringparam Module VBoxC \
+		--stringparam Application Breadvm\
+		--stringparam Module BreadvmC \
 		-o $@ \
 		$(VBOX_PATH_MAIN_SRC)/src-all/win/VirtualBox_rgs.xsl \
 		$(VBOX_XIDL_FILE)
@@ -1166,22 +1166,6 @@ VBoxMain-com-inst_INST = $(INST_BIN)
 VBoxMain-com-inst_MODE = a+r,u+w
 VBoxMain-com-inst_SOURCES = src-all/win/comregister.cmd
 
-
-if defined(VBOX_WITH_HARDENING) && "$(KBUILD_TARGET)" == "linux"
- #
- # Installs linux/hardening related things to components.
- #
- INSTALLS.linux += VBoxMain-hardening-inst
- VBoxMain-hardening-inst_INST = $(INST_BIN)components/
- VBoxMain-hardening-inst_SYMLINKS = \
-	VBoxDDU.so=>../VBoxDDU.so \
-	VBoxREM.so=>../VBoxREM.so \
-	VBoxRT.so=>../VBoxRT.so \
-	VBoxVMM.so=>../VBoxVMM.so \
-	VBoxXPCOM.so=>../VBoxXPCOM.so
-endif
-
-
 if defined(VBOX_WITH_MIDL_PROXY_STUB) && "$(KBUILD_TARGET)" == "win"
  #
  # Experimental COM proxy + stub DLL w/ automatic registration updating.
@@ -1191,49 +1175,49 @@ if defined(VBOX_WITH_MIDL_PROXY_STUB) && "$(KBUILD_TARGET)" == "win"
  # MIDL generated.  Also, in windows 7 there are some potentially interesting
  # changes in the generated code where it uses new helpers from OLE32.
  #
- DLLS += VBoxProxyStub
- VBoxProxyStub_TEMPLATE = VBOXMAINCOMP
- VBoxProxyStub_DEFS     = REGISTER_PROXY_DLL PROXY_CLSID_IS="$(VBOX_MIDL_PROXY_CLSID_IS)" \
+ DLLS += BreadvmProxyStub
+ BreadvmProxyStub_TEMPLATE = VBOXMAINCOMP
+ BreadvmProxyStub_DEFS     = REGISTER_PROXY_DLL PROXY_CLSID_IS="$(VBOX_MIDL_PROXY_CLSID_IS)" \
 	$(if $(VBOX_WITH_SDS),VBOX_WITH_SDS,)
- VBoxProxyStub_DEFS.win.x86 = WIN32
- VBoxProxyStub_SDKS     = VBOX_NTDLL
- VBoxProxyStub_DEFPATH  = $(VBoxCOM_0_OUTDIR)/# Hack to workaround drive letter in $(VBoxCOM_0_OUTDIR)/ for CFLAGS hack below.
- VBoxProxyStub_INCS     = $(VBoxCOM_0_OUTDIR)/
- VBoxProxyStub_SOURCES := \
+ BreadvmProxyStub_DEFS.win.x86 = WIN32
+ BreadvmProxyStub_SDKS     = VBOX_NTDLL
+ BreadvmProxyStub_DEFPATH  = $(VBoxCOM_0_OUTDIR)/# Hack to workaround drive letter in $(VBoxCOM_0_OUTDIR)/ for CFLAGS hack below.
+ BreadvmProxyStub_INCS     = $(VBoxCOM_0_OUTDIR)/
+ BreadvmProxyStub_SOURCES := \
  	VirtualBox_p.c \
  	VirtualBox_i.c \
- 	$(PATH_SUB_CURRENT)/src-all/win/VBoxProxyStub.def \
- 	$(PATH_SUB_CURRENT)/src-all/win/VBoxProxyStub.rc \
- 	$(PATH_SUB_CURRENT)/src-all/win/VBoxProxyStub.c
- src-all/win/VBoxProxyStub.rc_DEPS = $(VBoxCOM_0_OUTDIR)/VirtualBox.tlb
- VBoxProxyStub_VirtualBox_p.c_CFLAGS.x86 = /Gz # Workaround for incorrect ObjectStublessClient* prototypes in SDK v7.1.
+ 	$(PATH_SUB_CURRENT)/src-all/win/BreadvmProxyStub.def \
+ 	$(PATH_SUB_CURRENT)/src-all/win/BreadvmProxyStub.rc \
+ 	$(PATH_SUB_CURRENT)/src-all/win/BreadvmProxyStub.c
+ src-all/win/BreadvmProxyStub.rc_DEPS = $(VBoxCOM_0_OUTDIR)/VirtualBox.tlb
+ BreadvmProxyStub_VirtualBox_p.c_CFLAGS.x86 = /Gz # Workaround for incorrect ObjectStublessClient* prototypes in SDK v7.1.
 
- DLLS += VBoxProxyStubLegacy
- VBoxProxyStubLegacy_TEMPLATE = VBOXMAINCOMP
- VBoxProxyStubLegacy_EXTENDS  = VBoxProxyStub
- VBoxProxyStubLegacy_DEFS     = $(VBoxProxyStub_DEFS) VBOX_IN_PROXY_STUB_LEGACY
- VBoxProxyStubLegacy_INCS     = $(VBoxCOM_0_OUTDIR)/legacy/
- VBoxProxyStubLegacy_SOURCES  = \
+ DLLS += BreadvmProxyStubLegacy
+ BreadvmProxyStubLegacy_TEMPLATE = VBOXMAINCOMP
+ BreadvmProxyStubLegacy_EXTENDS  = BreadvmProxyStub
+ BreadvmProxyStubLegacy_DEFS     = $(BreadvmProxyStub_DEFS) VBOX_IN_PROXY_STUB_LEGACY
+ BreadvmProxyStubLegacy_INCS     = $(VBoxCOM_0_OUTDIR)/legacy/
+ BreadvmProxyStubLegacy_SOURCES  = \
  	$(VBoxCOM_0_OUTDIR)/legacy/VirtualBox_p.c \
  	$(VBoxCOM_0_OUTDIR)/legacy/VirtualBox_i.c \
- 	src-all/win/VBoxProxyStub.def \
- 	src-all/win/VBoxProxyStubLegacy.rc \
- 	src-all/win/VBoxProxyStub.c
- src-all/win/VBoxProxyStubLegacy.rc_DEPS = $(VBoxCOM_0_OUTDIR)/legacy/VirtualBox.tlb
+ 	src-all/win/BreadvmProxyStub.def \
+ 	src-all/win/BreadvmProxyStubLegacy.rc \
+ 	src-all/win/BreadvmProxyStub.c
+ src-all/win/BreadvmProxyStubLegacy.rc_DEPS = $(VBoxCOM_0_OUTDIR)/legacy/VirtualBox.tlb
 
  ifdef VBOX_WITH_32_ON_64_MAIN_API
-  DLLS += VBoxProxyStub-x86
-  VBoxProxyStub-x86_TEMPLATE = VBoxMainComp-x86
-  VBoxProxyStub-x86_SDKS     = VBOX_NTDLL
-  VBoxProxyStub-x86_DEFS     = $(VBoxProxyStub_DEFS) VBOX_PROXY_STUB_32_ON_64 WIN32
-  VBoxProxyStub-x86_INCS     = $(VBoxCOM-x86_0_OUTDIR)/
-  VBoxProxyStub-x86_SOURCES  = \
+  DLLS += BreadvmProxyStub-x86
+  BreadvmProxyStub-x86_TEMPLATE = VBoxMainComp-x86
+  BreadvmProxyStub-x86_SDKS     = VBOX_NTDLL
+  BreadvmProxyStub-x86_DEFS     = $(BreadvmProxyStub_DEFS) VBOX_PROXY_STUB_32_ON_64 WIN32
+  BreadvmProxyStub-x86_INCS     = $(VBoxCOM-x86_0_OUTDIR)/
+  BreadvmProxyStub-x86_SOURCES  = \
   	$(VBoxCOM-x86_0_OUTDIR)/VirtualBox_p.c \
   	$(VBoxCOM-x86_0_OUTDIR)/VirtualBox_i.c \
- 	src-all/win/VBoxProxyStub.c \
- 	src-all/win/VBoxProxyStub-x86.rc \
- 	src-all/win/VBoxProxyStub.def
-  src-all/win/VBoxProxyStub-x86.rc_DEPS = $(VBoxCOM-x86_0_OUTDIR)/VirtualBox-x86.tlb
+ 	src-all/win/BreadvmProxyStub.c \
+ 	src-all/win/BreadvmProxyStub-x86.rc \
+ 	src-all/win/BreadvmProxyStub-x86.def
+  src-all/win/BreadvmProxyStub-x86.rc_DEPS = $(VBoxCOM-x86_0_OUTDIR)/VirtualBox-x86.tlb
  endif
 endif
 
@@ -1362,7 +1346,7 @@ $(VBoxCOM_0_OUTDIR)/legacy/VirtualBox_i.c \
 endif
 
 # The XP targetted 32-bit proxy stub works with all versions of windows (the
-# issues leading to the VBoxProxyStubLegacy.dll are only on 64-bit windows).
+# issues leading to the BreadvmProxyStubLegacy.dll are only on 64-bit windows).
 $(call KB_FN_AUTO_CMD_DEPS,$(VBoxCOM-x86_0_OUTDIR)/VirtualBox_i.c)
 $(VBoxCOM-x86_0_OUTDIR)/VirtualBox_i.c \
 $(if $(VBOX_WITH_MIDL_PROXY_STUB), + $(VBoxCOM-x86_0_OUTDIR)/VirtualBox_p.c + $(VBoxCOM-x86_0_OUTDIR)/dlldata.c,) \
@@ -1384,20 +1368,20 @@ $(if $(VBOX_WITH_MIDL_PROXY_STUB), + $(VBoxCOM-x86_0_OUTDIR)/VirtualBox_p.c + $(
 #
 # Translation stuff
 #
-VBoxSVC_VBOX_HEADERS = \
+BreadvmSVC_VBOX_HEADERS = \
 	include/collection.h \
 	include/MachineImpl.h
-VBoxSVC_VBOX_TRANSLATIONS = \
+BreadvmSVC_VBOX_TRANSLATIONS = \
 	nls/VBoxSVC_de.ts
 
-VBoxC_VBOX_HEADERS = \
+BreadvmC_VBOX_HEADERS = \
 	include/ConsoleImpl.h
 
-VBoxC_VBOX_INTERMEDIATES   = $(VBOX_MAIN_APIWRAPPER_GEN_HDRS)
-VBoxC_VBOX_HEADERS += $(VBOX_MAIN_APIWRAPPER_INCS)
+BreadvmC_VBOX_INTERMEDIATES   = $(VBOX_MAIN_APIWRAPPER_GEN_HDRS)
+BreadvmC_VBOX_HEADERS += $(VBOX_MAIN_APIWRAPPER_INCS)
 
-VBoxC_VBOX_TRANSLATIONS = \
-	nls/VBoxC_de.ts
+BreadvmC_VBOX_TRANSLATIONS = \
+	nls/BreadvmC_de.ts
 
 ifdef VBOX_WITH_JMSCOM
 
@@ -1465,12 +1449,12 @@ endif # VBOX_WITH_JMSCOM
 #
 # Install Java glue sample code.
 #
-INSTALLS += javagluesample
-javagluesample_INST = $(INST_SDK)bindings/glue/java/
-javagluesample_MODE = a+r,u+w
-javagluesample_SOURCES = \
-	$(VBOX_PATH_MAIN_SRC)/glue/tests/TestVBox.java=>TestVBox.java \
-	$(VBOX_PATH_MAIN_SRC)/glue/tests/Makefile=>Makefile
+#INSTALLS += javagluesample
+#javagluesample_INST = $(INST_SDK)bindings/glue/java/
+#javagluesample_MODE = a+r,u+w
+#javagluesample_SOURCES = \
+#	$(VBOX_PATH_MAIN_SRC)/glue/tests/TestVBox.java=>TestVBox.java \
+#	$(VBOX_PATH_MAIN_SRC)/glue/tests/Makefile=>Makefile
 
 #
 # Rules associated with VBoxAPIWrap (in typical invocation order).
@@ -1577,6 +1561,6 @@ testapiwrappers:: \
 # NLS stuff.
 #
 updatenls::
-	$(VBOX_LUPDATE) $(VBoxSVC_SOURCES) $(VBoxSVC_VBOX_HEADERS) -ts $(VBoxSVC_VBOX_TRANSLATIONS)
-	$(VBOX_LUPDATE) $(VBoxC_SOURCES) $(VBoxC_VBOX_HEADERS) -ts $(VBoxC_VBOX_TRANSLATIONS)
+	$(VBOX_LUPDATE) $(BreadvmSVC_SOURCES) $(BreadvmSVC_VBOX_HEADERS) -ts $(BreadvmSVC_VBOX_TRANSLATIONS)
+	$(VBOX_LUPDATE) $(BreadvmC_SOURCES) $(BreadvmC_VBOX_HEADERS) -ts $(BreadvmC_VBOX_TRANSLATIONS)
 

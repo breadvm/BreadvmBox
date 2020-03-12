@@ -1047,9 +1047,9 @@ const PDMDEVREG g_DeviceI8259 =
     /* szName */
     "i8259",
     /* szRCMod */
-    "VBoxDDRC.rc",
+    "BreadvmDDRC.rc",
     /* szR0Mod */
-    "VBoxDDR0.r0",
+    "BreadvmDDR0.r0",
     /* pszDescription */
     "Intel 8259 Programmable Interrupt Controller (PIC) Device.",
     /* fFlags */

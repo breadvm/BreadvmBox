@@ -71,7 +71,7 @@
 #endif
 
 #ifdef IN_SUP_HARDENED_R3
-/** @name Make the symbols in SUPR3HardenedStatic different from the VBoxRT ones.
+/** @name Make the symbols in SUPR3HardenedStatic different from the BreadvmRT ones.
  * We cannot rely on DECLHIDDEN to make this separation for us since it doesn't
  * work with all GCC versions. So, we resort to old fashion precompiler hacking.
  * @{

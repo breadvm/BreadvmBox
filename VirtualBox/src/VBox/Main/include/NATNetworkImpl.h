@@ -1,6 +1,6 @@
 /* $Id: NATNetworkImpl.h $ */
 /** @file
- * INATNetwork implementation header, lives in VBoxSVC.
+ * INATNetwork implementation header, lives in BreadvmSVC.
  */
 
 /*
@@ -32,9 +32,9 @@ namespace settings
 }
 
 #ifdef RT_OS_WINDOWS
-# define NATSR_EXECUTABLE_NAME "VBoxNetNAT.exe"
+# define NATSR_EXECUTABLE_NAME "BreadvmNAT.exe"
 #else
-# define NATSR_EXECUTABLE_NAME "VBoxNetNAT"
+# define NATSR_EXECUTABLE_NAME "BreadvmNAT"
 #endif
 
 #undef ADDR_ANY ///@todo ADDR_ANY collides with some windows header!

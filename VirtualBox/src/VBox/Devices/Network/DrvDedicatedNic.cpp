@@ -524,7 +524,7 @@ const PDMDRVREG g_DrvDedicatedNic =
     /* szRCMod */
     "",
     /* szR0Mod */
-    "VBoxDDR0.r0",
+    "BreadvmDDR0.r0",
     /* pszDescription */
     "Dedicated (V)NIC Driver",
     /* fFlags */

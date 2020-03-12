@@ -135,7 +135,7 @@ RT_C_DECLS_END
 *   Global Variables                                                                                                             *
 *********************************************************************************************************************************/
 /** Drag in necessary library bits.
- * The runtime lives here (in VMMR0.r0) and VBoxDD*R0.r0 links against us. */
+ * The runtime lives here (in BreadvmR0.r0) and BreadvmDD*R0.r0 links against us. */
 PFNRT g_VMMR0Deps[] =
 {
     (PFNRT)RTCrc32,

@@ -184,7 +184,7 @@ static DECLCALLBACK(int) drvHostBaseMediaThreadWin(RTTHREAD ThreadSelf, void *pv
         memset(&s_classDeviceChange, 0, sizeof(s_classDeviceChange));
         s_classDeviceChange.lpfnWndProc   = DeviceChangeWindowProc;
         s_classDeviceChange.lpszClassName = "VBOX_DeviceChangeClass";
-        s_classDeviceChange.hInstance     = GetModuleHandle("VBoxDD.dll");
+        s_classDeviceChange.hInstance     = GetModuleHandle("BreadvmDD.dll");
         Assert(s_classDeviceChange.hInstance);
         s_hAtomDeviceChange = RegisterClassA(&s_classDeviceChange);
         Assert(s_hAtomDeviceChange);

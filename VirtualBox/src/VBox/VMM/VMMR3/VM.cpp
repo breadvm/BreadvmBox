@@ -201,7 +201,7 @@ VMMR3DECL(int)   VMR3Create(uint32_t cCpus, PCVMM2USERMETHODS pVmm2UserMethods,
             /* Now that we've opened the device, we can register trace probes. */
             static bool s_fRegisteredProbes = false;
             if (ASMAtomicCmpXchgBool(&s_fRegisteredProbes, true, false))
-                SUPR3TracerRegisterModule(~(uintptr_t)0, "VBoxVMM", &g_VTGObjHeader, (uintptr_t)&g_VTGObjHeader,
+                SUPR3TracerRegisterModule(~(uintptr_t)0, "BreadvmVMM", &g_VTGObjHeader, (uintptr_t)&g_VTGObjHeader,
                                           SUP_TRACER_UMOD_FLAGS_SHARED);
 #endif
 
@@ -563,7 +563,7 @@ static int vmR3CreateU(PUVM pUVM, uint32_t cCpus, PFNCFGMCONSTRUCTOR pfnCFGMCons
 #endif
 
     /*
-     * Load the VMMR0.r0 module so that we can call GVMMR0CreateVM.
+     * Load the BreadvmR0.r0 module so that we can call GVMMR0CreateVM.
      */
     int rc = PDMR3LdrLoadVMMR0U(pUVM);
     if (RT_FAILURE(rc))
@@ -572,7 +572,7 @@ static int vmR3CreateU(PUVM pUVM, uint32_t cCpus, PFNCFGMCONSTRUCTOR pfnCFGMCons
           * bird: what about moving the message down here? Main picks the first message, right? */
         if (rc == VERR_VMX_IN_VMX_ROOT_MODE)
             return rc;  /* proper error message set later on */
-        return vmR3SetErrorU(pUVM, rc, RT_SRC_POS, N_("Failed to load VMMR0.r0"));
+        return vmR3SetErrorU(pUVM, rc, RT_SRC_POS, N_("Failed to load BreadvmR0.r0"));
     }
 
     /*
@@ -2679,7 +2679,7 @@ static void vmR3DestroyUVM(PUVM pUVM, uint32_t cMilliesEMTWait)
     }
 
     /*
-     * Make sure the VMMR0.r0 module and whatever else is unloaded.
+     * Make sure the BreadvmR0.r0 module and whatever else is unloaded.
      */
     PDMR3TermUVM(pUVM);
 

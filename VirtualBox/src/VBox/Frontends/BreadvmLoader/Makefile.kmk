@@ -1,0 +1,57 @@
+# $Id: Makefile.kmk $
+## @file
+# Sub-Makefile for the headless frontend.
+#
+
+#
+# Copyright (C) 2006-2017 Oracle Corporation
+#
+# This file is part of VirtualBox Open Source Edition (OSE), as
+# available from http://www.virtualbox.org. This file is free software;
+# you can redistribute it and/or modify it under the terms of the GNU
+# General Public License (GPL) as published by the Free Software
+# Foundation, in version 2 as it comes in the "COPYING" file of the
+# VirtualBox OSE distribution. VirtualBox OSE is distributed in the
+# hope that it will be useful, but WITHOUT ANY WARRANTY of any kind.
+#
+
+SUB_DEPTH = ../../../..
+include $(KBUILD_PATH)/subheader.kmk
+
+#include $(PATH_SUB_CURRENT)/testcase/Makefile.kmk
+
+#
+# Targets.
+#
+
+PROGRAMS += BreadvmLoader
+
+
+#
+# BreadvmLoader
+#
+BreadvmLoader_TEMPLATE  := $(if $(VBOX_WITH_HARDENING),VBOXMAINCLIENTDLL,VBOXMAINCLIENTEXE)
+BreadvmLoader_DEFS      += $(if $(VBOX_WITH_VIDEOREC),VBOX_WITH_VIDEOREC,)
+BreadvmLoader_INCS      = $(VBOX_GRAPHICS_INCS)
+BreadvmLoader_SOURCES    = BreadvmLoader.cpp
+ifdef VBOX_WITH_GUEST_PROPS
+ BreadvmLoader_DEFS     += VBOX_WITH_GUEST_PROPS
+endif
+ifdef VBOX_WITH_HARDENING
+ BreadvmLoader_LDFLAGS.darwin += -install_name $(VBOX_DYLD_EXECUTABLE_PATH)/BreadvmLoader.dylib
+endif
+
+
+ifeq ($(KBUILD_TARGET),win)
+# Icon include file.
+BreadvmLoader_SOURCES   += BreadvmLoader.rc
+BreadvmLoader.rc_INCS    = $(BreadvmLoader_0_OUTDIR)
+BreadvmLoader.rc_DEPS    = $(BreadvmLoader_0_OUTDIR)/BreadvmLoader-icon.rc
+BreadvmLoader.rc_CLEAN   = $(BreadvmLoader_0_OUTDIR)/BreadvmLoader-icon.rc
+$$(BreadvmLoader_0_OUTDIR)/BreadvmLoader-icon.rc: $(VBOX_WINDOWS_ICON_FILE) $$(BreadvmLoader_DEFPATH)/Makefile.kmk | $$(dir $$@)
+	$(RM) -f $@
+	$(APPEND) $@ 'IDI_VIRTUALBOX ICON DISCARDABLE "$(subst /,\\,$(VBOX_WINDOWS_ICON_FILE))"'
+endif # win
+
+include $(FILE_KBUILD_SUB_FOOTER)
+

@@ -53,7 +53,7 @@ BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID /*lpReserved*/)
         if (!g_pAtlComModule)
             return FALSE;
 
-        g_pAtlComModule->Init(ObjectMap, hInstance, &LIBID_VirtualBox);
+        g_pAtlComModule->Init(ObjectMap, hInstance, &LIBID_Breadvm);
         DisableThreadLibraryCalls(hInstance);
     }
     else if (dwReason == DLL_PROCESS_DETACH)
@@ -98,7 +98,7 @@ STDAPI DllRegisterServer(void)
     AssertReturn(g_pAtlComModule, E_UNEXPECTED);
     return g_pAtlComModule->RegisterServer(TRUE);
 #else
-    return S_OK; /* VBoxProxyStub does all the work, no need to duplicate it here. */
+    return S_OK; /* BreadvmProxyStub does all the work, no need to duplicate it here. */
 #endif
 }
 
@@ -112,7 +112,7 @@ STDAPI DllUnregisterServer(void)
     HRESULT hrc = g_pAtlComModule->UnregisterServer(TRUE);
     return hrc;
 #else
-    return S_OK; /* VBoxProxyStub does all the work, no need to duplicate it here. */
+    return S_OK; /* BreadvmProxyStub does all the work, no need to duplicate it here. */
 #endif
 }
 

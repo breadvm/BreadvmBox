@@ -1876,9 +1876,9 @@ const PDMDRVREG g_DrvIntNet =
     /* szName */
     "IntNet",
     /* szRCMod */
-    "VBoxDDRC.rc",
+    "BreadvmDDRC.rc",
     /* szR0Mod */
-    "VBoxDDR0.r0",
+    "BreadvmDDR0.r0",
     /* pszDescription */
     "Internal Networking Transport Driver",
     /* fFlags */

@@ -1051,9 +1051,9 @@ const PDMDEVREG g_DevicePS2KeyboardMouse =
     /* szName */
     "pckbd",
     /* szRCMod */
-    "VBoxDDRC.rc",
+    "BreadvmDDRC.rc",
     /* szR0Mod */
-    "VBoxDDR0.r0",
+    "BreadvmDDR0.r0",
     /* pszDescription */
     "PS/2 Keyboard and Mouse device. Emulates both the keyboard, mouse and the keyboard controller. "
     "LUN #0 is the keyboard connector. "

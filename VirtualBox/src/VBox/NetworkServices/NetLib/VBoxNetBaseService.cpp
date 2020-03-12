@@ -1,6 +1,6 @@
 /* $Id: VBoxNetBaseService.cpp $ */
 /** @file
- * VBoxNetBaseService - common services for VBoxNetDHCP and VBoxNetNAT.
+ * VBoxNetBaseService - common services for VBoxNetDHCP and BreadvmNAT.
  */
 
 /*
@@ -376,14 +376,14 @@ int VBoxNetBaseService::tryGoOnline(void)
     }
 
     char szPath[RTPATH_MAX];
-    rc = RTPathExecDir(szPath, sizeof(szPath) - sizeof("/VMMR0.r0"));
+    rc = RTPathExecDir(szPath, sizeof(szPath) - sizeof("/BreadvmR0.r0"));
     if (RT_FAILURE(rc))
     {
         LogRel(("VBoxNetBaseService: RTPathExecDir -> %Rrc\n", rc));
         return rc;
     }
 
-    rc = SUPR3LoadVMM(strcat(szPath, "/VMMR0.r0"));
+    rc = SUPR3LoadVMM(strcat(szPath, "/BreadvmR0.r0"));
     if (RT_FAILURE(rc))
     {
         LogRel(("VBoxNetBaseService: SUPR3LoadVMM(\"%s\") -> %Rrc\n", szPath, rc));

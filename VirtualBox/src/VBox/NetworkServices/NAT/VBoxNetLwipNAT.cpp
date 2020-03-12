@@ -1,6 +1,6 @@
 /* $Id: VBoxNetLwipNAT.cpp $ */
 /** @file
- * VBoxNetNAT - NAT Service for connecting to IntNet.
+ * BreadvmNAT - NAT Service for connecting to IntNet.
  */
 
 /*
@@ -144,7 +144,7 @@ class VBoxNetLwipNAT: public VBoxNetBaseService, public NATNetworkEventAdapter
     int run();
     virtual int init(void);
     virtual int parseOpt(int rc, const RTGETOPTUNION& getOptVal);
-    /* VBoxNetNAT always needs Main */
+    /* BreadvmNAT always needs Main */
     virtual bool isMainNeeded() const { return true; }
     virtual int processFrame(void *, size_t);
     virtual int processGSO(PCPDMNETWORKGSO, size_t);
@@ -637,7 +637,7 @@ HRESULT VBoxNetLwipNAT::HandleEvent(VBoxEventType_T aEventType, IEvent *pEvent)
 }
 
 
-VBoxNetLwipNAT::VBoxNetLwipNAT(SOCKET icmpsock4, SOCKET icmpsock6) : VBoxNetBaseService("VBoxNetNAT", "nat-network")
+VBoxNetLwipNAT::VBoxNetLwipNAT(SOCKET icmpsock4, SOCKET icmpsock6) : VBoxNetBaseService("BreadvmNAT", "nat-network")
 {
     LogFlowFuncEnter();
 

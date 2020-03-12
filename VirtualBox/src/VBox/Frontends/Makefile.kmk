@@ -35,7 +35,7 @@ ifndef VBOX_ONLY_DOCS
 #  include $(PATH_SUB_CURRENT)/VBoxFB/Makefile.kmk
  endif
  ifdef VBOX_WITH_HEADLESS
-  include $(PATH_SUB_CURRENT)/VBoxHeadless/Makefile.kmk
+  include $(PATH_SUB_CURRENT)/BreadvmLoader/Makefile.kmk
  endif
  ifdef VBOX_WITH_QTGUI
   include $(PATH_SUB_CURRENT)/VirtualBox/Makefile.kmk

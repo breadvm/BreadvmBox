@@ -73,7 +73,7 @@ public:
     STDMETHOD(GetHelpContext)(DWORD *pdwHelpContext);
 
     // IDispatch forwarding - 3am hack.
-    typedef IDispatchImpl<IVirtualBoxErrorInfo, &IID_IVirtualBoxErrorInfo, &LIBID_VirtualBox, kTypeLibraryMajorVersion, kTypeLibraryMinorVersion> idi;
+    typedef IDispatchImpl<IVirtualBoxErrorInfo, &IID_IVirtualBoxErrorInfo, &LIBID_Breadvm, kTypeLibraryMajorVersion, kTypeLibraryMinorVersion> idi;
 
     STDMETHOD(GetTypeInfoCount)(UINT *pcInfo)
     {

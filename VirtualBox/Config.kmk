@@ -243,9 +243,9 @@ ifneq ($(VBOX_RELEASE_EXACT_MATCH),)
 endif
 
 # Some info on the vendor
-VBOX_VENDOR       = Oracle Corporation
-VBOX_VENDOR_SHORT = Oracle
-VBOX_PRODUCT      = Oracle VM VirtualBox
+VBOX_VENDOR       = Breadvm Corporation
+VBOX_VENDOR_SHORT = Breadvm
+VBOX_PRODUCT      = BreadvmBox
 # Not all could be done automatically. Here is a list of known places which
 # have to be updated manually, please keep this up to date:
 #	src/VBox/Devices/PC/PXE/client/uinit.asm
@@ -1779,16 +1779,16 @@ ifeq ($(KBUILD_TARGET),os2)
  VBOX_OBJ_SYS0   = $(PATH_OBJ)/RuntimeR0/os2/sys0.obj
 endif
 ifeq ($(KBUILD_TARGET),win)
- LIB_RUNTIME     = $(PATH_STAGE_LIB)/VBoxRT.lib
+ LIB_RUNTIME     = $(PATH_STAGE_LIB)/BreadvmRT.lib
  LIB_RUNTIME_EF  = #$(PATH_STAGE_LIB)/RuntimeEFCPP.lib
- VBOX_LIB_RUNTIME_X86   = $(PATH_STAGE_LIB)/VBoxRT-x86.lib
+ VBOX_LIB_RUNTIME_X86   = $(PATH_STAGE_LIB)/BreadvmRT-x86.lib
  LIB_KPROFILE    = $(PATH_STAGE_LIB)/kPrf2.lib
- LIB_VMM         = $(PATH_STAGE_LIB)/VBoxVMM.lib
+ LIB_VMM         = $(PATH_STAGE_LIB)/BreadvmVMM.lib
  LIB_VMMRC       = $(PATH_OBJ)/VMMRC/VMMRC.lib
  LIB_REM         = $(PATH_STAGE_LIB)/VBoxREMImp.lib
  LIB_XPCOM       = $(PATH_STAGE_BIN)/VBoxXPCOM.lib
  VBOX_LIB_XPCOM_X86     = $(PATH_STAGE_BIN)/VBoxXPCOM-x86.lib
- LIB_DDU         = $(PATH_STAGE_LIB)/VBoxDDU.lib
+ LIB_DDU         = $(PATH_STAGE_LIB)/BreadvmDDU.lib
 endif
 if1of ($(KBUILD_TARGET).$(KBUILD_TARGET_ARCH), win.amd64 linux.amd64)
  VBOX_LIB_VMM_LAZY      = $(PATH_STAGE_LIB)/VMMR3LazyImp$(VBOX_SUFF_LIB)
@@ -3994,7 +3994,7 @@ SDK_VBOX_LIBXML2_INCS   ?= $(PATH_ROOT)/src/libs/libxml2-2.9.4/include
 SDK_VBOX_LIBXML2_DEFS  ?= _REENTRANT
 SDK_VBOX_LIBXML2_DEFS.win += WIN32 _WINDOWS _MBCS
 # note: no linking to LIB here, we do that explicitly in src/VBox/Runtime/Makefile.kmk to link
-# libxml against VBoxRT
+# libxml against BreadvmRT
 
 SDK_VBOX_LIBPNG       = .
 SDK_VBOX_LIBPNG_INCS ?= $(PATH_ROOT)/src/libs/libpng-1.2.54
@@ -4022,7 +4022,7 @@ if1of ($(KBUILD_TARGET), os2 win) # Not required on solaris.
  SDK_VBOX_ZLIB_STATIC_LIBS ?= $(PATH_STAGE_LIB)/VBox-zlib-static$(VBOX_SUFF_LIB)
 endif
 
-SDK_VBOX_OPENSSL      = Only for VBoxRT and/or statically linked programs.
+SDK_VBOX_OPENSSL      = Only for BreadvmRT and/or statically linked programs.
 SDK_VBOX_OPENSSL_VBOX_DEFAULT_INCS := $(PATH_OUT)/obj/crypto-1.1.1-headers/include
 SDK_VBOX_OPENSSL_INCS ?= $(SDK_VBOX_OPENSSL_VBOX_DEFAULT_INCS)
 SDK_VBOX_OPENSSL_ORDERDEPS ?= $(crypto-headers_1_TARGET)
@@ -4036,7 +4036,7 @@ SDK_VBOX_OPENSSL_LIBS ?= \
 	$(PATH_STAGE_LIB)/VBox-libssl$(VBOX_SUFF_LIB) \
 	$(PATH_STAGE_LIB)/VBox-libcrypto$(VBOX_SUFF_LIB)
 
-SDK_VBOX_OPENSSL-x86      = Only for VBoxRT and/or statically linked programs.
+SDK_VBOX_OPENSSL-x86      = Only for BreadvmRT and/or statically linked programs.
 SDK_VBOX_OPENSSL-x86_VBOX_DEFAULT_INCS := $(PATH_OUT)/obj/crypto-1.1.1-headers/include
 SDK_VBOX_OPENSSL-x86_INCS ?= $(SDK_VBOX_OPENSSL_VBOX_DEFAULT_INCS)
 SDK_VBOX_OPENSSL-x86_ORDERDEPS ?= $(crypto-headers_1_TARGET)
@@ -5576,10 +5576,10 @@ endif
 
 
 #
-# Template for building libraries that are linked into VBoxRT.dll
+# Template for building libraries that are linked into BreadvmRT.dll
 # and it's variations, pedantic variation.
 #
-TEMPLATE_VBoxR3RuntimeDll = For libraries that are linked into VBoxRT.
+TEMPLATE_VBoxR3RuntimeDll = For libraries that are linked into BreadvmRT.
 TEMPLATE_VBoxR3RuntimeDll_EXTENDS = VBoxR3Dll
 if defined(VBOX_WITH_MORE_NT4_COMPAT_BINARIES) && "$(KBUILD_TARGET).$(KBUILD_TARGET_ARCH)" == "win.x86"
  TEMPLATE_VBoxR3RuntimeDll_CFLAGS   = $(filter-out -MD$(VBOX_VCC_CRT_TYPE), $(TEMPLATE_VBoxR3Dll_CFLAGS)) -MT$(VBOX_VCC_CRT_TYPE)
@@ -5591,10 +5591,10 @@ if defined(VBOX_WITH_MORE_NT4_COMPAT_BINARIES) && "$(KBUILD_TARGET).$(KBUILD_TAR
 endif
 
 #
-# Template for building libraries that are linked into VBoxRT.dll
+# Template for building libraries that are linked into BreadvmRT.dll
 # and it's variations, non-pedantic variation.
 #
-TEMPLATE_VBoxR3RuntimeDllNonPedantic = For libraries that are linked into VBoxRT, but must be excluded from -pedantic warnings.
+TEMPLATE_VBoxR3RuntimeDllNonPedantic = For libraries that are linked into BreadvmRT, but must be excluded from -pedantic warnings.
 TEMPLATE_VBoxR3RuntimeDllNonPedantic_EXTENDS = VBoxR3DllNonPedantic
 if defined(VBOX_WITH_MORE_NT4_COMPAT_BINARIES) && $(KBUILD_TARGET_ARCH) == "x86"
  TEMPLATE_VBoxR3RuntimeDllNonPedantic_CFLAGS   = $(filter-out -MD$(VBOX_VCC_CRT_TYPE), $(TEMPLATE_VBoxR3DllNonPedantic_CFLAGS)) -MT$(VBOX_VCC_CRT_TYPE)
@@ -5604,7 +5604,7 @@ endif
 #
 # Same as VBoxR3RuntimeDllNonPedantic, only it optimized debug builds too.
 #
-TEMPLATE_VBoxR3RuntimeDllNonPedanticFast = For libraries that are linked into VBoxRT, but must be excluded from -pedantic warnings, optmized debug.
+TEMPLATE_VBoxR3RuntimeDllNonPedanticFast = For libraries that are linked into BreadvmRT, but must be excluded from -pedantic warnings, optmized debug.
 TEMPLATE_VBoxR3RuntimeDllNonPedanticFast_EXTENDS = VBoxR3RuntimeDllNonPedantic
 ifeq ($(KBUILD_TYPE),debug)
  ifeq ($(KBUILD_TARGET),win)
@@ -6142,7 +6142,7 @@ ifdef VBOX_WITH_EXTPACK
   TEMPLATE_VBoxR3ExtPackPuelWithOpenSsl_LIBS = \
   	$(PATH_STAGE_LIB)/VBoxExtPack-libssl$(VBOX_SUFF_LIB) \
   	$(PATH_STAGE_LIB)/VBoxExtPack-libcrypto$(VBOX_SUFF_LIB) \
-  	$(TEMPLATE_VBoxR3ExtPack_LIBS) # Must come after the two libraries or we'll pick up SSL from VBoxRT!
+  	$(TEMPLATE_VBoxR3ExtPack_LIBS) # Must come after the two libraries or we'll pick up SSL from BreadvmRT!
 
   TEMPLATE_VBoxR0ExtPackPuel = For the ring-0 context modules in the PUEL extension pack.
   TEMPLATE_VBoxR0ExtPackPuel_EXTENDS = VBoxR0ExtPack

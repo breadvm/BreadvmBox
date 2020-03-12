@@ -1402,9 +1402,9 @@ const PDMDEVREG g_DevicePCI =
     /* szName */
     "pci",
     /* szRCMod */
-    "VBoxDDRC.rc",
+    "BreadvmDDRC.rc",
     /* szR0Mod */
-    "VBoxDDR0.r0",
+    "BreadvmDDR0.r0",
     /* pszDescription */
     "i440FX PCI bridge and PIIX3 ISA bridge.",
     /* fFlags */
@@ -1727,9 +1727,9 @@ const PDMDEVREG g_DevicePCIBridge =
     /* szName */
     "pcibridge",
     /* szRCMod */
-    "VBoxDDRC.rc",
+    "BreadvmDDRC.rc",
     /* szR0Mod */
-    "VBoxDDR0.r0",
+    "BreadvmDDR0.r0",
     /* pszDescription */
     "82801 Mobile PCI to PCI bridge",
     /* fFlags */

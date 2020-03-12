@@ -259,7 +259,7 @@ static DECLCALLBACK(int) lpcConstruct(PPDMDEVINS pDevIns, int iInstance, PCFGMNO
 
     /* 44h       ACPI_CNTL    ACPI Control */
     pThis->dev.abConfig[0x44] = 0x00 | (1<<7); /* SCI is IRQ9, ACPI enabled */
-    /* 48h¨C4Bh   GPIOBASE     GPIO Base Address */
+    /* 48hï¿½C4Bh   GPIOBASE     GPIO Base Address */
 
     /* 4C        GC           GPIO Control */
     pThis->dev.abConfig[0x4c] = 0x4d;
@@ -359,9 +359,9 @@ const PDMDEVREG g_DeviceLPC =
     /* szName */
     "lpc",
     /* szRCMod */
-    "VBoxDD2RC.rc",
+    "BreadvmDD2RC.rc",
     /* szR0Mod */
-    "VBoxDD2R0.r0",
+    "BreadvmDD2R0.r0",
     /* pszDescription */
     "Low Pin Count (LPC) Bus",
     /* fFlags */

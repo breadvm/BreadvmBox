@@ -151,10 +151,10 @@ extern "C" {
 </xsl:template>
 
 
-<xsl:template match="application[@uuid='ec0e78e8-fa43-43e8-ac0a-02c784c4a4fa']//module/class" />
+<xsl:template match="application[@uuid='c2777d1a-f82e-473b-8bcc-fc443c70dbbd']//module/class" />
 
-<xsl:template match="application[@uuid='ec0e78e8-fa43-43e8-ac0a-02c784c4a4fa']/if//interface
-| application[@uuid='ec0e78e8-fa43-43e8-ac0a-02c784c4a4fa']//interface" />
+<xsl:template match="application[@uuid='c2777d1a-f82e-473b-8bcc-fc443c70dbbd']/if//interface
+| application[@uuid='c2777d1a-f82e-473b-8bcc-fc443c70dbbd']//interface" />
 
 </xsl:stylesheet>
 

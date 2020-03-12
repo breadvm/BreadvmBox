@@ -399,9 +399,9 @@ VMMR3_INT_DECL(int) PGMR3HandlerVirtualTypeRegisterEx(PVM pVM, PGMVIRTHANDLERKIN
  *                          (optional, can be NULL).
  * @param   pfnHandlerR3    Pointer to the ring-3 handler callback.
  * @param   pszHandlerRC    The name of the raw-mode context handler callback
- *                          (in VMMRC.rc).
+ *                          (in BreadvmRC.rc).
  * @param   pszPfHandlerRC  The name of the raw-mode context \#PF handler (in
- *                          VMMRC.rc).
+ *                          BreadvmRC.rc).
  * @param   pszDesc         The type description.
  * @param   phType          Where to return the type handle (cross context
  *                          safe).

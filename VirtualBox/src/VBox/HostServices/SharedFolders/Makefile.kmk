@@ -18,34 +18,27 @@
 SUB_DEPTH = ../../../..
 include $(KBUILD_PATH)/subheader.kmk
 
-# Include sub-makefile(s).
-#include $(PATH_SUB_CURRENT)/testcase/Makefile.kmk
-
 #
 # The shared folder service DLL.
 #
-DLLS += VBoxSharedFolders
-VBoxSharedFolders_TEMPLATE  = VBOXR3
-VBoxSharedFolders_NAME.os2  = VBoxSFld
-VBoxSharedFolders_DEFS      = VBOX_WITH_HGCM RTSHFL
-VBoxSharedFolders_INCS.win  = \
+DLLS += BreadvmFolders
+BreadvmFolders_TEMPLATE  = VBOXR3
+BreadvmFolders_NAME.os2  = VBoxSFld
+BreadvmFolders_DEFS      = VBOX_WITH_HGCM RTSHFL
+BreadvmFolders_INCS.win  = \
 	$(VBOX_PATH_SDK)
 
-VBoxSharedFolders_LDFLAGS.darwin = \
-	-framework Carbon \
-	-install_name $(VBOX_DYLD_EXECUTABLE_PATH)/VBoxSharedFolders.dylib
-
-VBoxSharedFolders_SOURCES = \
+BreadvmFolders_SOURCES = \
 	service.cpp \
 	shflhandle.cpp \
 	vbsf.cpp \
 	vbsfpath.cpp \
 	vbsfpathabs.cpp \
 	mappings.cpp
-VBoxSharedFolders_SOURCES.win = \
-	VBoxSharedFolders.rc
+BreadvmFolders_SOURCES.win = \
+	BreadvmFolders.rc
 
-VBoxSharedFolders_LIBS = \
+BreadvmFolders_LIBS = \
 	$(LIB_VMM) \
 	$(LIB_RUNTIME) \
 	$(LIB_REM)

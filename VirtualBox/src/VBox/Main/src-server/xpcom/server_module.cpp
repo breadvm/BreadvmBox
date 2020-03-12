@@ -70,7 +70,7 @@
 
 
 /** Name of the server executable. */
-const char VBoxSVC_exe[] = RTPATH_SLASH_STR "VBoxSVC" HOSTSUFF_EXE;
+const char VBoxSVC_exe[] = RTPATH_SLASH_STR "BreadvmSVC" HOSTSUFF_EXE;
 
 enum
 {

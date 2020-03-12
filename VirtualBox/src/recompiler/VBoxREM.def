@@ -1,6 +1,6 @@
-; $Id: VBoxREM.def $
+; $Id: BreadvmREM.def $
 ;; @file
-; VBoxREM Definition File.
+; BreadvmREM Definition File.
 ;
 
 ;
@@ -15,7 +15,7 @@
 ; hope that it will be useful, but WITHOUT ANY WARRANTY of any kind.
 ;
 
-LIBRARY VBoxREM.dll
+LIBRARY BreadvmREM.dll
 
 EXPORTS
     REMR3Init

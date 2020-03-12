@@ -1115,7 +1115,7 @@ int Console::i_configConstructorInner(PUVM pUVM, PVM pVM, AutoWriteLock *pAlock)
         {
             /* Indicate whether 64-bit guests are supported or not. */
             InsertConfigInteger(pHM, "64bitEnabled", fIsGuest64Bit);
-#if ARCH_BITS == 32 /* The recompiler must use VBoxREM64 (32-bit host only). */
+#if ARCH_BITS == 32 /* The recompiler must use BreadvmREM64 (32-bit host only). */
             PCFGMNODE pREM;
             InsertConfigNode(pRoot, "REM", &pREM);
             InsertConfigInteger(pREM, "64bitEnabled", 1);
@@ -5972,7 +5972,7 @@ static void configSetProperties(VMMDev * const pVMMDev,
     parms[3].u.pointer.addr = flags;
     parms[3].u.pointer.size = 0;  /* We don't actually care. */
 
-    pVMMDev->hgcmHostCall("VBoxGuestPropSvc",
+    pVMMDev->hgcmHostCall("BreadvmGuestPropSvc",
                           guestProp::SET_PROPS_HOST,
                           4,
                           &parms[0]);
@@ -6000,7 +6000,7 @@ static void configSetProperty(VMMDev * const pVMMDev,
     parms[2].type = VBOX_HGCM_SVC_PARM_PTR;
     parms[2].u.pointer.addr = (void *)pszFlags;
     parms[2].u.pointer.size = (uint32_t)strlen(pszFlags) + 1;
-    pVMMDev->hgcmHostCall("VBoxGuestPropSvc", guestProp::SET_PROP_HOST, 3,
+    pVMMDev->hgcmHostCall("BreadvmGuestPropSvc", guestProp::SET_PROP_HOST, 3,
                           &parms[0]);
 }
 
@@ -6016,7 +6016,7 @@ int configSetGlobalPropertyFlags(VMMDev * const pVMMDev,
 {
     VBOXHGCMSVCPARM paParm;
     paParm.setUInt32(eFlags);
-    int rc = pVMMDev->hgcmHostCall("VBoxGuestPropSvc",
+    int rc = pVMMDev->hgcmHostCall("BreadvmGuestPropSvc",
                                    guestProp::SET_GLOBAL_FLAGS_HOST, 1,
                                    &paParm);
     if (RT_FAILURE(rc))
@@ -6043,11 +6043,11 @@ int configSetGlobalPropertyFlags(VMMDev * const pVMMDev,
     AssertReturn(pConsole->m_pVMMDev, VERR_INVALID_POINTER);
 
     /* Load the service */
-    int rc = pConsole->m_pVMMDev->hgcmLoadService("VBoxGuestPropSvc", "VBoxGuestPropSvc");
+    int rc = pConsole->m_pVMMDev->hgcmLoadService("BreadvmGuestPropSvc", "BreadvmGuestPropSvc");
 
     if (RT_FAILURE(rc))
     {
-        LogRel(("VBoxGuestPropSvc is not available. rc = %Rrc\n", rc));
+        LogRel(("BreadvmGuestPropSvc is not available. rc = %Rrc\n", rc));
         /* That is not a fatal failure. */
         rc = VINF_SUCCESS;
     }
@@ -6062,7 +6062,7 @@ int configSetGlobalPropertyFlags(VMMDev * const pVMMDev,
 
         {
             VBOXHGCMSVCPARM Params[2];
-            int rc2 = pConsole->m_pVMMDev->hgcmHostCall("VBoxGuestPropSvc", guestProp::GET_DBGF_INFO_FN, 2, &Params[0]);
+            int rc2 = pConsole->m_pVMMDev->hgcmHostCall("BreadvmGuestPropSvc", guestProp::GET_DBGF_INFO_FN, 2, &Params[0]);
             if (RT_SUCCESS(rc2))
             {
                 PFNDBGFHANDLEREXT pfnHandler = (PFNDBGFHANDLEREXT)(uintptr_t)Params[0].u.pointer.addr;
@@ -6171,7 +6171,7 @@ int configSetGlobalPropertyFlags(VMMDev * const pVMMDev,
          * Register the host notification callback
          */
         HGCMSVCEXTHANDLE hDummy;
-        HGCMHostRegisterServiceExtension(&hDummy, "VBoxGuestPropSvc",
+        HGCMHostRegisterServiceExtension(&hDummy, "BreadvmGuestPropSvc",
                                          Console::i_doGuestPropNotification,
                                          pvConsole);
 
@@ -6181,7 +6181,7 @@ int configSetGlobalPropertyFlags(VMMDev * const pVMMDev,
         AssertRCReturn(rc, rc);
 #endif
 
-        Log(("Set VBoxGuestPropSvc property store\n"));
+        Log(("Set BreadvmGuestPropSvc property store\n"));
     }
     return VINF_SUCCESS;
 #else /* !VBOX_WITH_GUEST_PROPS */

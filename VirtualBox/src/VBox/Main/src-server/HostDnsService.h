@@ -47,7 +47,7 @@ class HostDnsInformation
 
 /**
  * This class supposed to be a real DNS monitor object it should be singleton,
- * it lifecycle starts and ends together with VBoxSVC.
+ * it lifecycle starts and ends together with BreadvmSVC.
  */
 class HostDnsMonitor
 {

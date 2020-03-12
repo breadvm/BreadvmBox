@@ -1838,7 +1838,7 @@ HRESULT Console::i_doEnumerateGuestProperties(const Utf8Str &aPatterns,
         parm[2].type = VBOX_HGCM_SVC_PARM_32BIT;
         parm[2].u.uint32 = 0;
 
-        vrc = m_pVMMDev->hgcmHostCall("VBoxGuestPropSvc", ENUM_PROPS_HOST, 3,
+        vrc = m_pVMMDev->hgcmHostCall("BreadvmGuestPropSvc", ENUM_PROPS_HOST, 3,
                                       &parm[0]);
         Utf8Buf.jolt();
         if (parm[2].type != VBOX_HGCM_SVC_PARM_32BIT)
@@ -5980,7 +5980,7 @@ HRESULT Console::i_getGuestProperty(const Utf8Str &aName, Utf8Str *aValue, LONG6
         parm[3].type = VBOX_HGCM_SVC_PARM_32BIT;
         parm[3].u.uint32 = 0;
 
-        int vrc = m_pVMMDev->hgcmHostCall("VBoxGuestPropSvc", GET_PROP_HOST,
+        int vrc = m_pVMMDev->hgcmHostCall("BreadvmGuestPropSvc", GET_PROP_HOST,
                                           4, &parm[0]);
         /* The returned string should never be able to be greater than our buffer */
         AssertLogRel(vrc != VERR_BUFFER_OVERFLOW);
@@ -6004,7 +6004,7 @@ HRESULT Console::i_getGuestProperty(const Utf8Str &aName, Utf8Str *aValue, LONG6
         }
         else
             rc = setError(VBOX_E_IPRT_ERROR,
-                          tr("The VBoxGuestPropSvc service call failed with the error %Rrc"),
+                          tr("The BreadvmGuestPropSvc service call failed with the error %Rrc"),
                           vrc);
     }
     catch(std::bad_alloc & /*e*/)
@@ -6051,7 +6051,7 @@ HRESULT Console::i_setGuestProperty(const Utf8Str &aName, const Utf8Str &aValue,
     int vrc;
     if (aFlags.isEmpty())
     {
-        vrc = m_pVMMDev->hgcmHostCall("VBoxGuestPropSvc", SET_PROP_VALUE_HOST,
+        vrc = m_pVMMDev->hgcmHostCall("BreadvmGuestPropSvc", SET_PROP_VALUE_HOST,
                                     2, &parm[0]);
     }
     else
@@ -6060,13 +6060,13 @@ HRESULT Console::i_setGuestProperty(const Utf8Str &aName, const Utf8Str &aValue,
         parm[2].u.pointer.addr = (void*)aFlags.c_str();
         parm[2].u.pointer.size = (uint32_t)aFlags.length() + 1; /* The + 1 is the null terminator */
 
-        vrc = m_pVMMDev->hgcmHostCall("VBoxGuestPropSvc", SET_PROP_HOST,
+        vrc = m_pVMMDev->hgcmHostCall("BreadvmGuestPropSvc", SET_PROP_HOST,
                                       3, &parm[0]);
     }
 
     HRESULT hrc = S_OK;
     if (RT_FAILURE(vrc))
-        hrc = setError(VBOX_E_IPRT_ERROR, tr("The VBoxGuestPropSvc service call failed with the error %Rrc"), vrc);
+        hrc = setError(VBOX_E_IPRT_ERROR, tr("The BreadvmGuestPropSvc service call failed with the error %Rrc"), vrc);
     return hrc;
 #endif /* VBOX_WITH_GUEST_PROPS */
 }
@@ -6096,12 +6096,12 @@ HRESULT Console::i_deleteGuestProperty(const Utf8Str &aName)
     parm[0].u.pointer.addr = (void*)aName.c_str();
     parm[0].u.pointer.size = (uint32_t)aName.length() + 1; /* The + 1 is the null terminator */
 
-    int vrc = m_pVMMDev->hgcmHostCall("VBoxGuestPropSvc", DEL_PROP_HOST,
+    int vrc = m_pVMMDev->hgcmHostCall("BreadvmGuestPropSvc", DEL_PROP_HOST,
                                       1, &parm[0]);
 
     HRESULT hrc = S_OK;
     if (RT_FAILURE(vrc))
-        hrc = setError(VBOX_E_IPRT_ERROR, tr("The VBoxGuestPropSvc service call failed with the error %Rrc"), vrc);
+        hrc = setError(VBOX_E_IPRT_ERROR, tr("The BreadvmGuestPropSvc service call failed with the error %Rrc"), vrc);
     return hrc;
 #endif /* VBOX_WITH_GUEST_PROPS */
 }
@@ -8390,7 +8390,7 @@ HRESULT Console::i_createSharedFolder(const Utf8Str &strName, const SharedFolder
                       | (fMissing ? SHFL_ADD_MAPPING_F_MISSING : 0)
                       ;
 
-    vrc = m_pVMMDev->hgcmHostCall("VBoxSharedFolders",
+    vrc = m_pVMMDev->hgcmHostCall("BreadvmFolders",
                                   SHFL_FN_ADD_MAPPING,
                                   SHFL_CPARMS_ADD_MAPPING, &parms[0]);
     RTMemFree(pFolderName);
@@ -8446,7 +8446,7 @@ HRESULT Console::i_removeSharedFolder(const Utf8Str &strName)
     parms.u.pointer.addr = pMapName;
     parms.u.pointer.size = ShflStringSizeOfBuffer(pMapName);
 
-    int vrc = m_pVMMDev->hgcmHostCall("VBoxSharedFolders",
+    int vrc = m_pVMMDev->hgcmHostCall("BreadvmFolders",
                                       SHFL_FN_REMOVE_MAPPING,
                                       1, &parms);
     RTMemFree(pMapName);

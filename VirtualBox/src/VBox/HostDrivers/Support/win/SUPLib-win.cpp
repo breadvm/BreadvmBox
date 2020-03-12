@@ -309,10 +309,10 @@ static int suplibOsCreateService(void)
     if (hSMgrCreate != NULL)
     {
         char szDriver[RTPATH_MAX];
-        rc = RTPathExecDir(szDriver, sizeof(szDriver) - sizeof("\\VBoxDrv.sys"));
+        rc = RTPathExecDir(szDriver, sizeof(szDriver) - sizeof("\\Breadvm.sys"));
         if (RT_SUCCESS(rc))
         {
-            strcat(szDriver, "\\VBoxDrv.sys");
+            strcat(szDriver, "\\Breadvm.sys");
             SC_HANDLE hService = CreateService(hSMgrCreate,
                                                SERVICE_NAME,
                                                "VBox Support Driver",
@@ -490,10 +490,10 @@ static int suplibOsUpdateService(void)
         if (hService)
         {
             char szDriver[RTPATH_MAX];
-            int rc = RTPathExecDir(szDriver, sizeof(szDriver) - sizeof("\\VBoxDrv.sys"));
+            int rc = RTPathExecDir(szDriver, sizeof(szDriver) - sizeof("\\Breadvm.sys"));
             if (RT_SUCCESS(rc))
             {
-                strcat(szDriver, "\\VBoxDrv.sys");
+                strcat(szDriver, "\\Breadvm.sys");
 
                 SC_LOCK hLock = LockServiceDatabase(hSMgr);
                 if (ChangeServiceConfig(hService,

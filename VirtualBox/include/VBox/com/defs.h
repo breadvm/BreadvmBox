@@ -549,7 +549,7 @@ namespace com
 // use this macro to implement scriptable interfaces
 #ifdef RT_OS_WINDOWS
 #define VBOX_SCRIPTABLE_IMPL(iface)                                          \
-    public ATL::IDispatchImpl<iface, &IID_##iface, &LIBID_VirtualBox,        \
+    public ATL::IDispatchImpl<iface, &IID_##iface, &LIBID_Breadvm,        \
                               kTypeLibraryMajorVersion, kTypeLibraryMinorVersion>
 
 #define VBOX_SCRIPTABLE_DISPATCH_IMPL(iface)                                 \

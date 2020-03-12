@@ -55,7 +55,7 @@ public:
             /* Try private arch dir first. */
             rc = RTPathAppPrivateArch(szPath, sizeof(szPath));
             if (RT_SUCCESS(rc))
-                rc = RTPathAppend(szPath, sizeof(szPath), "VBoxDDU");
+                rc = RTPathAppend(szPath, sizeof(szPath), "BreadvmDDU");
             if (RT_SUCCESS(rc))
                 rc = RTStrCat(szPath, sizeof(szPath), RTLdrGetSuff());
             if (RT_SUCCESS(rc))
@@ -68,7 +68,7 @@ public:
             /* Try shared libs dir next. */
             rc = RTPathSharedLibs(szPath, sizeof(szPath));
             if (RT_SUCCESS(rc))
-                rc = RTPathAppend(szPath, sizeof(szPath), "VBoxDDU");
+                rc = RTPathAppend(szPath, sizeof(szPath), "BreadvmDDU");
             if (RT_SUCCESS(rc))
                 rc = RTStrCat(szPath, sizeof(szPath), RTLdrGetSuff());
             if (RT_SUCCESS(rc))
@@ -81,7 +81,7 @@ public:
             /* Try exec dir after that. */
             rc = RTPathExecDir(szPath, sizeof(szPath));
             if (RT_SUCCESS(rc))
-                rc = RTPathAppend(szPath, sizeof(szPath), "VBoxDDU");
+                rc = RTPathAppend(szPath, sizeof(szPath), "BreadvmDDU");
             if (RT_SUCCESS(rc))
                 rc = RTStrCat(szPath, sizeof(szPath), RTLdrGetSuff());
             if (RT_SUCCESS(rc))
@@ -94,7 +94,7 @@ public:
             /* Try exec dir parent after that. */
             rc = RTPathExecDir(szPath, sizeof(szPath));
             if (RT_SUCCESS(rc))
-                rc = RTPathAppend(szPath, sizeof(szPath), ".." RTPATH_SLASH_STR "VBoxDDU");
+                rc = RTPathAppend(szPath, sizeof(szPath), ".." RTPATH_SLASH_STR "BreadvmDDU");
             if (RT_SUCCESS(rc))
                 rc = RTStrCat(szPath, sizeof(szPath), RTLdrGetSuff());
             if (RT_SUCCESS(rc))

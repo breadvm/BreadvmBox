@@ -280,13 +280,13 @@
          UUID or version!!
 -->
 <library
-  name="VirtualBox"
+  name="Breadvm"
   uuid="82a6405b-7b34-4715-ba03-35de58922f4f"
   version="1.3"
 >
 
 <application
-  name="VirtualBox"
+  name="Breadvm"
   uuid="642830a8-26fb-4189-b9d2-b0bec1475190"
   supportsErrorInfo="yes"
 >
@@ -574,7 +574,7 @@
       <!--
           Machine changes: NVMe storage controller, paravirt debug options, CPU
           profile and BIOS/CPU APIC settings.
-          VirtualBox.xml: Add support for additional USB device sources (e.g. USB/IP)
+          Breadvm.xml: Add support for additional USB device sources (e.g. USB/IP)
       -->
     </const>
     <const name="v1_17" value="19">
@@ -2056,7 +2056,7 @@
     <attribute name="homeFolder" type="wstring" readonly="yes">
       <desc>
         Full path to the directory where the global settings file,
-        <tt>VirtualBox.xml</tt>, is stored.
+        <tt>Breadvm.xml</tt>, is stored.
 
         In this version of VirtualBox, the value of this property is
         always <tt>&lt;user_dir&gt;/.VirtualBox</tt> (where
@@ -2073,7 +2073,7 @@
       <desc>
         Full name of the global settings file.
         The value of this property corresponds to the value of
-        <link to="#homeFolder"/> plus <tt>/VirtualBox.xml</tt>.
+        <link to="#homeFolder"/> plus <tt>/Breadvm.xml</tt>.
       </desc>
     </attribute>
 
@@ -2878,7 +2878,7 @@
     <method name="createNATNetwork">
       <!-- Here we create a record in NAT network array with name
            and gateway/network parameters this information should
-           be enough for VBoxNetNAT and VBoxNetDHCP for
+           be enough for BreadvmNAT and VBoxNetDHCP for
            servicing the guests.
       -->
       <param name="networkName" type="wstring" dir="in"/>
@@ -5751,7 +5751,7 @@
             space of the session object. (Note that the latter is only of
             interest if you actually want to write a new front-end for
             virtual machines; but this API gets called internally by
-            the existing front-ends such as VBoxHeadless and the VirtualBox
+            the existing front-ends such as BreadvmLoader and the VirtualBox
             GUI to acquire a write lock on the machine that they are running.)
 
             On success, write-locking the machine for a session creates
@@ -5925,7 +5925,7 @@ and "VAR" for unsetting. -->
           Front-end to use for the new VM process. The following are currently supported:
           <ul>
             <li><tt>"gui"</tt>: VirtualBox Qt GUI front-end</li>
-            <li><tt>"headless"</tt>: VBoxHeadless (VRDE Server) front-end</li>
+            <li><tt>"headless"</tt>: BreadvmLoader (VRDE Server) front-end</li>
             <li><tt>"sdl"</tt>: VirtualBox SDL front-end</li>
             <li><tt>"emergencystop"</tt>: reserved value, used for aborting
               the currently running VM or session owner. In this case the
@@ -14934,7 +14934,7 @@ Snapshot 1 (B.vdi)            Snapshot 1 (B.vdi)
       <link to="IVirtualBox::floppyImages" /> arrays.
 
       Prior to VirtualBox 4.0, opening a medium added it to a global media registry
-      in the VirtualBox.xml file, which was shared between all machines and made
+      in the Breadvm.xml file, which was shared between all machines and made
       transporting machines and their media from one host to another difficult.
 
       Starting with VirtualBox 4.0, media are only added to a registry when they are
@@ -20484,7 +20484,7 @@ Snapshot 1 (B.vdi)            Snapshot 1 (B.vdi)
           one process can obtain a write lock on the machine to prevent conflicting
           changes. A write lock is also needed if a process wants to actually run a
           virtual machine in its own context, such as the VirtualBox GUI or
-          VBoxHeadless front-ends. They must also lock a machine for their own
+          BreadvmLoader front-ends. They must also lock a machine for their own
           sessions before they are allowed to power up the virtual machine.
 
           As a result, no machine settings can be altered while another process is
@@ -20493,7 +20493,7 @@ Snapshot 1 (B.vdi)            Snapshot 1 (B.vdi)
         </li>
         <li>
           To start a VM using one of the existing VirtualBox front-ends (e.g. the
-          VirtualBox GUI or VBoxHeadless), one would use
+          VirtualBox GUI or BreadvmLoader), one would use
           <link to="IMachine::launchVMProcess"/>, which also takes a session object
           as its first parameter. This session then identifies the caller and lets the
           caller control the started machine (for example, pause machine execution or
@@ -24465,14 +24465,14 @@ Snapshot 1 (B.vdi)            Snapshot 1 (B.vdi)
   </interface>
 
 
-  <module name="VBoxSVC" context="LocalServer">
+  <module name="BreadvmSVC" context="LocalServer">
     <class name="VirtualBox" uuid="b43e3caf-7d71-4077-bac4-fdd61059e1e1"
            namespace="virtualbox.org">
       <interface name="IVirtualBox" default="yes"/>
     </class>
   </module>
 
-  <module name="VBoxC" context="InprocServer" threadingModel="Free">
+  <module name="BreadvmC" context="InprocServer" threadingModel="Free">
     <class name="VirtualBoxClient" uuid="697c3405-ab88-4191-8b49-0e618960114e"
            namespace="virtualbox.org">
       <interface name="IVirtualBoxClient" default="yes"/>

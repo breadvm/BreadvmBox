@@ -643,23 +643,23 @@ VMMR3DECL(void) TRPMR3Relocate(PVM pVM, RTGCINTPTR offDelta)
     /*
      * Get the trap handler addresses.
      *
-     * If VMMRC.rc is screwed, so are we. We'll assert here since it elsewise
+     * If BreadvmRC.rc is screwed, so are we. We'll assert here since it elsewise
      * would make init order impossible if we should assert the presence of these
      * exports in TRPMR3Init().
      */
     RTRCPTR aRCPtrs[TRPM_HANDLER_MAX];
     RT_ZERO(aRCPtrs);
     int rc = PDMR3LdrGetSymbolRC(pVM, VMMRC_MAIN_MODULE_NAME, "TRPMGCHandlerInterupt", &aRCPtrs[TRPM_HANDLER_INT]);
-    AssertReleaseMsgRC(rc, ("Couldn't find TRPMGCHandlerInterupt in VMMRC.rc!\n"));
+    AssertReleaseMsgRC(rc, ("Couldn't find TRPMGCHandlerInterupt in BreadvmRC.rc!\n"));
 
     rc = PDMR3LdrGetSymbolRC(pVM, VMMRC_MAIN_MODULE_NAME, "TRPMGCHandlerGeneric",  &aRCPtrs[TRPM_HANDLER_TRAP]);
-    AssertReleaseMsgRC(rc, ("Couldn't find TRPMGCHandlerGeneric in VMMRC.rc!\n"));
+    AssertReleaseMsgRC(rc, ("Couldn't find TRPMGCHandlerGeneric in BreadvmRC.rc!\n"));
 
     rc = PDMR3LdrGetSymbolRC(pVM, VMMRC_MAIN_MODULE_NAME, "TRPMGCHandlerTrap08",   &aRCPtrs[TRPM_HANDLER_TRAP_08]);
-    AssertReleaseMsgRC(rc, ("Couldn't find TRPMGCHandlerTrap08 in VMMRC.rc!\n"));
+    AssertReleaseMsgRC(rc, ("Couldn't find TRPMGCHandlerTrap08 in BreadvmRC.rc!\n"));
 
     rc = PDMR3LdrGetSymbolRC(pVM, VMMRC_MAIN_MODULE_NAME, "TRPMGCHandlerTrap12",   &aRCPtrs[TRPM_HANDLER_TRAP_12]);
-    AssertReleaseMsgRC(rc, ("Couldn't find TRPMGCHandlerTrap12 in VMMRC.rc!\n"));
+    AssertReleaseMsgRC(rc, ("Couldn't find TRPMGCHandlerTrap12 in BreadvmRC.rc!\n"));
 
     RTSEL SelCS = CPUMGetHyperCS(pVCpu);
 
@@ -1191,7 +1191,7 @@ int trpmR3ClearPassThroughHandler(PVM pVM, unsigned iTrap)
     memset(aGCPtrs, 0, sizeof(aGCPtrs));
 
     rc = PDMR3LdrGetSymbolRC(pVM, VMMRC_MAIN_MODULE_NAME, "TRPMGCHandlerInterupt", &aGCPtrs[TRPM_HANDLER_INT]);
-    AssertReleaseMsgRC(rc, ("Couldn't find TRPMGCHandlerInterupt in VMMRC.rc!\n"));
+    AssertReleaseMsgRC(rc, ("Couldn't find TRPMGCHandlerInterupt in BreadvmRC.rc!\n"));
 
     if (    iTrap < TRPM_HANDLER_INT_BASE
         ||  iTrap >= RT_ELEMENTS(pVM->trpm.s.aIdt))

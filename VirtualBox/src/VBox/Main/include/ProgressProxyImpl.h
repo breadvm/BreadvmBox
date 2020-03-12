@@ -1,6 +1,6 @@
 /* $Id: ProgressProxyImpl.h $ */
 /** @file
- * IProgress implementation for Machine::LaunchVMProcess in VBoxSVC.
+ * IProgress implementation for Machine::LaunchVMProcess in BreadvmSVC.
  */
 
 /*

@@ -513,19 +513,19 @@ static int pdmR3DevLoadModules(PVM pVM)
     if (fLoadBuiltin)
     {
         /* make filename */
-        char *pszFilename = pdmR3FileR3("VBoxDD", true /*fShared*/);
+        char *pszFilename = pdmR3FileR3("BreadvmDD", true /*fShared*/);
         if (!pszFilename)
             return VERR_NO_TMP_MEMORY;
-        rc = pdmR3DevLoad(pVM, &RegCB, pszFilename, "VBoxDD");
+        rc = pdmR3DevLoad(pVM, &RegCB, pszFilename, "BreadvmDD");
         RTMemTmpFree(pszFilename);
         if (RT_FAILURE(rc))
             return rc;
 
         /* make filename */
-        pszFilename = pdmR3FileR3("VBoxDD2", true /*fShared*/);
+        pszFilename = pdmR3FileR3("BreadvmDD2", true /*fShared*/);
         if (!pszFilename)
             return VERR_NO_TMP_MEMORY;
-        rc = pdmR3DevLoad(pVM, &RegCB, pszFilename, "VBoxDD2");
+        rc = pdmR3DevLoad(pVM, &RegCB, pszFilename, "BreadvmDD2");
         RTMemTmpFree(pszFilename);
         if (RT_FAILURE(rc))
             return rc;

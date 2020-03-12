@@ -411,7 +411,7 @@ RTR3DECL(int) RTFsQueryType(const char *pszFsPath, PRTFSTYPE penmType)
                     *penmType = RTFSTYPE_FAT;
                 else if (IS_FS("EXFAT"))
                     *penmType = RTFSTYPE_EXFAT;
-                else if (IS_FS("VBoxSharedFolderFS"))
+                else if (IS_FS("BreadvmFoldersFS"))
                     *penmType = RTFSTYPE_VBOXSHF;
 #undef IS_FS
             }

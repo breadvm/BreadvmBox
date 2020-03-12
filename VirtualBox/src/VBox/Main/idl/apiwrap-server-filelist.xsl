@@ -157,19 +157,19 @@
 </xsl:template>
 
 
-    <xsl:template match="application[@uuid='ec0e78e8-fa43-43e8-ac0a-02c784c4a4fa']" mode="filelist-even-sources" >
+    <xsl:template match="application[@uuid='c2777d1a-f82e-473b-8bcc-fc443c70dbbd']" mode="filelist-even-sources" >
         <xsl:if test="$g_fVBoxWithSDS='yes'" >
             <xsl:call-template name="template_app_filelist_even_sources" />
         </xsl:if>
     </xsl:template>
 
-    <xsl:template match="application[@uuid='ec0e78e8-fa43-43e8-ac0a-02c784c4a4fa']" mode="filelist-headers" >
+    <xsl:template match="application[@uuid='c2777d1a-f82e-473b-8bcc-fc443c70dbbd']" mode="filelist-headers" >
         <xsl:if test="$g_fVBoxWithSDS='yes'" >
             <xsl:call-template name="template_app_filelist_headers" />
         </xsl:if>
     </xsl:template>
 
-    <xsl:template match="application[@uuid='ec0e78e8-fa43-43e8-ac0a-02c784c4a4fa']" mode="filelist-odd-sources" >
+    <xsl:template match="application[@uuid='c2777d1a-f82e-473b-8bcc-fc443c70dbbd']" mode="filelist-odd-sources" >
         <xsl:if test="$g_fVBoxWithSDS='yes'" >
             <xsl:call-template name="template_app_filelist_odd_sources" />
         </xsl:if>

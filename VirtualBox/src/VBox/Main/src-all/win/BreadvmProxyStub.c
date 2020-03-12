@@ -1,6 +1,6 @@
-/* $Id: VBoxProxyStub.c $ */
+/* $Id: BreadvmProxyStub.c $ */
 /** @file
- * VBoxProxyStub - Proxy Stub and Typelib, COM DLL exports and DLL init/term.
+ * BreadvmProxyStub - Proxy Stub and Typelib, COM DLL exports and DLL init/term.
  *
  * @remarks This is a C file and not C++ because rpcproxy.h isn't C++ clean,
  *          at least not in SDK v7.1.
@@ -81,14 +81,14 @@
  * windows server 2008 seems to have trouble with newer IDL compilers.
  */
 #if ARCH_BITS == 64 || defined(VBOX_IN_32_ON_64_MAIN_API)
-# define VBPS_PROXY_STUB_FILE(a_fIs32On64) ( (a_fIs32On64) ? "x86\\VBoxProxyStub-x86.dll" : VBPS_PROXY_STUB_FILE_SUB() )
+# define VBPS_PROXY_STUB_FILE(a_fIs32On64) ( (a_fIs32On64) ? "x86\\BreadvmProxyStub-x86.dll" : VBPS_PROXY_STUB_FILE_SUB() )
 #else
 # define VBPS_PROXY_STUB_FILE(a_fIs32On64) VBPS_PROXY_STUB_FILE_SUB()
 #endif
 #define VBPS_PROXY_STUB_FILE_SUB() \
     ( RT_MAKE_U64(((PKUSER_SHARED_DATA)MM_SHARED_USER_DATA_VA)->NtMinorVersion, \
                   ((PKUSER_SHARED_DATA)MM_SHARED_USER_DATA_VA)->NtMajorVersion) >= RT_MAKE_U64(1/*Lo*/,6/*Hi*/) \
-      ? "VBoxProxyStub.dll" : "VBoxProxyStubLegacy.dll" )
+      ? "BreadvmProxyStub.dll" : "BreadvmProxyStubLegacy.dll" )
 
 /** For use with AssertLogRel except a_Expr1 from assertions but not LogRel. */
 #ifdef RT_STRICT
@@ -143,7 +143,7 @@ static PCRTUTF16 const      g_apwszTypelibVersions[] =
 static PCRTUTF16 const      g_apwszProxyStubClsIds[] =
 {
     L"{0BB3B78C-1807-4249-5BA5-EA42D66AF0BF}",
-    L"{327E3C00-EE61-462F-AED3-0DFF6CBF9904}",
+    L"{de2011e2-fb9e-4128-8a7a-c4238ff0868d}",
 };
 
 
@@ -169,7 +169,7 @@ BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved)
 
             /* Init IPRT. */
             RTR3InitDll(RTR3INIT_FLAGS_UNOBTRUSIVE);
-            Log12(("VBoxProxyStub[%u]/DllMain: DLL_PROCESS_ATTACH\n", GetCurrentProcessId()));
+            Log12(("BreadvmProxyStub[%u]/DllMain: DLL_PROCESS_ATTACH\n", GetCurrentProcessId()));
 
 #ifdef VBOX_STRICT
             {
@@ -195,7 +195,7 @@ BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved)
             break;
 
         case DLL_PROCESS_DETACH:
-            Log12(("VBoxProxyStub[%u]/DllMain: DLL_PROCESS_DETACH\n", GetCurrentProcessId()));
+            Log12(("BreadvmProxyStub[%u]/DllMain: DLL_PROCESS_DETACH\n", GetCurrentProcessId()));
             break;
     }
 
@@ -211,7 +211,7 @@ void RPC_ENTRY GetProxyDllInfo(const ProxyFileInfo ***ppapInfo, const CLSID **pp
 {
     *ppapInfo = &g_apProxyFiles[0];
     *ppClsid  = &g_ProxyClsId;
-    Log12(("VBoxProxyStub[%u]/GetProxyDllInfo:\n", GetCurrentProcessId()));
+    Log12(("BreadvmProxyStub[%u]/GetProxyDllInfo:\n", GetCurrentProcessId()));
 }
 
 
@@ -239,7 +239,7 @@ HRESULT STDAPICALLTYPE DllGetClassObject(REFCLSID rclsid, REFIID riid, void **pp
      * /target being set to NT51.
      */
     AssertLogRelMsg(hrc == S_OK, ("%Rhrc\n",  hrc));
-    Log12(("VBoxProxyStub[%u]/DllGetClassObject(%RTuuid, %RTuuid, %p): %#x + *ppv=%p\n",
+    Log12(("BreadvmProxyStub[%u]/DllGetClassObject(%RTuuid, %RTuuid, %p): %#x + *ppv=%p\n",
            GetCurrentProcessId(), rclsid, riid, ppv, hrc, ppv ? *ppv : NULL));
     return hrc;
 }
@@ -253,7 +253,7 @@ HRESULT STDAPICALLTYPE DllGetClassObject(REFCLSID rclsid, REFIID riid, void **pp
 HRESULT STDAPICALLTYPE DllCanUnloadNow(void)
 {
     HRESULT hrc = NdrDllCanUnloadNow(&g_ProxyStubFactory);                                 /* see DLLCANUNLOADNOW in RpcProxy.h */
-    Log12(("VBoxProxyStub[%u]/DllCanUnloadNow: %Rhrc\n", GetCurrentProcessId(), hrc));
+    Log12(("BreadvmProxyStub[%u]/DllCanUnloadNow: %Rhrc\n", GetCurrentProcessId(), hrc));
     return hrc;
 }
 
@@ -269,7 +269,7 @@ HRESULT STDAPICALLTYPE DllCanUnloadNow(void)
 ULONG STDMETHODCALLTYPE CStdStubBuffer_Release(IRpcStubBuffer *pThis)                /* see CSTDSTUBBUFFERRELEASE in RpcProxy.h */
 {
     ULONG cRefs =  NdrCStdStubBuffer_Release(pThis, (IPSFactoryBuffer *)&g_ProxyStubFactory);
-    Log12(("VBoxProxyStub[%u]/CStdStubBuffer_Release: %p -> %#x\n", GetCurrentProcessId(), pThis, cRefs));
+    Log12(("BreadvmProxyStub[%u]/CStdStubBuffer_Release: %p -> %#x\n", GetCurrentProcessId(), pThis, cRefs));
     return cRefs;
 }
 
@@ -284,7 +284,7 @@ ULONG STDMETHODCALLTYPE CStdStubBuffer_Release(IRpcStubBuffer *pThis)           
 ULONG WINAPI CStdStubBuffer2_Release(IRpcStubBuffer *pThis)                         /* see CSTDSTUBBUFFER2RELEASE in RpcProxy.h */
 {
     ULONG cRefs = NdrCStdStubBuffer2_Release(pThis, (IPSFactoryBuffer *)&g_ProxyStubFactory);
-    Log12(("VBoxProxyStub[%u]/CStdStubBuffer2_Release: %p -> %#x\n", GetCurrentProcessId(), pThis, cRefs));
+    Log12(("BreadvmProxyStub[%u]/CStdStubBuffer2_Release: %p -> %#x\n", GetCurrentProcessId(), pThis, cRefs));
     return cRefs;
 }
 
@@ -1311,32 +1311,32 @@ LSTATUS VbpsRegisterClassId(VBPSREGSTATE *pState, const CLSID *pClsId, const cha
  */
 void RegisterXidlModulesAndClassesGenerated(VBPSREGSTATE *pState, PCRTUTF16 pwszVBoxDir, bool fIs32On64)
 {
-    const char *pszAppId            = "{819B4D85-9CEE-493C-B6FC-64FFE759B3C9}";
-    const char *pszInprocDll        = !fIs32On64 ? "VBoxC.dll" : "x86\\VBoxClient-x86.dll";
-    const char *pszLocalServer      = "VBoxSVC.exe";
+    const char *pszAppId            = "{642830a8-26fb-4189-b9d2-b0bec1475190}";
+    const char *pszInprocDll        = !fIs32On64 ? "BreadvmC.dll" : "x86\\BreadvmClient-x86.dll";
+    const char *pszLocalServer      = "BreadvmSVC.exe";
 #ifdef VBOX_WITH_SDS
-    const char *pszSdsAppId         = "{EC0E78E8-FA43-43E8-AC0A-02C784C4A4FA}";
+    const char *pszSdsAppId         = "{c2777d1a-f82e-473b-8bcc-fc443c70dbbd}";
     const char *pszSdsExe           = "VBoxSDS.exe";
     const char *pszSdsServiceName   = "VBoxSDS";
 #endif
 
-    /* VBoxSVC */
+    /* BreadvmSVC */
     VbpsRegisterAppId(pState, pszLocalServer, pszAppId, "VirtualBox Application", NULL);
     VbpsRegisterClassName(pState, "VirtualBox.VirtualBox.1", "VirtualBox Class", &CLSID_VirtualBox, NULL);
     VbpsRegisterClassName(pState, "VirtualBox.VirtualBox",   "VirtualBox Class", &CLSID_VirtualBox, ".1");
     VbpsRegisterClassId(pState, &CLSID_VirtualBox, "VirtualBox Class", pszAppId, "VirtualBox.VirtualBox", ".1",
-                        &LIBID_VirtualBox, "LocalServer32", pwszVBoxDir, pszLocalServer, NULL /*N/A*/);
+                        &LIBID_Breadvm, "LocalServer32", pwszVBoxDir, pszLocalServer, NULL /*N/A*/);
     /* VBoxC */
     VbpsRegisterClassName(pState, "VirtualBox.Session.1", "Session Class", &CLSID_Session, NULL);
     VbpsRegisterClassName(pState, "VirtualBox.Session", "Session Class", &CLSID_Session, ".1");
     VbpsRegisterClassId(pState, &CLSID_Session, "Session Class", pszAppId, "VirtualBox.Session", ".1",
-                        &LIBID_VirtualBox, "InprocServer32", pwszVBoxDir, pszInprocDll, "Free");
+                        &LIBID_Breadvm, "InprocServer32", pwszVBoxDir, pszInprocDll, "Free");
 
     VbpsRegisterClassName(pState, "VirtualBox.VirtualBoxClient.1", "VirtualBoxClient Class", &CLSID_VirtualBoxClient, NULL);
     VbpsRegisterClassName(pState, "VirtualBox.VirtualBoxClient", "VirtualBoxClient Class", &CLSID_VirtualBoxClient, ".1");
     VbpsRegisterClassId(pState, &CLSID_VirtualBoxClient, "VirtualBoxClient Class", pszAppId,
                         "VirtualBox.VirtualBoxClient", ".1",
-                        &LIBID_VirtualBox, "InprocServer32", pwszVBoxDir, pszInprocDll, "Free");
+                        &LIBID_Breadvm, "InprocServer32", pwszVBoxDir, pszInprocDll, "Free");
 
 #ifdef VBOX_WITH_SDS
     /* VBoxSDS */
@@ -1344,7 +1344,7 @@ void RegisterXidlModulesAndClassesGenerated(VBPSREGSTATE *pState, PCRTUTF16 pwsz
     VbpsRegisterClassName(pState, "VirtualBox.VirtualBoxSDS.1", "VirtualBoxSDS Class", &CLSID_VirtualBoxSDS, NULL);
     VbpsRegisterClassName(pState, "VirtualBox.VirtualBoxSDS", "VirtualBoxSDS Class", &CLSID_VirtualBoxSDS, ".1");
     VbpsRegisterClassId(pState, &CLSID_VirtualBoxSDS, "VirtualBoxSDS Class", pszSdsAppId, "VirtualBox.VirtualBoxSDS", ".1",
-                        &LIBID_VirtualBox, "LocalServer32", pwszVBoxDir, pszSdsExe, NULL /*N/A*/);
+                        &LIBID_Breadvm, "LocalServer32", pwszVBoxDir, pszSdsExe, NULL /*N/A*/);
 #endif
 }
 
@@ -1390,7 +1390,7 @@ static void vbpsUpdateTypeLibRegistration(VBPSREGSTATE *pState, PCRTUTF16 pwszVB
         return;
 
     /* Create TypeLib/{UUID}. */
-    rc = vbpsCreateRegKeyA(pState, hkeyTypeLibs, vbpsFormatUuidInCurly(szTypeLibId, &LIBID_VirtualBox), &hkeyTypeLibId, __LINE__);
+    rc = vbpsCreateRegKeyA(pState, hkeyTypeLibs, vbpsFormatUuidInCurly(szTypeLibId, &LIBID_Breadvm), &hkeyTypeLibId, __LINE__);
     if (rc == ERROR_SUCCESS)
     {
         /* {UUID}/Major.Minor/Default = pszDescription. */
@@ -1407,7 +1407,7 @@ static void vbpsUpdateTypeLibRegistration(VBPSREGSTATE *pState, PCRTUTF16 pwszVB
             rc = vbpsCreateRegKeyA(pState, hkeyMajMin, "0", &hkey0, __LINE__);
             if (rc == ERROR_SUCCESS)
             {
-                /* {UUID}/Major.Minor/0/winXX/Default = VBoxProxyStub. */
+                /* {UUID}/Major.Minor/0/winXX/Default = BreadvmProxyStub. */
                 rc = RTUtf16Copy(wszBuf, MAX_PATH, pwszVBoxDir); AssertRC(rc);
                 rc = RTUtf16CatAscii(wszBuf, MAX_PATH * 2, pszTypeLibDll); AssertRC(rc);
 
@@ -1485,7 +1485,7 @@ static void vbpsUpdateInterfaceRegistrations(VBPSREGSTATE *pState)
     char                  szTypeLibVersion[64];
 
     vbpsFormatUuidInCurly(szProxyClsId, &g_ProxyClsId);
-    vbpsFormatUuidInCurly(szTypeLibId, &LIBID_VirtualBox);
+    vbpsFormatUuidInCurly(szTypeLibId, &LIBID_Breadvm);
     sprintf(szTypeLibVersion, "%u.%u", kTypeLibraryMajorVersion, kTypeLibraryMinorVersion);
 
     Assert(pState->fUpdate && !pState->fDelete);
@@ -2266,7 +2266,7 @@ HRESULT STDAPICALLTYPE DllUnregisterServer(void)
      * We ignore TYPE_E_REGISTRYACCESS as that is what is returned if the
      * type lib hasn't been registered (W10).
      */
-    hrc2 = UnRegisterTypeLib(&LIBID_VirtualBox, kTypeLibraryMajorVersion, kTypeLibraryMinorVersion,
+    hrc2 = UnRegisterTypeLib(&LIBID_Breadvm, kTypeLibraryMajorVersion, kTypeLibraryMinorVersion,
                              0 /*LCid*/, RT_CONCAT(SYS_WIN, ARCH_BITS));
     AssertMsgStmt(SUCCEEDED(hrc2) || hrc2 == TYPE_E_REGISTRYACCESS, ("%Rhrc\n", hrc2), if (SUCCEEDED(hrc)) hrc = hrc2);
 
@@ -2525,7 +2525,7 @@ DECLEXPORT(uint32_t) VbpsUpdateRegistrations(void)
     bool const      fIs32On64 = false;
 #endif
 
-    /** @todo Should probably skip this when VBoxSVC is already running...  Use
+    /** @todo Should probably skip this when BreadvmSVC is already running...  Use
      *        some mutex or something for checking. */
 
     /*

@@ -1,6 +1,6 @@
 /* $Id: precomp_vcc.h $ */
 /** @file
- * VirtualBox COM - Visual C++ precompiled header for VBoxSVC.
+ * VirtualBox COM - Visual C++ precompiled header for BreadvmSVC.
  */
 
 /*

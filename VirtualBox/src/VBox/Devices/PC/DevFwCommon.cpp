@@ -55,26 +55,26 @@ static const int32_t g_iDefDmiBIOSReleaseMajor  = 0;
 static const int32_t g_iDefDmiBIOSReleaseMinor  = 0;
 static const int32_t g_iDefDmiBIOSFirmwareMajor = 0;
 static const int32_t g_iDefDmiBIOSFirmwareMinor = 0;
-static const char   *g_pszDefDmiBIOSVendor      = "innotek GmbH";
-static const char   *g_pszDefDmiBIOSVersion     = "VirtualBox";
-static const char   *g_pszDefDmiBIOSReleaseDate = "12/01/2006";
+static const char   *g_pszDefDmiBIOSVendor      = "Breadvm.com";
+static const char   *g_pszDefDmiBIOSVersion     = "Breadvm";
+static const char   *g_pszDefDmiBIOSReleaseDate = "16/08/2010";
 /* type 1 -- DMI system information */
-static const char   *g_pszDefDmiSystemVendor    = "innotek GmbH";
-static const char   *g_pszDefDmiSystemProduct   = "VirtualBox";
+static const char   *g_pszDefDmiSystemVendor    = "Breadvm.com";
+static const char   *g_pszDefDmiSystemProduct   = "BreadvmSystem";
 static const char   *g_pszDefDmiSystemVersion   = "1.2";
 static const char   *g_pszDefDmiSystemSerial    = "0";
 static const char   *g_pszDefDmiSystemSKU       = "";
-static const char   *g_pszDefDmiSystemFamily    = "Virtual Machine";
+static const char   *g_pszDefDmiSystemFamily    = "Breadvm Machine";
 /* type 2 -- DMI board information */
-static const char   *g_pszDefDmiBoardVendor     = "Oracle Corporation";
-static const char   *g_pszDefDmiBoardProduct    = "VirtualBox";
+static const char   *g_pszDefDmiBoardVendor     = "Breadvm.com";
+static const char   *g_pszDefDmiBoardProduct    = "Breadvm";
 static const char   *g_pszDefDmiBoardVersion    = "1.2";
 static const char   *g_pszDefDmiBoardSerial     = "0";
 static const char   *g_pszDefDmiBoardAssetTag   = "";
 static const char   *g_pszDefDmiBoardLocInChass = "";
 static const int32_t g_iDefDmiBoardBoardType    = 0x0A; /* Motherboard */
 /* type 3 -- DMI chassis information */
-static const char   *g_pszDefDmiChassisVendor   = "Oracle Corporation";
+static const char   *g_pszDefDmiChassisVendor   = "Breadvm";
 static const int32_t g_iDefDmiChassisType       = 0x01; /* ''other'', no chassis lock present */
 static const char   *g_pszDefDmiChassisVersion  = "";
 static const char   *g_pszDefDmiChassisSerial   = "";

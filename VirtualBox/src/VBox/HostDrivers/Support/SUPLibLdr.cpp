@@ -164,14 +164,14 @@ static DECLCALLBACK(int) supLoadModuleResolveImport(RTLDRMOD hLdrMod, const char
     PSUPLDRRESIMPARGS pArgs = (PSUPLDRRESIMPARGS)pvUser;
 
     /*
-     * Only SUPR0 and VMMR0.r0
+     * Only SUPR0 and BreadvmR0.r0
      */
     if (    pszModule
         &&  *pszModule
-        &&  strcmp(pszModule, "VBoxDrv.sys")
-        &&  strcmp(pszModule, "VMMR0.r0"))
+        &&  strcmp(pszModule, "Breadvm.sys")
+        &&  strcmp(pszModule, "BreadvmR0.r0"))
     {
-        AssertMsgFailed(("%s is importing from %s! (expected 'SUPR0.dll' or 'VMMR0.r0', case-sensitive)\n", pArgs->pszModule, pszModule));
+        AssertMsgFailed(("%s is importing from %s! (expected 'SUPR0.dll' or 'BreadvmR0.r0', case-sensitive)\n", pArgs->pszModule, pszModule));
         return RTErrInfoSetF(pArgs->pErrInfo, VERR_SYMBOL_NOT_FOUND,
                              "Unexpected import module '%s' in '%s'", pszModule, pArgs->pszModule);
     }
@@ -195,7 +195,7 @@ static DECLCALLBACK(int) supLoadModuleResolveImport(RTLDRMOD hLdrMod, const char
         pszSymbol += sizeof("SUPR0$") - 1;
 
     /*
-     * Check the VMMR0.r0 module if loaded.
+     * Check the BreadvmR0.r0 module if loaded.
      */
     /** @todo call the SUPR3LoadModule caller.... */
     /** @todo proper reference counting and such. */
@@ -374,7 +374,7 @@ static int supLoadModule(const char *pszFilename, const char *pszModule, const c
         return rc;
     pszFilename = szAbsFilename;
 
-    const bool fIsVMMR0 = !strcmp(pszModule, "VMMR0.r0");
+    const bool fIsVMMR0 = !strcmp(pszModule, "BreadvmR0.r0");
     AssertReturn(!pszSrvReqHandler || !fIsVMMR0, VERR_INTERNAL_ERROR);
     *ppvImageBase = NULL;
 
@@ -696,7 +696,7 @@ SUPR3DECL(int) SUPR3GetSymbolR0(void *pvImageBase, const char *pszSymbol, void *
 SUPR3DECL(int) SUPR3LoadVMM(const char *pszFilename)
 {
     void *pvImageBase;
-    return SUPR3LoadModule(pszFilename, "VMMR0.r0", &pvImageBase, NULL /*pErrInfo*/);
+    return SUPR3LoadModule(pszFilename, "BreadvmR0.r0", &pvImageBase, NULL /*pErrInfo*/);
 }
 
 

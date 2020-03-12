@@ -144,7 +144,7 @@ tst: $(VBOX_SUP_WIN_CERTS_FILE)
 
 
 #
-# The Ring-3 Support Library (this is linked into the IPRT dll, VBoxRT).
+# The Ring-3 Support Library (this is linked into the IPRT dll, BreadvmRT).
 #
 SUPR3_TEMPLATE      = VBOXR3
 SUPR3_DEFS          = \
@@ -546,135 +546,62 @@ if  !defined(VBOX_ONLY_DOCS) \
  && !defined(VBOX_ONLY_EXTPACKS) \
  && !defined(VBOX_ONLY_VALIDATIONKIT)
 
-ifeq ($(KBUILD_TARGET),os2)
-
 #
-# VBoxDrv.sys - The OS/2 driver.
-#
-VBoxDrv_TEMPLATE      = VBOXR0DRV
-VBoxDrv_DEFS          = IN_RT_R0 IN_SUP_R0
-VBoxDrv_INCS         := $(PATH_SUB_CURRENT)
-#VBoxDrv_LDFLAGS       = -s -t -v
-VBoxDrv_SOURCES       = \
-	os2/SUPDrvA-os2.asm \
-	os2/SUPDrv-os2.def
-VBoxDrv_LIBS          = \
-	$(VBoxDrvLib_1_TARGET) \
-	$(PATH_STAGE_LIB)/RuntimeR0Drv$(VBOX_SUFF_LIB) \
-	$(VBOX_GCC_LIBGCC) \
-	end
-
-# temp hack to ensure that SUPDrvA-os2.asm is first in the link.
-LIBRARIES += VBoxDrvLib
-VBoxDrvLib_TEMPLATE   = VBOXR0DRV
-VBoxDrvLib_INSTTYPE   = none
-VBoxDrvLib_DEFS       = IN_RT_R0 IN_SUP_R0
-VBoxDrvLib_INCS      := \
-	. \
-	$(PATH_ROOT)/src/VBox/Runtime/include
-VBoxDrvLib_SOURCES    = \
-	os2/SUPDrv-os2.cpp \
-	SUPDrv.cpp \
-	SUPDrvGip.cpp \
-	SUPDrvSem.cpp \
-	SUPLibAll.cpp
-
-endif # os2
-
-
-#
-# New VBoxDrv target. TODO: Convert all the above to use this!
+# New Breadvm target. TODO: Convert all the above to use this!
 #
 if1of ($(KBUILD_TARGET), darwin freebsd solaris win)
  ifdef VBOX_WITH_VBOXDRV
-  SYSMODS += VBoxDrv
+  SYSMODS += Breadvm
  endif
- VBoxDrv_TEMPLATE         = VBOXR0DRV
- VBoxDrv_NAME.freebsd     = vboxdrv
- VBoxDrv_NAME.solaris     = vboxdrv
+ Breadvm_TEMPLATE         = VBOXR0DRV
  ifdef VBOX_SIGNING_MODE
-  VBoxDrv_INSTTYPE.win    = none
-  VBoxDrv_DEBUG_INSTTYPE.win = both
+  Breadvm_INSTTYPE.win    = none
+  Breadvm_DEBUG_INSTTYPE.win = both
  endif
- VBoxDrv_INST.darwin      = $(INST_VBOXDRV)Contents/MacOS/
- VBoxDrv_DEBUG_INST.darwin= $(patsubst %/,%,$(INST_VBOXDRV))
- VBoxDrv_SDKS.win         = ReorderCompilerIncs $(VBOX_WINDDK) $(VBOX_WINPSDK)INCS
+ Breadvm_SDKS.win         = ReorderCompilerIncs $(VBOX_WINDDK) $(VBOX_WINPSDK)INCS
 
- VBoxDrv_DEFS            := IN_RT_R0 IN_SUP_R0 SUPDRV_WITH_RELEASE_LOGGER VBOX_SVN_REV=$(VBOX_SVN_REV)
+ Breadvm_DEFS            := IN_RT_R0 IN_SUP_R0 SUPDRV_WITH_RELEASE_LOGGER VBOX_SVN_REV=$(VBOX_SVN_REV)
  ifdef VBOX_WITH_DTRACE_R0DRV
-  VBoxDrv_DEFS           += VBOX_WITH_DTRACE VBOX_WITH_DTRACE_R0DRV
+  Breadvm_DEFS           += VBOX_WITH_DTRACE VBOX_WITH_DTRACE_R0DRV
  endif
  ifdef VBOX_WITHOUT_DEBUGGER_CHECKS
-  VBoxDrv_DEFS           += VBOX_WITHOUT_DEBUGGER_CHECKS
+  Breadvm_DEFS           += VBOX_WITHOUT_DEBUGGER_CHECKS
  endif
  ifdef VBOX_PERMIT_VISUAL_STUDIO_PROFILING
-  VBoxDrv_DEFS           += VBOX_PERMIT_VISUAL_STUDIO_PROFILING
+  Breadvm_DEFS           += VBOX_PERMIT_VISUAL_STUDIO_PROFILING
  endif
- VBoxDrv_DEFS            += VBOX_PERMIT_MORE VBOX_PERMIT_EVEN_MORE
- #VBoxDrv_DEFS.debug      += DEBUG_DARWIN_GIP
- VBoxDrv_DEFS.darwin     := VBOX_WITH_HOST_VMX
- ifdef VBOX_WITH_RAW_MODE
-  VBoxDrv_DEFS.darwin    += VBOX_WITH_RAW_MODE
- endif
- ifdef VBOX_WITH_DARWIN_R0_DARWIN_IMAGE_VERIFICATION
-  VBoxDrv_DEFS.darwin    += VBOX_WITH_DARWIN_R0_DARWIN_IMAGE_VERIFICATION
- endif
- ifdef VBOX_WITH_NETFLT
-  VBoxDrv_DEFS.solaris   += VBOX_WITH_NETFLT
- endif
- ifdef VBOX_WITH_NATIVE_SOLARIS_LOADING
-  VBoxDrv_DEFS.solaris   += VBOX_WITH_NATIVE_SOLARIS_LOADING
- endif
+ Breadvm_DEFS            += VBOX_PERMIT_MORE VBOX_PERMIT_EVEN_MORE
+
  ifdef VBOX_WITHOUT_NATIVE_R0_LOADER
-  VBoxDrv_DEFS.win       += VBOX_WITHOUT_NATIVE_R0_LOADER
+  Breadvm_DEFS.win       += VBOX_WITHOUT_NATIVE_R0_LOADER
  endif
  ifdef VBOX_WITH_VISTA_NO_SP
-  VBoxDrv_DEFS.win       += VBOX_WITH_VISTA_NO_SP
+  Breadvm_DEFS.win       += VBOX_WITH_VISTA_NO_SP
  endif
  ifdef VBOX_WITH_HARDENING
-  VBoxDrv_ASDEFS         += VBOX_WITH_HARDENING
+  Breadvm_ASDEFS         += VBOX_WITH_HARDENING
  endif
  if ($(VBOX_VERSION_BUILD) % 2) == 1
-  VBoxDrv_DEFS           += VBOX_WITH_EFLAGS_AC_SET_IN_VBOXDRV IPRT_WITH_EFLAGS_AC_PRESERVING
+  Breadvm_DEFS           += VBOX_WITH_EFLAGS_AC_SET_IN_VBOXDRV IPRT_WITH_EFLAGS_AC_PRESERVING
  endif
 
- VBoxDrv_INCS             = . $(VBoxDrv_0_OUTDIR)
- VBoxDrv_INCS.darwin      = ./darwin
+ Breadvm_INCS             = . $(Breadvm_0_OUTDIR)
 
- VBoxDrv_LIBS             = $(PATH_STAGE_LIB)/RuntimeR0Drv$(VBOX_SUFF_LIB)
- VBoxDrv_LIBS.win         = \
+ Breadvm_LIBS             = $(PATH_STAGE_LIB)/RuntimeR0Drv$(VBOX_SUFF_LIB)
+ Breadvm_LIBS.win         = \
  	$(PATH_STAGE_LIB)/RuntimeR0Drv$(VBOX_SUFF_LIB) \
  	$(PATH_SDK_$(VBOX_WINDDK)_LIB)/ntoskrnl.lib \
  	$(PATH_SDK_$(VBOX_WINDDK)_LIB)/hal.lib
 
- #VBoxDrv_LDFLAGS.darwin   = -Wl,-sectcreate,__TEXT,__info_plist,$(VBoxDrv.kext_0_OUTDIR)/Info.plist
- #VBoxDrv_LDFLAGS.darwin   = -v -Wl,-whyload -Wl,-v -Wl,-whatsloaded
- VBoxDrv_LDFLAGS.solaris += -N misc/ctf
- ifdef VBOX_WITH_NATIVE_DTRACE
-  VBoxDrv_LDFLAGS.solaris += -N drv/dtrace
- endif
- VBoxDrv_LDFLAGS.win.x86  = -Entry:DriverEntry@8
- VBoxDrv_LDFLAGS.win.amd64= -Entry:DriverEntry
+ Breadvm_LDFLAGS.win.x86  = -Entry:DriverEntry@8
+ Breadvm_LDFLAGS.win.amd64= -Entry:DriverEntry
 
- VBoxDrv_SOURCES.darwin   = \
-	darwin/SUPDrv-darwin.cpp
- ifdef VBOX_WITH_DARWIN_R0_DARWIN_IMAGE_VERIFICATION
-  VBoxDrv_SOURCES.darwin += \
-  	$(VBOX_SUP_WIN_CERTS_FILE)
- endif
- VBoxDrv_SOURCES.solaris  = \
-	solaris/SUPDrv-solaris.c
- VBoxDrv_SOURCES.win      = \
+ Breadvm_SOURCES.win      = \
 	win/SUPDrv-win.cpp \
 	win/SUPDrvA-win.asm \
 	win/VBoxDrv.rc
- ifdef VBOX_WITH_HARDENING
-  VBoxDrv_SOURCES.win    += \
- 	win/SUPHardenedVerifyImage-win.cpp \
- 	win/SUPHardenedVerifyProcess-win.cpp \
- 	$(VBOX_SUP_WIN_CERTS_FILE)
- endif
- VBoxDrv_SOURCES          = \
+
+ Breadvm_SOURCES          = \
  	SUPDrv.d \
  	SUPDrv.cpp \
  	SUPDrvGip.cpp \
@@ -682,117 +609,18 @@ if1of ($(KBUILD_TARGET), darwin freebsd solaris win)
   	SUPDrvTracer.cpp \
 	SUPLibAll.cpp
  ifdef VBOX_WITH_NATIVE_DTRACE
-  VBoxDrv_SOURCES        += \
+  Breadvm_SOURCES        += \
   	SUPDrv-dtrace.cpp
   SUPDrv-dtrace.cpp_DEFS.darwin += VBOX_PATH_MACOSX_DTRACE_H=\"$(VBOX_PATH_MACOSX_SDK)/usr/include/sys/dtrace.h\"
  endif
  ifn1of ($(KBUILD_TARGET), linux freebsd)
-  VBoxDrv_SOURCES        += \
+  Breadvm_SOURCES        += \
  	SUPDrvTracerA.asm
  endif
 
  linux/SUPDrv-linux.c_DEPS = $(VBOX_SVN_REV_HEADER)
 
 endif
-
-
-
-if1of ($(KBUILD_TARGET), darwin)
- # Files necessary to make a darwin kernel extension bundle.
- INSTALLS.darwin += VBoxDrv.kext
- VBoxDrv.kext_INST     = $(INST_VBOXDRV)Contents/
- VBoxDrv.kext_SOURCES  = $(VBoxDrv.kext_0_OUTDIR)/Contents/Info.plist
- VBoxDrv.kext_CLEAN    = $(VBoxDrv.kext_0_OUTDIR)/Contents/Info.plist
- VBoxDrv.kext_BLDDIRS  = $(VBoxDrv.kext_0_OUTDIR)/Contents/
-
- $$(VBoxDrv.kext_0_OUTDIR)/Contents/Info.plist: \
-		$(PATH_SUB_CURRENT)/darwin/Info.plist \
-		$(VBOX_VERSION_MK) | $$(dir $$@)
-	$(call MSG_GENERATE,VBoxDrv,$@,$<)
-	$(QUIET)$(RM) -f $@
-	$(QUIET)$(SED) \
-		-e 's/@VBOX_VERSION_STRING@/$(if !defined(VBOX_MAVERICS_CODE_SIGNING_HACK),$(VBOX_VERSION_STRING),4.2.51)/g' \
-		-e 's/@VBOX_VERSION_MAJOR@/$(if  !defined(VBOX_MAVERICS_CODE_SIGNING_HACK),$(VBOX_VERSION_MAJOR),4)/g' \
-		-e 's/@VBOX_VERSION_MINOR@/$(if  !defined(VBOX_MAVERICS_CODE_SIGNING_HACK),$(VBOX_VERSION_MINOR),2)/g' \
-		-e 's/@VBOX_VERSION_BUILD@/$(if  !defined(VBOX_MAVERICS_CODE_SIGNING_HACK),$(VBOX_VERSION_BUILD),51)/g' \
-		-e 's/@VBOX_VENDOR@/$(VBOX_VENDOR)/g' \
-		-e 's/@VBOX_PRODUCT@/$(VBOX_PRODUCT)/g' \
-		-e 's/@VBOX_C_YEAR@/$(VBOX_C_YEAR)/g' \
-		--output $@ \
-		$<
-
- $(evalcall2 VBOX_TEST_SIGN_KEXT,VBoxDrv)
-endif
-
-
-if1of ($(KBUILD_TARGET), darwin solaris)
- # Common manual loader script.
- INSTALLS += SUPDrvScripts
- SUPDrvScripts_INST = $(INST_DIST)
- SUPDrvScripts_EXEC_SOURCES  = \
-	$(KBUILD_TARGET)/load.sh
-endif
-
-
-if1of ($(KBUILD_TARGET), linux freebsd)
- #
- # Targets for installing the linux sources.
- #
- vboxdrv-src_INST    = bin/src/vboxdrv/
- vboxdrv-src_SOURCES = \
- 	$(subst $(DQUOTE),,$(FILES_VBOXDRV_NOBIN)) \
- 	$(vboxdrv-src_0_OUTDIR)/Makefile
- vboxdrv-src_EXEC_SOURCES  = \
- 	$(subst $(DQUOTE),,$(FILES_VBOXDRV_BIN))
- vboxdrv-src_CLEAN   = \
- 	$(vboxdrv-src_0_OUTDIR)/Makefile \
- 	$(PATH_TARGET)/vboxdrv-src-1.dep \
-
- # Scripts needed for building the kernel modules
- includedep $(PATH_TARGET)/vboxdrv-src-1.dep
- $$(vboxdrv-src_0_OUTDIR)/Makefile: \
-		$(PATH_SUB_CURRENT)/$(KBUILD_TARGET)/Makefile \
-		$$(if $$(eq $$(Support/$(KBUILD_TARGET)/Makefile_VBOX_HARDENED),$$(VBOX_WITH_HARDENING)),,FORCE) \
-		| $$(dir $$@)
-	$(call MSG_TOOL,Creating,,$@)
-	$(QUIET)$(SED) -e "" \
-		$(if-expr !defined(VBOX_WITH_HARDENING)   ,-e "s;-DVBOX_WITH_HARDENING;;g",) \
-		$(if-expr ($(VBOX_VERSION_BUILD) % 2) == 0 \
-		 , -e "s;-DVBOX_WITH_EFLAGS_AC_SET_IN_VBOXDRV;;g" -e "s;-DIPRT_WITH_EFLAGS_AC_PRESERVING;;g",) \
-		--output $@ $<
-	%$(QUIET2)$(APPEND) -t '$(PATH_TARGET)/vboxdrv-src-1.dep' \
-		'Support/$(KBUILD_TARGET)/Makefile_VBOX_HARDENED=$(VBOX_WITH_HARDENING)'
-endif # linux freebsd
-
-
-ifeq ($(KBUILD_TARGET), win)
- INSTALLS.win += VBoxDrv-inf
- VBoxDrv-inf_TEMPLATE = VBoxR0DrvInfCat
- VBoxDrv-inf_SOURCES = \
- 	$(PATH_TARGET)/VBoxDrvCat.dir/VBoxDrv.inf
- VBoxDrv-inf_CLEAN = $(VBoxDrv-inf_SOURCES)
- VBoxDrv-inf_BLDDIRS = $(PATH_TARGET)/VBoxDrvCat.dir
-
- $(PATH_TARGET)/VBoxDrvCat.dir/VBoxDrv.inf: $(PATH_SUB_CURRENT)/win/VBoxDrv.inf $(MAKEFILE_CURRENT) | $$(dir $$@)
-	$(call MSG_GENERATE,VBoxDrv-inf,$@,$<)
-	$(call VBOX_EDIT_INF_FN,$<,$@)
-
- ifdef VBOX_SIGNING_MODE
-  VBoxDrv-inf_SOURCES += \
-  	$(PATH_TARGET)/VBoxDrvCat.dir/VBoxDrv.sys \
-  	$(PATH_TARGET)/VBoxDrvCat.dir/VBoxDrv.cat \
-  	$(PATH_TARGET)/VBoxDrvCat.dir/VBoxDrv.cat=>VBoxDrv-PreW10.cat
-
-  $(PATH_TARGET)/VBoxDrvCat.dir/VBoxDrv.sys: $$(VBoxDrv_1_TARGET) | $$(dir $$@)
-	$(INSTALL) -m 644 $< $(@D)
-
-  $(PATH_TARGET)/VBoxDrvCat.dir/VBoxDrv.cat: \
-		$(PATH_TARGET)/VBoxDrvCat.dir/VBoxDrv.inf \
-		$(PATH_TARGET)/VBoxDrvCat.dir/VBoxDrv.sys
-	$(call MSG_TOOL,Inf2Cat,VBoxDrv-inf,$@,$<)
-	$(call VBOX_MAKE_CAT_FN, $(@D),$@)
- endif # signing
-endif # win
 
 
 endif # !VBOX_ONLY_DOCS && !VBOX_ONLY_EXTPACKS && !VBOX_ONLY_VALIDATIONKIT

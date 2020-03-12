@@ -1853,9 +1853,9 @@ const PDMDEVREG g_DeviceAPIC =
     /* szName */
     "apic",
     /* szRCMod */
-    "VMMRC.rc",
+    "BreadvmRC.rc",
     /* szR0Mod */
-    "VMMR0.r0",
+    "BreadvmR0.r0",
     /* pszDescription */
     "Advanced Programmable Interrupt Controller",
     /* fFlags */

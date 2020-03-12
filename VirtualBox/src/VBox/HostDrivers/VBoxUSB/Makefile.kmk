@@ -33,7 +33,7 @@ if1of ($(KBUILD_TARGET), darwin solaris win)
 endif
 
 #
-# USBLib - The static USB Library for use in VBoxSVC and VBoxDD.
+# USBLib - The static USB Library for use in BreadvmSVC and BreadvmDD.
 #
 # Note! Drivers using USBFilter.cpp should just add ../USBFilter.cpp
 #       to their source list.

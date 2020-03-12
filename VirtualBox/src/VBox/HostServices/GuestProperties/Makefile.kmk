@@ -23,27 +23,24 @@ include $(KBUILD_PATH)/subheader.kmk
 #
 # The shared folder service DLL.
 #
-DLLS += VBoxGuestPropSvc
-VBoxGuestPropSvc_TEMPLATE  = VBOXR3
-VBoxGuestPropSvc_NAME.os2  = VBoxSIS
-VBoxGuestPropSvc_DEFS      = VBOX_WITH_HGCM
-VBoxGuestPropSvc_INCS      = $(PATH_ROOT)/src/VBox/Main/include
-VBoxGuestPropSvc_INCS.win  = \
+DLLS += BreadvmGuestPropSvc
+BreadvmGuestPropSvc_TEMPLATE  = VBOXR3
+BreadvmGuestPropSvc_NAME.os2  = VBoxSIS
+BreadvmGuestPropSvc_DEFS      = VBOX_WITH_HGCM
+BreadvmGuestPropSvc_INCS      = $(PATH_ROOT)/src/VBox/Main/include
+BreadvmGuestPropSvc_INCS.win  = \
 	$(VBOX_PATH_SDK)
 
-VBoxGuestPropSvc_SOURCES = \
+BreadvmGuestPropSvc_SOURCES = \
 	service.cpp
 
-VBoxGuestPropSvc_SOURCES.win = \
-	VBoxGuestPropSvc.rc
+BreadvmGuestPropSvc_SOURCES.win = \
+	BreadvmGuestPropSvc.rc
 
-VBoxGuestPropSvc_LIBS = \
+BreadvmGuestPropSvc_LIBS = \
 	$(LIB_VMM) \
 	$(LIB_RUNTIME) \
 	$(LIB_REM)
-
-VBoxGuestPropSvc_LDFLAGS.darwin = \
-	-install_name $(VBOX_DYLD_EXECUTABLE_PATH)/VBoxGuestPropSvc.dylib
 
 include $(FILE_KBUILD_SUB_FOOTER)
 

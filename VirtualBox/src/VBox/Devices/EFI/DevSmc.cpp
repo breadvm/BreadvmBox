@@ -1499,9 +1499,9 @@ const PDMDEVREG g_DeviceSmc =
     /* szName */
     "smc",
     /* szRCMod */
-    "VBoxDDRC.rc",
+    "BreadvmDDRC.rc",
     /* szR0Mod */
-    "VBoxDDR0.r0",
+    "BreadvmDDR0.r0",
     /* pszDescription */
     "Apple System Management Controller",
     /* fFlags */

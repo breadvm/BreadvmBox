@@ -104,7 +104,7 @@ if !defined(VBOX_ONLY_BUILD)
  RTManifest_SOURCES = RTManifest.cpp
  RTManifest_SOURCES += ../VBox/LoadVBoxDDU.cpp
 
- # RTLdrFlt is similar to c++filt, except that it's for VMMR0.r0 stacks.
+ # RTLdrFlt is similar to c++filt, except that it's for BreadvmR0.r0 stacks.
  PROGRAMS += RTLdrFlt
  RTLdrFlt_TEMPLATE = VBoxR3Tool
  RTLdrFlt_SOURCES = RTLdrFlt.cpp
